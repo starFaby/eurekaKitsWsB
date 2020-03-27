@@ -34,7 +34,6 @@ class ControllerProducto {
         const { id } = req.params;
         const { idCategoria, nombre, precio, stock, estado } = req.body;
         const { filename } = req.file;
-        
         let newProducto: Producto = {
             idCategoria: idCategoria,
             nombre: nombre,

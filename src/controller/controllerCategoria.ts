@@ -8,7 +8,7 @@ class ControllerCategoria {
     }
     public async listOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const clienteOne = await (await pool).query('SELECT * FROM categoria WHERE idCategoria=?', [id]);
+        const clienteOne = await (await pool).query('SELECT * FROM categoria WHERE idcategoria=?', [id]);
         if (clienteOne.length > 0) {
             return res.json(clienteOne[0]);
         }
@@ -37,12 +37,12 @@ class ControllerCategoria {
             estado: estado
         };
         console.log('======> ', newCategoria);
-        await (await pool).query('UPDATE  categoria SET ? WHERE idCategoria=?', [newCategoria, id]);
+        await (await pool).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
         res.json({ message: 'update Categoria' })
     }
     public async delete(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        await (await pool).query('DELETE FROM categoria WHERE idCategoria=?', [id]);
+        await (await pool).query('DELETE FROM categoria WHERE idcategoria=?', [id]);
         res.json({ message: 'delete Categoria' })
     }
 }

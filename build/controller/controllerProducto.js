@@ -23,7 +23,7 @@ class ControllerProducto {
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const productoOne = yield (yield database_1.default).query('SELECT * FROM producto WHERE idProducto=?', [id]);
+            const productoOne = yield (yield database_1.default).query('SELECT * FROM producto WHERE idproducto=?', [id]);
             if (productoOne.length > 0) {
                 return res.json(productoOne[0]);
             }
@@ -32,14 +32,14 @@ class ControllerProducto {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { nombre, estado } = req.body;
+            const { idCategoria, nombre, precio, stock, estado } = req.body;
             const { filename } = req.file;
             let newProducto = {
-                idCategoria: '',
+                idCategoria: idCategoria,
                 nombre: nombre,
                 image: '/uploads/' + filename,
-                precio: 0,
-                stock: 0,
+                precio: precio,
+                stock: stock,
                 estado: estado,
                 created_at: new Date
             };
@@ -53,7 +53,6 @@ class ControllerProducto {
             const { id } = req.params;
             const { idCategoria, nombre, precio, stock, estado } = req.body;
             const { filename } = req.file;
-            console.log('======> ', filename);
             let newProducto = {
                 idCategoria: idCategoria,
                 nombre: nombre,
@@ -62,15 +61,14 @@ class ControllerProducto {
                 stock: stock,
                 estado: estado
             };
-            console.log('======> ', newProducto);
-            yield (yield database_1.default).query('UPDATE  producto SET ? WHERE idProducto=?', [newProducto, id]);
+            yield (yield database_1.default).query('UPDATE  producto SET ? WHERE idproducto=?', [newProducto, id]);
             res.json({ message: 'update Producto' });
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM producto WHERE idProducto=?', [id]);
+            yield (yield database_1.default).query('DELETE FROM producto WHERE idproducto=?', [id]);
             res.json({ message: 'delete Producto' });
         });
     }

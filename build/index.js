@@ -16,6 +16,7 @@ const routerIndex_1 = __importDefault(require("./routes/routerIndex"));
 const routerCliente_1 = __importDefault(require("./routes/routerCliente"));
 const routerCategoria_1 = __importDefault(require("./routes/routerCategoria"));
 const routerProducto_1 = __importDefault(require("./routes/routerProducto"));
+const routerCateProdu_1 = __importDefault(require("./routes/routerCateProdu"));
 const multer_1 = __importDefault(require("./libs/multer"));
 const path_1 = __importDefault(require("path"));
 class Server {
@@ -38,6 +39,7 @@ class Server {
         this.app.use('/api/cliente', routerCliente_1.default);
         this.app.use('/api/categoria', routerCategoria_1.default);
         this.app.use('/api/producto', routerProducto_1.default);
+        this.app.use('/api/cateProdu', routerCateProdu_1.default);
     }
     aMiddleware(req, res, next) {
         next();

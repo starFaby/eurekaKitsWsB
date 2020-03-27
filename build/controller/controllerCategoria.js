@@ -23,7 +23,7 @@ class ControllerCategoria {
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const clienteOne = yield (yield database_1.default).query('SELECT * FROM categoria WHERE idCategoria=?', [id]);
+            const clienteOne = yield (yield database_1.default).query('SELECT * FROM categoria WHERE idcategoria=?', [id]);
             if (clienteOne.length > 0) {
                 return res.json(clienteOne[0]);
             }
@@ -56,14 +56,14 @@ class ControllerCategoria {
                 estado: estado
             };
             console.log('======> ', newCategoria);
-            yield (yield database_1.default).query('UPDATE  categoria SET ? WHERE idCategoria=?', [newCategoria, id]);
+            yield (yield database_1.default).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
             res.json({ message: 'update Categoria' });
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM categoria WHERE idCategoria=?', [id]);
+            yield (yield database_1.default).query('DELETE FROM categoria WHERE idcategoria=?', [id]);
             res.json({ message: 'delete Categoria' });
         });
     }
