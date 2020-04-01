@@ -7,11 +7,11 @@ class ControllerDetalleVenta {
         res.json(detalleVenta);
     }
     public async create(req: Request, res: Response): Promise<any> {
-        const { idfactura, idproducto, cantidad, precio, total, estado } = req.body;
+        const { idFactura, idProducto, cantidad, precio, total, estado } = req.body;
         console.log(req.body);        
         let newDetalleVenta: DetalleVenta = {
-            idfactura : idfactura,
-            idproducto: idproducto,
+            idfactura : idFactura,
+            idproducto: idProducto,
             cantidad: cantidad,
             precio: precio,
             total: total,

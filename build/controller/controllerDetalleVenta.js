@@ -22,11 +22,11 @@ class ControllerDetalleVenta {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idFactura, idProducto, cantidad, precio, total, estado } = req.body;
+            const { idfactura, idproducto, cantidad, precio, total, estado } = req.body;
             console.log(req.body);
             let newDetalleVenta = {
-                id_factura: idFactura,
-                id_producto: idProducto,
+                idfactura: idfactura,
+                idproducto: idproducto,
                 cantidad: cantidad,
                 precio: precio,
                 total: total,
