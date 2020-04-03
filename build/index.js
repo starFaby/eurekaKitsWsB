@@ -13,7 +13,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importStar(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const routerIndex_1 = __importDefault(require("./routes/routerIndex"));
-const routerCliente_1 = __importDefault(require("./routes/routerCliente"));
 const routerCategoria_1 = __importDefault(require("./routes/routerCategoria"));
 const routerProducto_1 = __importDefault(require("./routes/routerProducto"));
 const routerCateProdu_1 = __importDefault(require("./routes/routerCateProdu"));
@@ -37,7 +36,6 @@ class Server {
     }
     routes() {
         this.app.use('/', routerIndex_1.default);
-        this.app.use('/api/cliente', routerCliente_1.default);
         this.app.use('/api/categoria', routerCategoria_1.default);
         this.app.use('/api/producto', routerProducto_1.default);
         this.app.use('/api/cateProdu', routerCateProdu_1.default);

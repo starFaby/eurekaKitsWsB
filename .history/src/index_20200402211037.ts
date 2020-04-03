@@ -2,6 +2,7 @@ import express, { Application, urlencoded, Request, Response, NextFunction } fro
 import morgan from 'morgan';
 import cors from 'cors';
 import indexRoutes from './routes/routerIndex';
+import clienteRoutes from './routes/routerCliente';
 import routeCategoria from './routes/routerCategoria';
 import routeProducto from './routes/routerProducto';
 import routerCateProdu from './routes/routerCateProdu';
@@ -28,6 +29,7 @@ class Server {
     }
     routes(): void {
         this.app.use('/',indexRoutes);
+        this.app.use('/api/cliente',clienteRoutes);
         this.app.use('/api/categoria',routeCategoria);
         this.app.use('/api/producto',routeProducto);
         this.app.use('/api/cateProdu',routerCateProdu);
