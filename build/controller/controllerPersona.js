@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
-class ControllerCliente {
+class ControllerPersona {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const persona = yield (yield database_1.default).query('SELECT * FROM persona');
@@ -23,33 +23,59 @@ class ControllerCliente {
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const clienteOne = yield (yield database_1.default).query('SELECT * FROM persona WHERE idPersona=?', [id]);
-            if (clienteOne.length > 0) {
-                return res.json(clienteOne[0]);
+            const personaOne = yield (yield database_1.default).query('SELECT * FROM persona WHERE idpersona=?', [id]);
+            if (personaOne.length > 0) {
+                return res.json(personaOne[0]);
             }
-            res.status(404).json({ text: 'the client not exist' });
+            res.status(404).json({ text: 'the Persona not exist' });
         });
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield (yield database_1.default).query('INSERT INTO persona SET ?', [req.body]);
-            res.json({ message: 'cliente saved' });
+            const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, estado } = req.body;
+            let newPersona = {
+                idtelefono: idtelefono,
+                iddireccion: iddireccion,
+                cedula: cedula,
+                nombres: nombres,
+                apellidos: apellidos,
+                fechanacimiento: fechanacimiento,
+                email: email,
+                password: password,
+                estado: estado,
+                created_at: new Date
+            };
+            yield (yield database_1.default).query('INSERT INTO persona SET ?', [newPersona]);
+            res.json({ message: 'Persona saved' });
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('UPDATE  persona SET ? WHERE idPersona=?', [req.body, id]);
-            res.json({ message: 'update client' });
+            const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, estado } = req.body;
+            let newPersona = {
+                idtelefono: idtelefono,
+                iddireccion: iddireccion,
+                cedula: cedula,
+                nombres: nombres,
+                apellidos: apellidos,
+                fechanacimiento: fechanacimiento,
+                email: email,
+                password: password,
+                estado: estado,
+                created_at: new Date
+            };
+            yield (yield database_1.default).query('UPDATE  persona SET ? WHERE idpersona=?', [newPersona, id]);
+            res.json({ message: 'Update Persona' });
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM persona WHERE idPersona=?', [id]);
+            yield (yield database_1.default).query('DELETE FROM persona WHERE idpersona=?', [id]);
             res.json({ message: ' Person delete' });
         });
     }
 }
-const controllerCliente = new ControllerCliente();
-exports.default = controllerCliente;
+const controllerPersona = new ControllerPersona();
+exports.default = controllerPersona;

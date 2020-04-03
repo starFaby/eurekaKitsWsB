@@ -9,5 +9,5 @@ export interface Persona {
     email: string;
     password: string;
     estado: string;
-    created_at?: Date;
+    created_at?: string;
 }

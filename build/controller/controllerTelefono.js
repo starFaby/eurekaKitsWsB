@@ -13,66 +13,59 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
-class ControllerProducto {
+class ControllerTelefono {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const producto = yield (yield database_1.default).query('SELECT * FROM producto');
-            res.json(producto);
+            const telefono = yield (yield database_1.default).query('SELECT * FROM telefono');
+            res.json(telefono);
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const productoOne = yield (yield database_1.default).query('SELECT * FROM producto WHERE idproducto=?', [id]);
-            if (productoOne.length > 0) {
-                return res.json(productoOne[0]);
+            const telefonoOne = yield (yield database_1.default).query('SELECT * FROM telefono WHERE idtelefono=?', [id]);
+            if (telefonoOne.length > 0) {
+                return res.json(telefonoOne[0]);
             }
-            res.status(404).json({ text: 'the producto not exist' });
+            res.status(404).json({ text: 'the Telefono not exist' });
         });
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idCategoria, nombre, precio, stock, estado } = req.body;
-            const { filename } = req.file;
-            let newProducto = {
-                idCategoria: idCategoria,
-                nombre: nombre,
-                image: '/uploads/' + filename,
-                precio: precio,
-                stock: stock,
+            const { convencional, celular1, celular2, estado } = req.body;
+            let newTelefono = {
+                convencional: convencional,
+                celular1: celular1,
+                celular2: celular2,
                 estado: estado,
                 created_at: new Date
             };
-            yield (yield database_1.default).query('INSERT INTO producto SET ?', [newProducto]);
-            ;
-            res.json({ message: 'Producto saved v' });
+            yield (yield database_1.default).query('INSERT INTO telefono SET ?', [newTelefono]);
+            res.json({ message: 'Telefono saved' });
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const { idCategoria, nombre, precio, stock, estado } = req.body;
-            const { filename } = req.file;
-            let newProducto = {
-                idCategoria: idCategoria,
-                nombre: nombre,
-                image: '/uploads/' + filename,
-                precio: precio,
-                stock: stock,
+            const { convencional, celular1, celular2, estado } = req.body;
+            let newTelefono = {
+                convencional: convencional,
+                celular1: celular1,
+                celular2: celular2,
                 estado: estado,
                 created_at: new Date
             };
-            yield (yield database_1.default).query('UPDATE  producto SET ? WHERE idproducto=?', [newProducto, id]);
-            res.json({ message: 'update Producto' });
+            yield (yield database_1.default).query('UPDATE  telefono SET ? WHERE idtelefono=?', [newTelefono, id]);
+            res.json({ message: 'Update Telefono' });
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM producto WHERE idproducto=?', [id]);
-            res.json({ message: 'delete Producto' });
+            yield (yield database_1.default).query('DELETE FROM telefono WHERE idtelefono=?', [id]);
+            res.json({ message: ' Telefono delete' });
         });
     }
 }
-const controllerProducto = new ControllerProducto();
-exports.default = controllerProducto;
+const controllerTelefono = new ControllerTelefono();
+exports.default = controllerTelefono;

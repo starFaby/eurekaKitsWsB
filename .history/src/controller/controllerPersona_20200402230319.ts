@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import  { Persona }  from '../models/Persona';
 import pool from '../database';
-class ControllerPersona {
+class ControllerCliente {
     public async listAll(req: Request, res: Response) {
         const persona = await (await pool).query('SELECT * FROM persona');
         res.json(persona);
@@ -47,13 +47,13 @@ class ControllerPersona {
             created_at: new Date
         }
         await (await pool).query('UPDATE  persona SET ? WHERE idpersona=?', [newPersona, id]);
-        res.json({ message: 'Update Persona'})
+        res.json({ message: 'update client'})
     }
     public async delete(req: Request, res: Response) {
         const { id } = req.params;
-        await (await pool).query('DELETE FROM persona WHERE idpersona=?', [id]);
+        await (await pool).query('DELETE FROM persona WHERE idPersona=?', [id]);
         res.json({message: ' Person delete'})
     }
 }
-const controllerPersona = new ControllerPersona();
-export default controllerPersona;
+const controllerCliente = new ControllerCliente();
+export default controllerCliente;

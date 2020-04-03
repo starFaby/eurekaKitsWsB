@@ -6,7 +6,6 @@ import routeCategoria from './routes/routerCategoria';
 import routeProducto from './routes/routerProducto';
 import routerPersona from './routes/routerPersona';
 import routerTelefono from './routes/routerTelefono';
-import routerDireccion from './routes/routerDireccion';
 import routerCateProdu from './routes/routerCateProdu';
 import routerDetalleVenta from './routes/routerDetalleVenta';
 import multer from './libs/multer';
@@ -37,7 +36,6 @@ class Server {
         this.app.use('/api/detaVenta',routerDetalleVenta);
         this.app.use('/api/persona',routerPersona);
         this.app.use('/api/telefono',routerTelefono);
-        this.app.use('/api/direccion',routerDireccion);
     }
     aMiddleware(req: Request, res: Response, next: NextFunction) {
         next();

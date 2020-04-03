@@ -15,6 +15,9 @@ const cors_1 = __importDefault(require("cors"));
 const routerIndex_1 = __importDefault(require("./routes/routerIndex"));
 const routerCategoria_1 = __importDefault(require("./routes/routerCategoria"));
 const routerProducto_1 = __importDefault(require("./routes/routerProducto"));
+const routerPersona_1 = __importDefault(require("./routes/routerPersona"));
+const routerTelefono_1 = __importDefault(require("./routes/routerTelefono"));
+const routerDireccion_1 = __importDefault(require("./routes/routerDireccion"));
 const routerCateProdu_1 = __importDefault(require("./routes/routerCateProdu"));
 const routerDetalleVenta_1 = __importDefault(require("./routes/routerDetalleVenta"));
 const multer_1 = __importDefault(require("./libs/multer"));
@@ -40,6 +43,9 @@ class Server {
         this.app.use('/api/producto', routerProducto_1.default);
         this.app.use('/api/cateProdu', routerCateProdu_1.default);
         this.app.use('/api/detaVenta', routerDetalleVenta_1.default);
+        this.app.use('/api/persona', routerPersona_1.default);
+        this.app.use('/api/telefono', routerTelefono_1.default);
+        this.app.use('/api/direccion', routerDireccion_1.default);
     }
     aMiddleware(req, res, next) {
         next();
