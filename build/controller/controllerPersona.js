@@ -33,18 +33,20 @@ class ControllerPersona {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, estado } = req.body;
+            console.log(req.body);
             let newPersona = {
                 idtelefono: idtelefono,
                 iddireccion: iddireccion,
                 cedula: cedula,
                 nombres: nombres,
                 apellidos: apellidos,
-                fechanacimiento: fechanacimiento,
+                fechanacimiento: new Date(fechanacimiento),
                 email: email,
                 password: password,
                 estado: estado,
                 created_at: new Date
             };
+            console.log(newPersona);
             yield (yield database_1.default).query('INSERT INTO persona SET ?', [newPersona]);
             res.json({ message: 'Persona saved' });
         });

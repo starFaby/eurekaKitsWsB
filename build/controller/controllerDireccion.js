@@ -32,15 +32,15 @@ class ControllerDireccion {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.body);
-            const { provincia, canton, parroquia, calleprincipal, callesecundaria, calletransversal, descripcion, estado } = req.body;
+            const { provincia, canton, parroquia, sector, calleprincipal, numeracion, callesecundaria, descripcion, estado } = req.body;
             let newDireccion = {
                 provincia: provincia,
                 canton: canton,
                 parroquia: parroquia,
+                sector: sector,
                 calleprincipal: calleprincipal,
+                numeracion: numeracion,
                 callesecundaria: callesecundaria,
-                calletransversal: calletransversal,
                 descripcion: descripcion,
                 estado: estado,
                 created_at: new Date
@@ -52,14 +52,16 @@ class ControllerDireccion {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const { provincia, canton, parroquia, calleprincipal, callesecundaria, calletransversal, descripcion, estado } = req.body;
+            const { provincia, canton, parroquia, sector, calleprincipal, numeracion, callesecundaria, descripcion, estado } = req.body;
+            console.log(req.body);
             let newDireccion = {
                 provincia: provincia,
                 canton: canton,
                 parroquia: parroquia,
+                sector: sector,
                 calleprincipal: calleprincipal,
+                numeracion: numeracion,
                 callesecundaria: callesecundaria,
-                calletransversal: calletransversal,
                 descripcion: descripcion,
                 estado: estado,
                 created_at: new Date

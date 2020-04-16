@@ -2,6 +2,7 @@ import express, { Application, urlencoded, Request, Response, NextFunction } fro
 import morgan from 'morgan';
 import cors from 'cors';
 import indexRoutes from './routes/routerIndex';
+import routerAuth from './routes/routerAuth';
 import routeCategoria from './routes/routerCategoria';
 import routeProducto from './routes/routerProducto';
 import routerPersona from './routes/routerPersona';
@@ -22,7 +23,7 @@ class Server {
     }
     config(): void {
         this.app.set('port', process.env.PORT || 3000);
-        // this.app.use(morgan('combined'));
+        this.app.use(morgan('dev'));
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(urlencoded({extended: false}));
@@ -31,6 +32,7 @@ class Server {
     }
     routes(): void {
         this.app.use('/',indexRoutes);
+        this.app.use('/api/login',routerAuth);
         this.app.use('/api/categoria',routeCategoria);
         this.app.use('/api/producto',routeProducto);
         this.app.use('/api/cateProdu',routerCateProdu);

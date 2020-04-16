@@ -11,8 +11,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importStar(require("express"));
+const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 const routerIndex_1 = __importDefault(require("./routes/routerIndex"));
+const routerAuth_1 = __importDefault(require("./routes/routerAuth"));
 const routerCategoria_1 = __importDefault(require("./routes/routerCategoria"));
 const routerProducto_1 = __importDefault(require("./routes/routerProducto"));
 const routerPersona_1 = __importDefault(require("./routes/routerPersona"));
@@ -30,7 +32,7 @@ class Server {
     }
     config() {
         this.app.set('port', process.env.PORT || 3000);
-        // this.app.use(morgan('combined'));
+        this.app.use(morgan_1.default('dev'));
         this.app.use(cors_1.default());
         this.app.use(express_1.default.json());
         this.app.use(express_1.urlencoded({ extended: false }));
@@ -39,6 +41,7 @@ class Server {
     }
     routes() {
         this.app.use('/', routerIndex_1.default);
+        this.app.use('/api/login', routerAuth_1.default);
         this.app.use('/api/categoria', routerCategoria_1.default);
         this.app.use('/api/producto', routerProducto_1.default);
         this.app.use('/api/cateProdu', routerCateProdu_1.default);

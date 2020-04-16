@@ -15,15 +15,15 @@ class ControllerDireccion {
         res.status(404).json({text: 'the Persona not exist'})
     }
     public async create(req: Request, res: Response): Promise<void> {
-        console.log(req.body);
-        const { provincia,canton,parroquia,calleprincipal,callesecundaria,calletransversal,descripcion,estado} = req.body;
+        const { provincia,canton,parroquia,sector,calleprincipal,numeracion,callesecundaria,descripcion,estado} = req.body;
         let newDireccion: Direccion = {
             provincia: provincia,
             canton: canton,
             parroquia: parroquia,
+            sector: sector,
             calleprincipal: calleprincipal,
+            numeracion: numeracion,
             callesecundaria: callesecundaria,
-            calletransversal: calletransversal,
             descripcion: descripcion,
             estado: estado,
             created_at: new Date
@@ -33,14 +33,17 @@ class ControllerDireccion {
     }
     public async update(req: Request, res: Response) {
         const { id } = req.params;
-        const { provincia,canton,parroquia,calleprincipal,callesecundaria,calletransversal,descripcion,estado} = req.body;
+        const { provincia,canton,parroquia,sector,calleprincipal,numeracion,callesecundaria,descripcion,estado} = req.body;
+        console.log(req.body);
+        
         let newDireccion: Direccion = {
             provincia: provincia,
             canton: canton,
             parroquia: parroquia,
+            sector: sector,
             calleprincipal: calleprincipal,
+            numeracion: numeracion,
             callesecundaria: callesecundaria,
-            calletransversal: calletransversal,
             descripcion: descripcion,
             estado: estado,
             created_at: new Date
