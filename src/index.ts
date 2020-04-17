@@ -12,6 +12,7 @@ import routerCateProdu from './routes/routerCateProdu';
 import routerDetalleVenta from './routes/routerDetalleVenta';
 import multer from './libs/multer';
 import path from 'path';
+import './middlewares/token'
 
 
 class Server {

@@ -24,6 +24,7 @@ const routerCateProdu_1 = __importDefault(require("./routes/routerCateProdu"));
 const routerDetalleVenta_1 = __importDefault(require("./routes/routerDetalleVenta"));
 const multer_1 = __importDefault(require("./libs/multer"));
 const path_1 = __importDefault(require("path"));
+require("./middlewares/token");
 class Server {
     constructor() {
         this.app = express_1.default();
