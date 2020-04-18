@@ -22,6 +22,8 @@ const routerTelefono_1 = __importDefault(require("./routes/routerTelefono"));
 const routerDireccion_1 = __importDefault(require("./routes/routerDireccion"));
 const routerCateProdu_1 = __importDefault(require("./routes/routerCateProdu"));
 const routerDetalleVenta_1 = __importDefault(require("./routes/routerDetalleVenta"));
+const routerConsultas_1 = __importDefault(require("./routes/routerConsultas"));
+const routerPromocion_1 = __importDefault(require("./routes/routerPromocion"));
 const multer_1 = __importDefault(require("./libs/multer"));
 const path_1 = __importDefault(require("path"));
 require("./middlewares/token");
@@ -50,6 +52,8 @@ class Server {
         this.app.use('/api/persona', routerPersona_1.default);
         this.app.use('/api/telefono', routerTelefono_1.default);
         this.app.use('/api/direccion', routerDireccion_1.default);
+        this.app.use('/api/consultas', routerConsultas_1.default);
+        this.app.use('/api/promocion', routerPromocion_1.default);
     }
     aMiddleware(req, res, next) {
         next();

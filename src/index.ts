@@ -10,6 +10,8 @@ import routerTelefono from './routes/routerTelefono';
 import routerDireccion from './routes/routerDireccion';
 import routerCateProdu from './routes/routerCateProdu';
 import routerDetalleVenta from './routes/routerDetalleVenta';
+import routerConsultas from './routes/routerConsultas';
+import routerPromocion from './routes/routerPromocion';
 import multer from './libs/multer';
 import path from 'path';
 import './middlewares/token'
@@ -41,6 +43,8 @@ class Server {
         this.app.use('/api/persona',routerPersona);
         this.app.use('/api/telefono',routerTelefono);
         this.app.use('/api/direccion',routerDireccion);
+        this.app.use('/api/consultas',routerConsultas);
+        this.app.use('/api/promocion',routerPromocion);
     }
     aMiddleware(req: Request, res: Response, next: NextFunction) {
         next();
