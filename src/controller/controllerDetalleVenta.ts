@@ -4,7 +4,10 @@ import { DetalleVenta } from '../models/DetalleVenta';
 class ControllerDetalleVenta {
     public async listAll(req: Request, res: Response) {
         const detalleVenta = await (await pool).query('SELECT * FROM detalleventa');
-        res.json(detalleVenta);
+        if(detalleVenta > 0){
+           return res.json(detalleVenta);
+        }
+        res.status(404).send('the consutl promocion_producto not exist');
     }
     public async create(req: Request, res: Response): Promise<any> {
         const { idfactura, idproducto, cantidad, precio, total, estado } = req.body;

@@ -12,6 +12,10 @@ class RouterConsultas {
     }
     config() {
         this.router.get('/pdt/:id', controllerConsultas_1.default.listOnePDT);
+        this.router.get('/promopp', controllerConsultas_1.default.promocionPP);
+        this.router.get('/promoppi', controllerConsultas_1.default.promocionPPI);
+        this.router.get('/devedvp', controllerConsultas_1.default.detalleVentadvp);
+        this.router.get('/numfact', controllerConsultas_1.default.onGetNumFactura);
     }
 }
 const routerConsultas = new RouterConsultas();

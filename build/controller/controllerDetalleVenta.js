@@ -17,7 +17,10 @@ class ControllerDetalleVenta {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const detalleVenta = yield (yield database_1.default).query('SELECT * FROM detalleventa');
-            res.json(detalleVenta);
+            if (detalleVenta > 0) {
+                return res.json(detalleVenta);
+            }
+            res.status(404).send('the consutl promocion_producto not exist');
         });
     }
     create(req, res) {

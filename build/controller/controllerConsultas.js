@@ -17,11 +17,46 @@ class ControllerConsultas {
     listOnePDT(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pdtOne = yield (yield database_1.default).query('select * from personapdt where idpersona = ?', [id]);
+            const pdtOne = yield (yield database_1.default).query('select * from personapdt where idpersona = ?', [id]); // lista a la persona para la cabecera de la factura
             if (pdtOne.length > 0) {
-                return res.json(pdtOne[0]);
+                console.log(pdtOne);
+                return res.json(pdtOne);
             }
             res.status(404).json({ text: 'the consutl pers_Direcc_Tele not exist' });
+        });
+    }
+    promocionPP(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const pdtOne = yield (yield database_1.default).query('select * from viewpromocionespp'); // para visualizar las promociones administrador
+            if (pdtOne.length > 0) {
+                return res.json(pdtOne);
+            }
+            res.status(404).json({ text: 'the consutl promocion_producto not exist' });
+        });
+    }
+    promocionPPI(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const pdtOne = yield (yield database_1.default).query('select * from viewpromocionesppi'); // para visualizar las promociones administrador
+            if (pdtOne.length > 0) {
+                return res.json(pdtOne);
+            }
+            res.status(404).json({ text: 'the consutl promocion_producto not exist' });
+        });
+    }
+    detalleVentadvp(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const pdtOne = yield (yield database_1.default).query('select * from viewdetalleventadvp'); // para visualizar detalle ventas con id de producto con su nombre
+            if (pdtOne.length > 0) {
+                return res.json(pdtOne);
+            }
+            res.status(404).send('the consutl promocion_producto not exist');
+        });
+    }
+    onGetNumFactura(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const numFact = yield (yield database_1.default).query('SELECT MAX(factura.numfactura)+1 AS numfactura FROM factura'); // para visualizar detalle ventas con id de producto con su nombre
+            return res.json(numFact);
+            // res.status(404).json({text: 'the consutl promocion_producto not exist'})
         });
     }
 }

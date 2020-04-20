@@ -10,7 +10,7 @@ class ControllerDireccion {
         const { id } = req.params;
         const direccionOne = await (await pool).query('SELECT * FROM direccion WHERE iddireccion=?', [id]);
         if (direccionOne.length > 0) {
-            return res.json(direccionOne[0]);
+            return res.json(direccionOne[0]); 
         }
         res.status(404).json({text: 'the Persona not exist'})
     }
