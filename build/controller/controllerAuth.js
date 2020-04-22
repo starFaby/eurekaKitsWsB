@@ -32,13 +32,20 @@ class ControllerAuth {
                 created_at: new Date
             };
             newPersona.password = yield helpers_1.default.encriptPassword(password);
-            console.log(newPersona);
             const user = (yield database_1.default).query('INSERT INTO persona SET ?', [newPersona]);
             const newUser = (yield user);
-            console.log(newUser.insertId);
-            const payload = { subject: newUser.insertId };
-            const token = jsonwebtoken_1.default.sign(payload, 'secret');
-            res.status(200).send({ token });
+            if (newUser.insertId > 0) {
+                console.log('despues de guradr', newPersona);
+                // const datesPerson = `${newPersona.nombres}-${newPersona.apellidos}-${newPersona.cedula}-${newPersona.idtelefono}`;
+                //  whatsapp.whassap(datesPerson);
+                console.log('whassap bloqueado por pruebas');
+                const payload = { subject: newUser.insertId };
+                const token = jsonwebtoken_1.default.sign(payload, 'secret');
+                res.status(200).send({ token });
+            }
+            else {
+                res.status(404).send('ERROR AL REGISTRAR');
+            }
         });
     }
     loginIn(req, res) {

@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import  { Persona }  from '../models/Persona';
+import { Persona } from '../models/Persona';
 import { Login } from '../models/Auth';
 import pool from '../database';
 import helpers from '../libs/helpers'
+import whatsapp from '../middlewares/whatsapp'
 class ControllerAuth {
     public async loginUp(req: Request, res: Response): Promise<void> {
-        const { idtelefono,iddireccion,cedula,nombres,apellidos,fechanacimiento,email,password,estado} = req.body;
+        const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, estado } = req.body;
         let newPersona: Persona = {
             idtelefono: idtelefono,
             iddireccion: iddireccion,
@@ -20,13 +21,19 @@ class ControllerAuth {
             created_at: new Date
         };
         newPersona.password = await helpers.encriptPassword(password);
-        console.log(newPersona);
         const user = (await pool).query('INSERT INTO persona SET ?', [newPersona]);
         const newUser = (await user);
-        console.log(newUser.insertId);
-        const payload = { subject: newUser.insertId }
-        const token = jwt.sign(payload, 'secret');
-        res.status(200).send({token});
+        if(newUser.insertId > 0){
+            console.log('despues de guradr',newPersona);
+           // const datesPerson = `${newPersona.nombres}-${newPersona.apellidos}-${newPersona.cedula}-${newPersona.idtelefono}`;
+          //  whatsapp.whassap(datesPerson);
+          console.log('whassap bloqueado por pruebas')
+            const payload = { subject: newUser.insertId }
+            const token = jwt.sign(payload, 'secret');
+            res.status(200).send({ token });
+        }else {
+            res.status(404).send('ERROR AL REGISTRAR');
+        }
     }
     public async loginIn(req: Request, res: Response): Promise<void> {
         const { email, password } = req.body;
@@ -40,11 +47,11 @@ class ControllerAuth {
             const user = newrow[0];
             const validPassword = await helpers.matchPassword(newUser.password, user.password);
             if (validPassword) {
-                console.log('PRUEBA ',user.idpersona);
+                console.log('PRUEBA ', user.idpersona);
                 const id = user.idpersona;
-                const payload = { subject: user.idpersona}
+                const payload = { subject: user.idpersona }
                 const token = jwt.sign(payload, 'secret');
-                res.status(200).send({token , id});
+                res.status(200).send({ token, id });
             } else {
                 res.status(401).send('PASSWORD INCORRECTO');
             }
