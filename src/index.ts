@@ -12,6 +12,7 @@ import routerCateProdu from './routes/routerCateProdu';
 import routerDetalleVenta from './routes/routerDetalleVenta';
 import routerConsultas from './routes/routerConsultas';
 import routerPromocion from './routes/routerPromocion';
+import routerFactura from './routes/routerFactura';
 import multer from './libs/multer';
 import path from 'path';
 import './middlewares/token'
@@ -45,6 +46,7 @@ class Server {
         this.app.use('/api/direccion',routerDireccion);
         this.app.use('/api/consultas',routerConsultas);
         this.app.use('/api/promocion',routerPromocion);
+        this.app.use('/api/factura',routerFactura);
     }
     aMiddleware(req: Request, res: Response, next: NextFunction) {
         next();

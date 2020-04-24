@@ -16,6 +16,8 @@ class RouterConsultas {
         this.router.get('/promoppi', controllerConsultas_1.default.promocionPPI);
         this.router.get('/devedvp', controllerConsultas_1.default.detalleVentadvp);
         this.router.get('/numfact', controllerConsultas_1.default.onGetNumFactura);
+        this.router.get('/idfact', controllerConsultas_1.default.onGetIdFactura);
+        this.router.get('/productouni/:id', controllerConsultas_1.default.productouni);
     }
 }
 const routerConsultas = new RouterConsultas();

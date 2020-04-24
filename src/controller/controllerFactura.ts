@@ -7,11 +7,11 @@ class ControllerFactura {
         res.json(detalleVenta);
     }
     public async create(req: Request, res: Response): Promise<any> {
-        const { idpersona, idpago, subtotal,dto,iva, total, estado } = req.body;
+        const { idpersona, numfactura, subtotal,dto,iva, total, estado } = req.body;
         console.log(req.body);        
         let newFactura: Factura = {
             idpersona: idpersona,
-            idpago: idpago,
+            numfactura: numfactura,
             subtotal: subtotal,
             dto: dto,
             iva: iva,

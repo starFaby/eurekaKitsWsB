@@ -22,11 +22,11 @@ class ControllerFactura {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idpersona, idpago, subtotal, dto, iva, total, estado } = req.body;
+            const { idpersona, numfactura, subtotal, dto, iva, total, estado } = req.body;
             console.log(req.body);
             let newFactura = {
                 idpersona: idpersona,
-                idpago: idpago,
+                numfactura: numfactura,
                 subtotal: subtotal,
                 dto: dto,
                 iva: iva,
