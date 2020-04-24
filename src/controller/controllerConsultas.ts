@@ -32,6 +32,14 @@ class ControllerConsultas {
         }
         res.status(404).json({text: 'the consutl promocion_producto not exist'})
     }
+    public async promocionUni(req: Request, res: Response): Promise<any> {
+        const { id } = req.params;
+        const pUniOne = await (await pool).query('select * from viewpromocionesppuni where idpromociones = ?',[id]);// para visualizar las promociones administrador
+        if (pUniOne.length > 0) {
+            return res.json(pUniOne);
+        }
+        res.status(404).json({text: 'the consutl promocion_producto not exist'})
+    }
     public async detalleVentadvp(req: Request, res: Response): Promise<any> {
         const pdtOne = await (await pool).query('select * from viewdetalleventadvp');// para visualizar detalle ventas con id de producto con su nombre
         if (pdtOne.length > 0) {
@@ -49,7 +57,6 @@ class ControllerConsultas {
             return res.json(idFact);
        // res.status(404).json({text: 'the consutl promocion_producto not exist'})
     }
-
 }
 const controllerConsultas = new ControllerConsultas();
 export default controllerConsultas;

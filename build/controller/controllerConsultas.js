@@ -53,6 +53,16 @@ class ControllerConsultas {
             res.status(404).json({ text: 'the consutl promocion_producto not exist' });
         });
     }
+    promocionUni(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const pUniOne = yield (yield database_1.default).query('select * from viewpromocionesppuni where idpromociones = ?', [id]); // para visualizar las promociones administrador
+            if (pUniOne.length > 0) {
+                return res.json(pUniOne);
+            }
+            res.status(404).json({ text: 'the consutl promocion_producto not exist' });
+        });
+    }
     detalleVentadvp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const pdtOne = yield (yield database_1.default).query('select * from viewdetalleventadvp'); // para visualizar detalle ventas con id de producto con su nombre
