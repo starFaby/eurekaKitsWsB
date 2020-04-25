@@ -16,8 +16,8 @@ const database_1 = __importDefault(require("../database"));
 class ControllerFactura {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const detalleVenta = yield (yield database_1.default).query('SELECT * FROM factura');
-            res.json(detalleVenta);
+            const factura = yield (yield database_1.default).query('SELECT * FROM factura');
+            res.json(factura);
         });
     }
     create(req, res) {
@@ -38,13 +38,6 @@ class ControllerFactura {
             yield (yield database_1.default).query('INSERT INTO factura SET ?', [newFactura]);
             ;
             res.json({ message: 'Factura Saved' });
-        });
-    }
-    delete(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM detalleventa WHERE iddetalleventa=?', [id]);
-            res.json({ message: 'Venta Delete' });
         });
     }
 }

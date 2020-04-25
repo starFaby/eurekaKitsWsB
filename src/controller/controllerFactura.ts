@@ -3,8 +3,8 @@ import pool from '../database';
 import { Factura } from '../models/Factura';
 class ControllerFactura {
     public async listAll(req: Request, res: Response) {
-        const detalleVenta = await (await pool).query('SELECT * FROM factura');
-        res.json(detalleVenta);
+        const factura = await (await pool).query('SELECT * FROM factura');
+        res.json(factura);
     }
     public async create(req: Request, res: Response): Promise<any> {
         const { idpersona, numfactura, subtotal,dto,iva, total, estado } = req.body;
@@ -23,13 +23,7 @@ class ControllerFactura {
         await (await pool).query('INSERT INTO factura SET ?', [newFactura]);
         ;
         res.json({ message: 'Factura Saved' });
-    }
-    public async delete(req: Request, res: Response): Promise<any> {
-        const { id } = req.params;
-        await (await pool).query('DELETE FROM detalleventa WHERE iddetalleventa=?', [id]);
-        res.json({ message: 'Venta Delete' })
-    }
-   
+    }   
 }
 const controllerFactura = new ControllerFactura();
 export default controllerFactura;

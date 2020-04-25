@@ -7,6 +7,7 @@ class RouterFactura {
     }
     config(): void{
         this.router.post('/', controllerFactura.create);
+        this.router.get('/', controllerFactura.listAll);
     }
 }
 const routerFactura =  new RouterFactura();

@@ -20,7 +20,7 @@ class ControllerDetalleVenta {
             if (detalleVenta > 0) {
                 return res.json(detalleVenta);
             }
-            res.status(404).send('the consutl promocion_producto not exist');
+            res.status(404).send('the consutl detalleventa not exist');
         });
     }
     create(req, res) {
@@ -38,7 +38,6 @@ class ControllerDetalleVenta {
             };
             console.log(newDetalleVenta);
             yield (yield database_1.default).query('INSERT INTO detalleventa SET ?', [newDetalleVenta]);
-            ;
             res.json({ message: 'Venta Saved' });
         });
     }

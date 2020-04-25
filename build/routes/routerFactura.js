@@ -12,6 +12,7 @@ class RouterFactura {
     }
     config() {
         this.router.post('/', controllerFactura_1.default.create);
+        this.router.get('/', controllerFactura_1.default.listAll);
     }
 }
 const routerFactura = new RouterFactura();
