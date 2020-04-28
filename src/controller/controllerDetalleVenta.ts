@@ -3,7 +3,7 @@ import pool from '../database';
 import { DetalleVenta } from '../models/DetalleVenta';
 class ControllerDetalleVenta {
     public async listAll(req: Request, res: Response) {
-        const detalleVenta = await (await pool).query('SELECT * FROM detalleventa');
+        const detalleVenta = await (await pool).query('SELECT * FROM detalleventas');
         if (detalleVenta > 0) {
             return res.json(detalleVenta);
         }
@@ -22,12 +22,12 @@ class ControllerDetalleVenta {
             created_at: new Date
         };
         console.log(newDetalleVenta);
-        await (await pool).query('INSERT INTO detalleventa SET ?', [newDetalleVenta]);
+        await (await pool).query('INSERT INTO detalleventas SET ?', [newDetalleVenta]);
         res.json({ message: 'Venta Saved' });
     }
     public async delete(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        await (await pool).query('DELETE FROM detalleventa WHERE iddetalleventa=?', [id]);
+        await (await pool).query('DELETE FROM detalleventas WHERE iddetalleventa=?', [id]);
         res.json({ message: 'Venta Delete' })
     }
 }

@@ -32,10 +32,10 @@ class ControllerProducto {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idCategoria, nombre, precio, stock, estado } = req.body;
+            const { idcategoria, nombre, precio, stock, estado } = req.body;
             const { filename } = req.file;
             let newProducto = {
-                idCategoria: idCategoria,
+                idcategoria: idcategoria,
                 nombre: nombre,
                 image: '/uploads/' + filename,
                 precio: precio,
@@ -51,10 +51,10 @@ class ControllerProducto {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const { idCategoria, nombre, precio, stock, estado } = req.body;
+            const { idcategoria, nombre, precio, stock, estado } = req.body;
             const { filename } = req.file;
             let newProducto = {
-                idCategoria: idCategoria,
+                idcategoria: idcategoria,
                 nombre: nombre,
                 image: '/uploads/' + filename,
                 precio: precio,

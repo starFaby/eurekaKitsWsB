@@ -32,8 +32,9 @@ class ControllerTelefono {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { convencional, celular1, celular2, estado } = req.body;
+            const { domisoci, convencional, celular1, celular2, estado } = req.body;
             let newTelefono = {
+                domisoci: domisoci,
                 convencional: convencional,
                 celular1: celular1,
                 celular2: celular2,
@@ -47,8 +48,9 @@ class ControllerTelefono {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const { convencional, celular1, celular2, estado } = req.body;
+            const { domisoci, convencional, celular1, celular2, estado } = req.body;
             let newTelefono = {
+                domisoci: domisoci,
                 convencional: convencional,
                 celular1: celular1,
                 celular2: celular2,

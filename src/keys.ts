@@ -3,6 +3,6 @@ export default {
         host: 'localhost',
         user: 'root',
         password: '12345',
-        database: 'eurekakitsdb'
+        database: 'eurekakits'
     }
 }

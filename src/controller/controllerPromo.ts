@@ -15,10 +15,10 @@ class ControllerPromo {
         res.status(404).json({ text: 'the promise not exist' })
     }
     public async create(req: Request, res: Response): Promise<any> {
-        const { idproducto, descuento, fechainicio, fechafin, descripcion, estado,} = req.body;
+        const { idproducto, dto, fechainicio, fechafin, descripcion, estado,} = req.body;
         let newPromo: Promocion = {
             idproducto: idproducto,
-            descuento: descuento,
+            dto: dto,
             fechainicio: fechainicio,
             fechafin: fechafin,
             descripcion: descripcion,
@@ -31,10 +31,10 @@ class ControllerPromo {
     }
     public async update(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const { idproducto, descuento, fechainicio, fechafin, descripcion, estado,} = req.body;
+        const { idproducto, dto, fechainicio, fechafin, descripcion, estado,} = req.body;
         let newPromo: Promocion = {
             idproducto: idproducto,
-            descuento: descuento,
+            dto: dto,
             fechainicio: fechainicio,
             fechafin: fechafin,
             descripcion: descripcion,

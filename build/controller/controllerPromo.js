@@ -32,10 +32,10 @@ class ControllerPromo {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idproducto, descuento, fechainicio, fechafin, descripcion, estado, } = req.body;
+            const { idproducto, dto, fechainicio, fechafin, descripcion, estado, } = req.body;
             let newPromo = {
                 idproducto: idproducto,
-                descuento: descuento,
+                dto: dto,
                 fechainicio: fechainicio,
                 fechafin: fechafin,
                 descripcion: descripcion,
@@ -50,10 +50,10 @@ class ControllerPromo {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const { idproducto, descuento, fechainicio, fechafin, descripcion, estado, } = req.body;
+            const { idproducto, dto, fechainicio, fechafin, descripcion, estado, } = req.body;
             let newPromo = {
                 idproducto: idproducto,
-                descuento: descuento,
+                dto: dto,
                 fechainicio: fechainicio,
                 fechafin: fechafin,
                 descripcion: descripcion,

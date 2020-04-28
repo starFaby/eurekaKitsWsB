@@ -1,5 +1,6 @@
 export interface Direccion {
     iddireccion?: string;
+    domisoci: string;
     provincia: string;
     canton: string;
     parroquia: string;

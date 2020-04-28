@@ -1,8 +1,8 @@
 export interface Producto {
-    idProducto?: number,
-    idCategoria: string,
+    idproducto?: number,
+    idcategoria: string,
     nombre: string,
-    image: string,
+    image: File | any,
     precio: number,
     stock: number,
     estado: number,

@@ -16,7 +16,7 @@ const database_1 = __importDefault(require("../database"));
 class ControllerDetalleVenta {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const detalleVenta = yield (yield database_1.default).query('SELECT * FROM detalleventa');
+            const detalleVenta = yield (yield database_1.default).query('SELECT * FROM detalleventas');
             if (detalleVenta > 0) {
                 return res.json(detalleVenta);
             }
@@ -37,14 +37,14 @@ class ControllerDetalleVenta {
                 created_at: new Date
             };
             console.log(newDetalleVenta);
-            yield (yield database_1.default).query('INSERT INTO detalleventa SET ?', [newDetalleVenta]);
+            yield (yield database_1.default).query('INSERT INTO detalleventas SET ?', [newDetalleVenta]);
             res.json({ message: 'Venta Saved' });
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM detalleventa WHERE iddetalleventa=?', [id]);
+            yield (yield database_1.default).query('DELETE FROM detalleventas WHERE iddetalleventa=?', [id]);
             res.json({ message: 'Venta Delete' });
         });
     }

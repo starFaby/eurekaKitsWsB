@@ -15,8 +15,9 @@ class ControllerTelefono {
         res.status(404).json({text: 'the Telefono not exist'})
     }
     public async create(req: Request, res: Response): Promise<void> {
-        const { convencional,celular1,celular2,estado} = req.body;
+        const { domisoci,convencional,celular1,celular2,estado} = req.body;
         let newTelefono: Telefono = {
+            domisoci: domisoci,
             convencional: convencional,
             celular1: celular1,
             celular2: celular2,
@@ -28,8 +29,9 @@ class ControllerTelefono {
     }
     public async update(req: Request, res: Response) {
         const { id } = req.params;
-        const { convencional,celular1,celular2,estado} = req.body;
+        const {domisoci, convencional,celular1,celular2,estado} = req.body;
         let newTelefono: Telefono = {
+            domisoci: domisoci,
             convencional: convencional,
             celular1: celular1,
             celular2: celular2,

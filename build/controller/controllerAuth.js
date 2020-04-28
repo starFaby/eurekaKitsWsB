@@ -31,6 +31,7 @@ class ControllerAuth {
                 estado: estado,
                 created_at: new Date
             };
+            console.log(newPersona);
             newPersona.password = yield helpers_1.default.encriptPassword(password);
             const user = (yield database_1.default).query('INSERT INTO persona SET ?', [newPersona]);
             const newUser = (yield user);
@@ -38,7 +39,7 @@ class ControllerAuth {
                 console.log('despues de guradr', newPersona);
                 // const datesPerson = `${newPersona.nombres}-${newPersona.apellidos}-${newPersona.cedula}-${newPersona.idtelefono}`;
                 //  whatsapp.whassap(datesPerson);
-                console.log('whassap bloqueado por pruebas');
+                console.log('whassap bloqueado por pruebas jejejejej');
                 const payload = { subject: newUser.insertId };
                 const token = jsonwebtoken_1.default.sign(payload, 'secret');
                 res.status(200).send({ token });

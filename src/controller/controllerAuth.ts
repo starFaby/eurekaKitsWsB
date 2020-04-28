@@ -20,6 +20,7 @@ class ControllerAuth {
             estado: estado,
             created_at: new Date
         };
+        console.log(newPersona);
         newPersona.password = await helpers.encriptPassword(password);
         const user = (await pool).query('INSERT INTO persona SET ?', [newPersona]);
         const newUser = (await user);
@@ -27,7 +28,7 @@ class ControllerAuth {
             console.log('despues de guradr',newPersona);
            // const datesPerson = `${newPersona.nombres}-${newPersona.apellidos}-${newPersona.cedula}-${newPersona.idtelefono}`;
           //  whatsapp.whassap(datesPerson);
-          console.log('whassap bloqueado por pruebas')
+          console.log('whassap bloqueado por pruebas jejejejej')
             const payload = { subject: newUser.insertId }
             const token = jwt.sign(payload, 'secret');
             res.status(200).send({ token });

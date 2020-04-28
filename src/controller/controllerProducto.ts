@@ -15,10 +15,10 @@ class ControllerProducto {
         res.status(404).json({ text: 'the producto not exist' })
     }
     public async create(req: Request, res: Response): Promise<any> {
-        const { idCategoria, nombre, precio, stock, estado } = req.body;
+        const { idcategoria, nombre, precio, stock, estado } = req.body;
         const { filename } = req.file;
         let newProducto: Producto = {
-            idCategoria: idCategoria,
+            idcategoria: idcategoria,
             nombre: nombre,
             image: '/uploads/' + filename,
             precio: precio,
@@ -32,11 +32,11 @@ class ControllerProducto {
     }
     public async update(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const { idCategoria, nombre, precio, stock, estado } = req.body;
+        const { idcategoria, nombre, precio, stock, estado } = req.body;
         const { filename } = req.file;
         
         let newProducto: Producto = {
-            idCategoria: idCategoria,
+            idcategoria: idcategoria,
             nombre: nombre,
             image: '/uploads/' + filename, // 
             precio: precio,

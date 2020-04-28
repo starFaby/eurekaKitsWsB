@@ -22,22 +22,24 @@ class ControllerFactura {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idpersona, numfactura, subtotal, dto, iva, total, estado } = req.body;
-            console.log(req.body);
+            const { idpersona, numfactura, estado } = req.body;
             let newFactura = {
                 idpersona: idpersona,
                 numfactura: numfactura,
-                subtotal: subtotal,
-                dto: dto,
-                iva: iva,
-                total: total,
                 estado: estado,
                 created_at: new Date,
             };
             console.log(newFactura);
-            yield (yield database_1.default).query('INSERT INTO factura SET ?', [newFactura]);
-            ;
-            res.json({ message: 'Factura Saved' });
+            const newFactG = yield (yield database_1.default).query('INSERT INTO factura SET ?', [newFactura]);
+            const fact = (yield newFactG);
+            console.log(fact.insertId);
+            if (fact.insertId > 0) {
+                const idfactura = fact.insertId;
+                res.status(200).send({ idfactura });
+            }
+            else {
+                res.status(404).send('ERROR AL REGISTRAR');
+            }
         });
     }
 }
