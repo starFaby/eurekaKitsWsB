@@ -10,7 +10,7 @@ class RouterConsultas {
         this.router.get('/promopp', controllerConsultas.promocionPP);
         this.router.get('/promoppi', controllerConsultas.promocionPPI);
         this.router.get('/promouni/:id', controllerConsultas.promocionUni);
-        this.router.get('/devedvp', controllerConsultas.detalleVentadvp);
+        this.router.get('/devedvp/:id', controllerConsultas.detalleVentadvp);
         this.router.get('/numfact', controllerConsultas.onGetNumFactura);
         this.router.get('/idfact', controllerConsultas.onGetIdFactura);
         this.router.get('/productouni/:id', controllerConsultas.productouni);

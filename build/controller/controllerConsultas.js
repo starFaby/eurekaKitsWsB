@@ -65,11 +65,14 @@ class ControllerConsultas {
     }
     detalleVentadvp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const pdtOne = yield (yield database_1.default).query('select * from viewdetalleventadvp'); // para visualizar detalle ventas con id de producto con su nombre
+            const { id } = req.params;
+            const pdtOne = yield (yield database_1.default).query('select * from viewdetalleventadvp where  idfactura = ? ', [id]); // para visualizar detalle ventas con id de producto con su nombre
             if (pdtOne.length > 0) {
                 return res.json(pdtOne);
             }
-            res.status(404).send('the consutl promocion_producto not exist');
+            else {
+                res.status(404).send('the detalle venta not exist');
+            }
         });
     }
     onGetNumFactura(req, res) {
