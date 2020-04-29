@@ -66,7 +66,7 @@ class ControllerAuth {
                     const id = user.idpersona;
                     const payload = { subject: user.idpersona };
                     const token = jsonwebtoken_1.default.sign(payload, 'secret');
-                    res.status(200).send({ token, id });
+                    res.status(200).send({ token });
                 }
                 else {
                     res.status(401).send('PASSWORD INCORRECTO');

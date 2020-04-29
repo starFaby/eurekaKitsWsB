@@ -7,8 +7,9 @@ class RouterFactura {
         this.config();
     }
     config(): void{
-        this.router.post('/',jwt.verifyToken, controllerFactura.create);
         this.router.get('/', controllerFactura.listAll);
+        this.router.post('/',jwt.verifyToken, controllerFactura.create);
+        this.router.put('/:id', controllerFactura.update);
     }
 }
 const routerFactura =  new RouterFactura();

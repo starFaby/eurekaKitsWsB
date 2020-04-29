@@ -23,7 +23,7 @@ class ControllerFactura {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { idpersona, numfactura, estado } = req.body;
-            let newFactura = {
+            const newFactura = {
                 idpersona: idpersona,
                 numfactura: numfactura,
                 estado: estado,
@@ -39,6 +39,28 @@ class ControllerFactura {
             }
             else {
                 res.status(404).send('ERROR AL REGISTRAR');
+            }
+        });
+    }
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const { subtotal, dto, iva, total } = req.body;
+            const newFactura = {
+                subtotal: subtotal,
+                dto: dto,
+                iva: iva,
+                total: total
+            };
+            console.log(newFactura);
+            const fact = yield (yield database_1.default).query('UPDATE  factura SET ? WHERE idfactura=?', [newFactura, id]);
+            const result = fact.affectedRows;
+            if (result > 0) {
+                res.status(200).send({ message: 'Exito al actualizar' });
+            }
+            else {
+                res.status(404).send({ message: 'Error al actualizar' });
+                ;
             }
         });
     }
