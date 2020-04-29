@@ -16,16 +16,22 @@ const database_1 = __importDefault(require("../database"));
 class ControllerFormaPago {
     createfp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idfactura, nombre, estado } = req.body;
+            const { idfactura, idtipopago, estado } = req.body;
             let newFormaPago = {
                 idfactura: idfactura,
-                nombre: nombre,
+                idtipopago: idtipopago,
                 estado: estado,
                 created_at: new Date
             };
             console.log(newFormaPago);
-            yield (yield database_1.default).query('INSERT INTO formapago SET ?', [newFormaPago]);
-            res.json({ message: 'FormaPago saved v' });
+            const fp = yield (yield database_1.default).query('INSERT INTO formapago SET ?', [newFormaPago]);
+            const result = fp.affectedRows;
+            if (result > 0) {
+                res.status(200).send({ message: 'Exito Guarado' });
+            }
+            else {
+                res.status(404).send({ message: 'Error al registrar' });
+            }
         });
     }
 }

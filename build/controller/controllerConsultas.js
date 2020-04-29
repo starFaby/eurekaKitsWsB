@@ -89,6 +89,26 @@ class ControllerConsultas {
             // res.status(404).json({text: 'the consutl promocion_producto not exist'})
         });
     }
+    onGetPersonaFactura(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const personaFactura = yield (yield database_1.default).query('select * from viewpersonafactura where idpersona = ? ', [id]); // para visualizar detalle ventas con id de producto con su nombre
+            if (personaFactura.length > 0) {
+                return res.json(personaFactura);
+            }
+            else {
+                res.status(404).send({ message: 'No existe facturas para este cliente' });
+            }
+        });
+    }
+    onGetTipoPago(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const tipopago = yield (yield database_1.default).query('SELECT * FROM viewtipopago'); // para visualizar detalle ventas con id de producto con su nombre
+            console.log(tipopago);
+            return res.json(tipopago);
+            // res.status(404).json({text: 'the consutl promocion_producto not exist'})
+        });
+    }
 }
 const controllerConsultas = new ControllerConsultas();
 exports.default = controllerConsultas;

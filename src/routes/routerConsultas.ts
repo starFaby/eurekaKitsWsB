@@ -14,6 +14,8 @@ class RouterConsultas {
         this.router.get('/numfact', controllerConsultas.onGetNumFactura);
         this.router.get('/idfact', controllerConsultas.onGetIdFactura);
         this.router.get('/productouni/:id', controllerConsultas.productouni);
+        this.router.get('/personafactura/:id', controllerConsultas.onGetPersonaFactura);
+        this.router.get('/tipopago', controllerConsultas.onGetTipoPago);
     }
 }
 const routerConsultas =  new RouterConsultas();

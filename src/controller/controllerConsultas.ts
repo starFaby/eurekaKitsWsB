@@ -59,6 +59,22 @@ class ControllerConsultas {
             return res.json(idFact);
        // res.status(404).json({text: 'the consutl promocion_producto not exist'})
     }
+
+    public async onGetPersonaFactura(req: Request, res: Response): Promise<any> { // visualizar que cada persona tiene sus propias facturas
+        const { id } = req.params;
+        const personaFactura = await (await pool).query('select * from viewpersonafactura where idpersona = ? ', [id]);// para visualizar detalle ventas con id de producto con su nombre
+        if (personaFactura.length > 0) {
+            return res.json(personaFactura);
+        }else {
+            res.status(404).send({message: 'No existe facturas para este cliente'});
+        }
+    }
+    public async onGetTipoPago(req: Request, res: Response): Promise<any> { // ver transferencia paypal efectivo
+        const tipopago = await (await pool).query('SELECT * FROM viewtipopago');// para visualizar detalle ventas con id de producto con su nombre
+        console.log(tipopago);
+        return res.json(tipopago);
+       // res.status(404).json({text: 'the consutl promocion_producto not exist'})
+    }
 }
 const controllerConsultas = new ControllerConsultas();
 export default controllerConsultas;
