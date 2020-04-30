@@ -21,6 +21,9 @@ class RouterConsultas {
         this.router.get('/productouni/:id', controllerConsultas_1.default.productouni);
         this.router.get('/personafactura/:id', controllerConsultas_1.default.onGetPersonaFactura);
         this.router.get('/tipopago', controllerConsultas_1.default.onGetTipoPago);
+        this.router.get('/pfpaypal/:id', controllerConsultas_1.default.onGetPagoFactPaypal);
+        this.router.get('/pftransbanc/:id', controllerConsultas_1.default.onGetPagoFactTransBanc);
+        this.router.get('/pfefectivo/:id', controllerConsultas_1.default.onGetPagoFactEfectivo);
     }
 }
 const routerConsultas = new RouterConsultas();

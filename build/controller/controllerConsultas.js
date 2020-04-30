@@ -50,7 +50,9 @@ class ControllerConsultas {
             if (pdtOne.length > 0) {
                 return res.json(pdtOne);
             }
-            res.status(404).json({ text: 'the consutl promocion_producto not exist' });
+            else {
+                return res.status(404).send({ text: 'No existe promociones not exist' });
+            }
         });
     }
     promocionUni(req, res) {
@@ -107,6 +109,45 @@ class ControllerConsultas {
             console.log(tipopago);
             return res.json(tipopago);
             // res.status(404).json({text: 'the consutl promocion_producto not exist'})
+        });
+    }
+    onGetPagoFactPaypal(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const pfpaypal = yield (yield database_1.default).query('select * from viewpagofactpaypal where idtipopago = 1 AND idpersona = ?', [id]); // para visualizar solo las facturas de tipo paypal
+            const result = pfpaypal.length;
+            if (result > 0) {
+                return res.json(pfpaypal);
+            }
+            else {
+                res.status(404).send({ message: 'Error' });
+            }
+        });
+    }
+    onGetPagoFactTransBanc(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const pftransbanc = yield (yield database_1.default).query('select * from viewpagofactpaypal where idtipopago = 2 AND idpersona = ?', [id]); // para visualizar solo las facturas de tipo paypal
+            const result = pftransbanc.length;
+            if (result > 0) {
+                return res.json(pftransbanc);
+            }
+            else {
+                res.status(404).send({ message: 'Error' });
+            }
+        });
+    }
+    onGetPagoFactEfectivo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const pfefectivo = yield (yield database_1.default).query('select * from viewpagofactpaypal where idtipopago = 3 AND idpersona = ?', [id]); // para visualizar solo las facturas de tipo paypal
+            const result = pfefectivo.length;
+            if (result > 0) {
+                return res.json(pfefectivo);
+            }
+            else {
+                res.status(404).send({ message: 'Error' });
+            }
         });
     }
 }
