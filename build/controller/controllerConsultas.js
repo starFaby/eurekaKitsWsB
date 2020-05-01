@@ -150,6 +150,19 @@ class ControllerConsultas {
             }
         });
     }
+    onGetPagoFactIndiv(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const pfefectivoindiv = yield (yield database_1.default).query('select * from viewformapagopy where numfactura = ?', [id]); // para visualizar solo las facturas de tipo paypal
+            const result = pfefectivoindiv.length;
+            if (result > 0) {
+                return res.json(pfefectivoindiv);
+            }
+            else {
+                res.status(404).send({ message: 'Error' });
+            }
+        });
+    }
 }
 const controllerConsultas = new ControllerConsultas();
 exports.default = controllerConsultas;

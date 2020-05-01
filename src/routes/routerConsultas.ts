@@ -19,6 +19,7 @@ class RouterConsultas {
         this.router.get('/pfpaypal/:id', controllerConsultas.onGetPagoFactPaypal);
         this.router.get('/pftransbanc/:id', controllerConsultas.onGetPagoFactTransBanc);
         this.router.get('/pfefectivo/:id', controllerConsultas.onGetPagoFactEfectivo);
+        this.router.get('/pfindiv/:id', controllerConsultas.onGetPagoFactIndiv);
     }
 }
 const routerConsultas =  new RouterConsultas();

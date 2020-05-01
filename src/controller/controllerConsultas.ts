@@ -106,6 +106,16 @@ class ControllerConsultas {
             res.status(404).send({ message: 'Error' });
         }
     }
+    public async onGetPagoFactIndiv(req: Request, res: Response): Promise<any> { // ver por el numero de factura para guardar en paypal tranferencia bancaria y efectivo
+        const { id } = req.params;
+        const pfefectivoindiv = await (await pool).query('select * from viewformapagopy where numfactura = ?', [id]);// para visualizar solo las facturas de tipo paypal
+        const result = pfefectivoindiv.length;
+        if (result > 0) {
+            return res.json(pfefectivoindiv);
+        } else {
+            res.status(404).send({ message: 'Error' });
+        }
+    }
 }
 const controllerConsultas = new ControllerConsultas();
 export default controllerConsultas;
