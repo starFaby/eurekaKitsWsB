@@ -38,14 +38,10 @@ class ControllerFormaPago {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const { estado } = req.body;
+            console.log(req.body);
             const newFormaPago = {
                 estado: estado,
             };
-            console.log('Estas en el backend');
-            console.log('id');
-            console.log(id);
-            console.log('EStado');
-            console.log(newFormaPago);
             const formaPagoEstado = yield (yield database_1.default).query('UPDATE  formapago SET ? WHERE idformapago=?', [newFormaPago, id]);
             const result = formaPagoEstado.affectedRows;
             if (result > 0) {

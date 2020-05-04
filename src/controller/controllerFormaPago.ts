@@ -23,14 +23,10 @@ class ControllerFormaPago {
     public async updateEstado(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         const { estado } = req.body;
+        console.log(req.body);
         const newFormaPago: FormaPago = {
             estado: estado,
         };
-        console.log('Estas en el backend');
-        console.log('id');
-        console.log(id);
-        console.log('EStado');
-        console.log(newFormaPago);
        const formaPagoEstado = await (await pool).query('UPDATE  formapago SET ? WHERE idformapago=?', [newFormaPago, id]);
        const result = formaPagoEstado.affectedRows;
        if(result > 0){

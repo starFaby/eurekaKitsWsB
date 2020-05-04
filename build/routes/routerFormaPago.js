@@ -12,7 +12,7 @@ class RouterFormaPago {
     }
     config() {
         this.router.post('/', controllerFormaPago_1.default.createfp);
-        this.router.put('/', controllerFormaPago_1.default.updateEstado);
+        this.router.put('/:id', controllerFormaPago_1.default.updateEstado);
     }
 }
 const routerFormaPago = new RouterFormaPago();
