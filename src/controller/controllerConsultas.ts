@@ -63,7 +63,7 @@ class ControllerConsultas {
 
     public async onGetPersonaFactura(req: Request, res: Response): Promise<any> { // visualizar que cada persona tiene sus propias facturas
         const { id } = req.params;
-        const personaFactura = await (await pool).query('select * from viewpersonafactura where idpersona = ? ', [id]);// para visualizar detalle ventas con id de producto con su nombre
+        const personaFactura = await (await pool).query('select * from viewpersonafactura where estado = 1 AND idpersona = ? ', [id]);// para visualizar detalle ventas con id de producto con su nombre
         if (personaFactura.length > 0) {
             return res.json(personaFactura);
         } else {
@@ -78,7 +78,7 @@ class ControllerConsultas {
     }
     public async onGetPagoFactPaypal(req: Request, res: Response): Promise<any> { // ver facturas de tipo paypal
         const { id } = req.params;
-        const pfpaypal = await (await pool).query('select * from viewpagofactpaypal where idtipopago = 1 AND idpersona = ?', [id]);// para visualizar solo las facturas de tipo paypal
+        const pfpaypal = await (await pool).query('select * from viewpagofactptbe where idtipopago = 1 AND estado = 1 AND idpersona = ?', [id]);// para visualizar solo las facturas de tipo paypal
         const result = pfpaypal.length;
         if (result > 0) {
             return res.json(pfpaypal);
@@ -88,7 +88,7 @@ class ControllerConsultas {
     }
     public async onGetPagoFactTransBanc(req: Request, res: Response): Promise<any> { // ver facturas de tipo transferencia bancaria
         const { id } = req.params;
-        const pftransbanc = await (await pool).query('select * from viewpagofactpaypal where idtipopago = 2 AND idpersona = ?', [id]);// para visualizar solo las facturas de tipo paypal
+        const pftransbanc = await (await pool).query('select * from viewpagofactptbe where idtipopago = 2 AND estado = 1 AND idpersona = ?', [id]);// para visualizar solo las facturas de tipo paypal
         const result = pftransbanc.length;
         if (result > 0) {
             return res.json(pftransbanc);
@@ -98,7 +98,7 @@ class ControllerConsultas {
     }
     public async onGetPagoFactEfectivo(req: Request, res: Response): Promise<any> { // ver facturas de tipo efectivo
         const { id } = req.params;
-        const pfefectivo = await (await pool).query('select * from viewpagofactpaypal where idtipopago = 3 AND idpersona = ?', [id]);// para visualizar solo las facturas de tipo paypal
+        const pfefectivo = await (await pool).query('select * from viewpagofactptbe where idtipopago = 3 AND estado = 1 AND idpersona = ?', [id]);// para visualizar solo las facturas de tipo paypal
         const result = pfefectivo.length;
         if (result > 0) {
             return res.json(pfefectivo);

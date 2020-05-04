@@ -44,6 +44,21 @@ class ControllerFactura {
             res.status(404).send({message: 'Error al actualizar'});;
         }
     }
+    public async updateEstado(req: Request, res: Response): Promise<any> {
+        const { id } = req.params;
+        const { estado } = req.body;
+        const newFactura: Factura = {
+            estado: estado,
+        };
+        console.log(newFactura);
+       const factEstado = await (await pool).query('UPDATE  factura SET ? WHERE idfactura=?', [newFactura, id]);
+       const result = factEstado.affectedRows;
+       if(result > 0){
+            res.status(200).send({message: 'Exito al actualizar'});
+        }else{
+            res.status(404).send({message: 'Error al actualizar'});;
+        }
+    }
 }
 const controllerFactura = new ControllerFactura();
 export default controllerFactura;

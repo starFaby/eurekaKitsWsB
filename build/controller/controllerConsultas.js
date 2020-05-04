@@ -94,7 +94,7 @@ class ControllerConsultas {
     onGetPersonaFactura(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const personaFactura = yield (yield database_1.default).query('select * from viewpersonafactura where idpersona = ? ', [id]); // para visualizar detalle ventas con id de producto con su nombre
+            const personaFactura = yield (yield database_1.default).query('select * from viewpersonafactura where estado = 1 AND idpersona = ? ', [id]); // para visualizar detalle ventas con id de producto con su nombre
             if (personaFactura.length > 0) {
                 return res.json(personaFactura);
             }
@@ -114,7 +114,7 @@ class ControllerConsultas {
     onGetPagoFactPaypal(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pfpaypal = yield (yield database_1.default).query('select * from viewpagofactpaypal where idtipopago = 1 AND idpersona = ?', [id]); // para visualizar solo las facturas de tipo paypal
+            const pfpaypal = yield (yield database_1.default).query('select * from viewpagofactptbe where idtipopago = 1 AND estado = 1 AND idpersona = ?', [id]); // para visualizar solo las facturas de tipo paypal
             const result = pfpaypal.length;
             if (result > 0) {
                 return res.json(pfpaypal);
@@ -127,7 +127,7 @@ class ControllerConsultas {
     onGetPagoFactTransBanc(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pftransbanc = yield (yield database_1.default).query('select * from viewpagofactpaypal where idtipopago = 2 AND idpersona = ?', [id]); // para visualizar solo las facturas de tipo paypal
+            const pftransbanc = yield (yield database_1.default).query('select * from viewpagofactptbe where idtipopago = 2 AND estado = 1 AND idpersona = ?', [id]); // para visualizar solo las facturas de tipo paypal
             const result = pftransbanc.length;
             if (result > 0) {
                 return res.json(pftransbanc);
@@ -140,7 +140,7 @@ class ControllerConsultas {
     onGetPagoFactEfectivo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pfefectivo = yield (yield database_1.default).query('select * from viewpagofactpaypal where idtipopago = 3 AND idpersona = ?', [id]); // para visualizar solo las facturas de tipo paypal
+            const pfefectivo = yield (yield database_1.default).query('select * from viewpagofactptbe where idtipopago = 3 AND estado = 1 AND idpersona = ?', [id]); // para visualizar solo las facturas de tipo paypal
             const result = pfefectivo.length;
             if (result > 0) {
                 return res.json(pfefectivo);

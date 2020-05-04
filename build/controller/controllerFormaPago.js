@@ -34,6 +34,29 @@ class ControllerFormaPago {
             }
         });
     }
+    updateEstado(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const { estado } = req.body;
+            const newFormaPago = {
+                estado: estado,
+            };
+            console.log('Estas en el backend');
+            console.log('id');
+            console.log(id);
+            console.log('EStado');
+            console.log(newFormaPago);
+            const formaPagoEstado = yield (yield database_1.default).query('UPDATE  formapago SET ? WHERE idformapago=?', [newFormaPago, id]);
+            const result = formaPagoEstado.affectedRows;
+            if (result > 0) {
+                res.status(200).send({ message: 'Exito al actualizar' });
+            }
+            else {
+                res.status(404).send({ message: 'Error al actualizar' });
+                ;
+            }
+        });
+    }
 }
 const controllerFormaPago = new ControllerFormaPago();
 exports.default = controllerFormaPago;

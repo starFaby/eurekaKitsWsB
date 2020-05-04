@@ -10,6 +10,7 @@ class RouterFactura {
         this.router.get('/', controllerFactura.listAll);
         this.router.post('/',jwt.verifyToken, controllerFactura.create);
         this.router.put('/:id', controllerFactura.update);
+        this.router.put('/estado/:id', controllerFactura.updateEstado);
     }
 }
 const routerFactura =  new RouterFactura();

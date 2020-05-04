@@ -4,16 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const controllerFormaPago_1 = __importDefault(require("../controller/controllerFormaPago"));
-class RouterFormaPago {
+const controllerTrasferenciaBancaria_1 = __importDefault(require("../controller/controllerTrasferenciaBancaria"));
+class RouterTrasferenciaBancaria {
     constructor() {
         this.router = express_1.Router();
         this.config();
     }
     config() {
-        this.router.post('/', controllerFormaPago_1.default.createfp);
-        this.router.put('/', controllerFormaPago_1.default.updateEstado);
+        this.router.post('/', controllerTrasferenciaBancaria_1.default.create);
     }
 }
-const routerFormaPago = new RouterFormaPago();
-exports.default = routerFormaPago.router;
+const routerTrasferenciaBancaria = new RouterTrasferenciaBancaria();
+exports.default = routerTrasferenciaBancaria.router;
