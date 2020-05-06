@@ -17,6 +17,7 @@ import routerFormaPago from './routes/routerFormaPago';
 import routerPaypal from './routes/routerPaypal';
 import routerTransferenciaBancaria from './routes/routerTransferenciaBancaria';
 import routerEfectivo from './routes/routerEfectivo';
+import routerPaypalBuy from './routes/routerPaypalBuy';
 import multer from './libs/multer';
 import path from 'path';
 import './middlewares/token'
@@ -55,6 +56,7 @@ class Server {
         this.app.use('/api/paypal',routerPaypal);
         this.app.use('/api/transbanc',routerTransferenciaBancaria);
         this.app.use('/api/efect',routerEfectivo);
+        this.app.use('/api/paypalbuy',routerPaypalBuy);
     }
     aMiddleware(req: Request, res: Response, next: NextFunction) {
         next();

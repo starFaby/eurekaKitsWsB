@@ -29,6 +29,7 @@ const routerFormaPago_1 = __importDefault(require("./routes/routerFormaPago"));
 const routerPaypal_1 = __importDefault(require("./routes/routerPaypal"));
 const routerTransferenciaBancaria_1 = __importDefault(require("./routes/routerTransferenciaBancaria"));
 const routerEfectivo_1 = __importDefault(require("./routes/routerEfectivo"));
+const routerPaypalBuy_1 = __importDefault(require("./routes/routerPaypalBuy"));
 const multer_1 = __importDefault(require("./libs/multer"));
 const path_1 = __importDefault(require("path"));
 require("./middlewares/token");
@@ -64,6 +65,7 @@ class Server {
         this.app.use('/api/paypal', routerPaypal_1.default);
         this.app.use('/api/transbanc', routerTransferenciaBancaria_1.default);
         this.app.use('/api/efect', routerEfectivo_1.default);
+        this.app.use('/api/paypalbuy', routerPaypalBuy_1.default);
     }
     aMiddleware(req, res, next) {
         next();
