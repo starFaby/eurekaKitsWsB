@@ -16,14 +16,16 @@ class ControllerCategoria {
     }
     public async create(req: Request, res: Response): Promise<any> {
         const { nombre, estado } = req.body;
-        const { filename } = req.file;
-        let newCategoria: Categoria = {
+        // const { filename } = req.file;
+         const { filename } = req.file;
+        console.log(filename);
+        const newCategoria: Categoria = {
             nombre: nombre,
-            image: '/uploads/' + filename,
+            image: '/uploads/'+filename,
             estado: estado
         };
+        console.log(newCategoria);
         await (await pool).query('INSERT INTO categoria SET ?', [newCategoria]);
-        ;
         res.json({ message: 'Categoria saved v' });
     }
     public async update(req: Request, res: Response): Promise<any> {
