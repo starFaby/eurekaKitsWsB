@@ -51,7 +51,7 @@ class ControllerConsultas {
                 return res.json(pdtOne);
             }
             else {
-                return res.status(404).send({ text: 'No existe promociones not exist' });
+                res.status(204).send({ message: 'No Promociones' });
             }
         });
     }
@@ -73,7 +73,7 @@ class ControllerConsultas {
                 return res.json(pdtOne);
             }
             else {
-                res.status(404).send('the detalle venta not exist');
+                return res.status(204).send({ message: 'NO Datos' });
             }
         });
     }
@@ -99,7 +99,7 @@ class ControllerConsultas {
                 return res.json(personaFactura);
             }
             else {
-                res.status(404).send({ message: 'No existe facturas para este cliente' });
+                return res.status(204).send({ message: 'No Datos' });
             }
         });
     }
@@ -120,7 +120,7 @@ class ControllerConsultas {
                 return res.json(pfpaypal);
             }
             else {
-                res.status(404).send({ message: 'Error' });
+                return res.status(204).send({ message: 'No Datos' });
             }
         });
     }
@@ -133,7 +133,7 @@ class ControllerConsultas {
                 return res.json(pftransbanc);
             }
             else {
-                res.status(404).send({ message: 'Error' });
+                return res.status(204).send({ message: 'No Datos' });
             }
         });
     }
@@ -146,7 +146,7 @@ class ControllerConsultas {
                 return res.json(pfefectivo);
             }
             else {
-                res.status(404).send({ message: 'Error' });
+                return res.status(204).send({ message: 'No Datos' });
             }
         });
     }

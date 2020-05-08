@@ -4,12 +4,13 @@ import { TrasnferenciaBancaria } from '../models/TransferenciaBancaria';
 class ControllerTrasnferenciaBancaria {
 
     public async create(req: Request, res: Response): Promise<any> {
-        const { idformapago, numfactura, preciofactura, image, estado } = req.body;
+        const { idformapago, numfactura, preciofactura, estado } = req.body;
+        const { filename } = req.file;
         let newTrasnferenciaBancaria: TrasnferenciaBancaria = {
             idformapago: idformapago,
             numfactura: numfactura, 
             preciofactura: preciofactura,
-            image: image,
+            image: '/uploads/'+filename,
             estado: estado,
             created_at: new Date
         };

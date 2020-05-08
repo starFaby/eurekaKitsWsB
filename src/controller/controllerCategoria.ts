@@ -16,7 +16,6 @@ class ControllerCategoria {
     }
     public async create(req: Request, res: Response): Promise<any> {
         const { nombre, estado } = req.body;
-        // const { filename } = req.file;
          const { filename } = req.file;
         console.log(filename);
         const newCategoria: Categoria = {

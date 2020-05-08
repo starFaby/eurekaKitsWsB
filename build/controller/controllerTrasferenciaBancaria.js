@@ -16,12 +16,13 @@ const database_1 = __importDefault(require("../database"));
 class ControllerTrasnferenciaBancaria {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idformapago, numfactura, preciofactura, image, estado } = req.body;
+            const { idformapago, numfactura, preciofactura, estado } = req.body;
+            const { filename } = req.file;
             let newTrasnferenciaBancaria = {
                 idformapago: idformapago,
                 numfactura: numfactura,
                 preciofactura: preciofactura,
-                image: image,
+                image: '/uploads/' + filename,
                 estado: estado,
                 created_at: new Date
             };

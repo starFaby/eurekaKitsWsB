@@ -7,7 +7,7 @@ import helpers from '../libs/helpers'
 import whatsapp from '../middlewares/whatsapp'
 class ControllerAuth {
     public async loginUp(req: Request, res: Response): Promise<void> {
-        const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, estado } = req.body;
+        const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, requerimiento, estado } = req.body;
         let newPersona: Persona = {
             idtelefono: idtelefono,
             iddireccion: iddireccion,
@@ -17,10 +17,11 @@ class ControllerAuth {
             fechanacimiento: new Date(fechanacimiento),
             email: email,
             password: password,
+            requerimiento: requerimiento,
             estado: estado,
             created_at: new Date
         };
-        console.log(newPersona);
+        console.log('==> '+newPersona);
         newPersona.password = await helpers.encriptPassword(password);
         const user = (await pool).query('INSERT INTO persona SET ?', [newPersona]);
         const newUser = (await user);

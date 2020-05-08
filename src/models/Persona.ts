@@ -8,6 +8,7 @@ export interface Persona {
     fechanacimiento: Date;
     email: string;
     password: string;
+    requerimiento: string;
     estado: string;
     created_at?: Date;
 }

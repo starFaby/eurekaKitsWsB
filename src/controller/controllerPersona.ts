@@ -15,7 +15,7 @@ class ControllerPersona {
         res.status(404).json({text: 'the Persona not exist'})
     }
     public async create(req: Request, res: Response): Promise<void> {
-        const { idtelefono,iddireccion,cedula,nombres,apellidos,fechanacimiento,email,password,estado} = req.body;
+        const { idtelefono,iddireccion,cedula,nombres,apellidos,fechanacimiento,email,password,requerimiento,estado} = req.body;
         console.log(req.body);        
         let newPersona: Persona = {
             idtelefono: idtelefono,
@@ -26,6 +26,7 @@ class ControllerPersona {
             fechanacimiento: new Date(fechanacimiento),
             email: email,
             password: password,
+            requerimiento: requerimiento,
             estado: estado,
             created_at: new Date
         };
@@ -35,7 +36,7 @@ class ControllerPersona {
     }
     public async update(req: Request, res: Response) {
         const { id } = req.params;
-        const { idtelefono,iddireccion,cedula,nombres,apellidos,fechanacimiento,email,password,estado} = req.body;
+        const { idtelefono,iddireccion,cedula,nombres,apellidos,fechanacimiento,email,password,requerimiento,estado} = req.body;
         let newPersona: Persona = {
             idtelefono: idtelefono,
             iddireccion: iddireccion,
@@ -45,6 +46,7 @@ class ControllerPersona {
             fechanacimiento: fechanacimiento,
             email: email,
             password: password,
+            requerimiento: requerimiento,
             estado: estado,
             created_at: new Date
         }

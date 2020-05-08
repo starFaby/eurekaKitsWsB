@@ -32,7 +32,7 @@ class ControllerPersona {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, estado } = req.body;
+            const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, requerimiento, estado } = req.body;
             console.log(req.body);
             let newPersona = {
                 idtelefono: idtelefono,
@@ -43,6 +43,7 @@ class ControllerPersona {
                 fechanacimiento: new Date(fechanacimiento),
                 email: email,
                 password: password,
+                requerimiento: requerimiento,
                 estado: estado,
                 created_at: new Date
             };
@@ -54,7 +55,7 @@ class ControllerPersona {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, estado } = req.body;
+            const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, requerimiento, estado } = req.body;
             let newPersona = {
                 idtelefono: idtelefono,
                 iddireccion: iddireccion,
@@ -64,6 +65,7 @@ class ControllerPersona {
                 fechanacimiento: fechanacimiento,
                 email: email,
                 password: password,
+                requerimiento: requerimiento,
                 estado: estado,
                 created_at: new Date
             };

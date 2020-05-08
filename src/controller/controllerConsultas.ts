@@ -30,7 +30,7 @@ class ControllerConsultas {
         if (pdtOne.length > 0) {
             return res.json(pdtOne);
         } else {
-            return res.status(404).send({ text: 'No existe promociones not exist' })
+            res.status(204).send({ message: 'No Promociones' })
         }
     }
     public async promocionUni(req: Request, res: Response): Promise<any> {
@@ -47,7 +47,7 @@ class ControllerConsultas {
         if (pdtOne.length > 0) {
             return res.json(pdtOne);
         } else {
-            res.status(404).send('the detalle venta not exist')
+            return res.status(204).send({message: 'NO Datos'});
         }
     }
     public async onGetNumFactura(req: Request, res: Response): Promise<any> {
@@ -67,7 +67,7 @@ class ControllerConsultas {
         if (personaFactura.length > 0) {
             return res.json(personaFactura);
         } else {
-            res.status(404).send({ message: 'No existe facturas para este cliente' });
+            return res.status(204).send({ message: 'No Datos' });
         }
     }
     public async onGetTipoPago(req: Request, res: Response): Promise<any> { // ver transferencia paypal efectivo
@@ -83,7 +83,7 @@ class ControllerConsultas {
         if (result > 0) {
             return res.json(pfpaypal);
         } else {
-            res.status(404).send({ message: 'Error' });
+            return res.status(204).send({ message: 'No Datos' });
         }
     }
     public async onGetPagoFactTransBanc(req: Request, res: Response): Promise<any> { // ver facturas de tipo transferencia bancaria
@@ -93,7 +93,7 @@ class ControllerConsultas {
         if (result > 0) {
             return res.json(pftransbanc);
         } else {
-            res.status(404).send({ message: 'Error' });
+            return res.status(204).send({ message: 'No Datos' });
         }
     }
     public async onGetPagoFactEfectivo(req: Request, res: Response): Promise<any> { // ver facturas de tipo efectivo
@@ -103,7 +103,7 @@ class ControllerConsultas {
         if (result > 0) {
             return res.json(pfefectivo);
         } else {
-            res.status(404).send({ message: 'Error' });
+            return res.status(204).send({ message: 'No Datos' });
         }
     }
     public async onGetPagoFactIndiv(req: Request, res: Response): Promise<any> { // ver por el numero de factura para guardar en paypal tranferencia bancaria y efectivo

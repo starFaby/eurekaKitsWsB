@@ -33,7 +33,6 @@ class ControllerCategoria {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { nombre, estado } = req.body;
-            // const { filename } = req.file;
             const { filename } = req.file;
             console.log(filename);
             const newCategoria = {

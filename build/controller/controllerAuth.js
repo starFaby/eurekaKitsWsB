@@ -18,7 +18,7 @@ const helpers_1 = __importDefault(require("../libs/helpers"));
 class ControllerAuth {
     loginUp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, estado } = req.body;
+            const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, requerimiento, estado } = req.body;
             let newPersona = {
                 idtelefono: idtelefono,
                 iddireccion: iddireccion,
@@ -28,10 +28,11 @@ class ControllerAuth {
                 fechanacimiento: new Date(fechanacimiento),
                 email: email,
                 password: password,
+                requerimiento: requerimiento,
                 estado: estado,
                 created_at: new Date
             };
-            console.log(newPersona);
+            console.log('==> ' + newPersona);
             newPersona.password = yield helpers_1.default.encriptPassword(password);
             const user = (yield database_1.default).query('INSERT INTO persona SET ?', [newPersona]);
             const newUser = (yield user);
