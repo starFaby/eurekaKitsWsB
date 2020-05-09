@@ -163,6 +163,45 @@ class ControllerConsultas {
             }
         });
     }
+    onGetPagoPaypal(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const pagoPaypal = yield (yield database_1.default).query('select * from viewpagopaypal where idpersona = ?', [id]);
+            const result = pagoPaypal.length;
+            if (result > 0) {
+                return res.json(pagoPaypal);
+            }
+            else {
+                res.status(204).send({ message: 'No Datos' });
+            }
+        });
+    }
+    onGetPagoTransBanc(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const pagoTransBanc = yield (yield database_1.default).query('select * from viewpagotrasnbanc where idpersona = ?', [id]);
+            const result = pagoTransBanc.length;
+            if (result > 0) {
+                return res.json(pagoTransBanc);
+            }
+            else {
+                res.status(204).send({ message: 'No Datos' });
+            }
+        });
+    }
+    onGetPagoEfectivo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const pagoEfectivo = yield (yield database_1.default).query('select * from viewpagoefectivo where idpersona = ?', [id]);
+            const result = pagoEfectivo.length;
+            if (result > 0) {
+                return res.json(pagoEfectivo);
+            }
+            else {
+                res.status(204).send({ message: 'No Datos' });
+            }
+        });
+    }
 }
 const controllerConsultas = new ControllerConsultas();
 exports.default = controllerConsultas;

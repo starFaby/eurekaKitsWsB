@@ -21,10 +21,13 @@ class RouterConsultas {
         this.router.get('/productouni/:id', controllerConsultas_1.default.productouni);
         this.router.get('/personafactura/:id', controllerConsultas_1.default.onGetPersonaFactura);
         this.router.get('/tipopago', controllerConsultas_1.default.onGetTipoPago);
-        this.router.get('/pfpaypal/:id', controllerConsultas_1.default.onGetPagoFactPaypal);
-        this.router.get('/pftransbanc/:id', controllerConsultas_1.default.onGetPagoFactTransBanc);
-        this.router.get('/pfefectivo/:id', controllerConsultas_1.default.onGetPagoFactEfectivo);
-        this.router.get('/pfindiv/:id', controllerConsultas_1.default.onGetPagoFactIndiv);
+        this.router.get('/pfpaypal/:id', controllerConsultas_1.default.onGetPagoFactPaypal); // muestra solo las facturas echas en paypal
+        this.router.get('/pftransbanc/:id', controllerConsultas_1.default.onGetPagoFactTransBanc); // muestra solo las facturas echas en Transfer bancaria
+        this.router.get('/pfefectivo/:id', controllerConsultas_1.default.onGetPagoFactEfectivo); // muestra solo las facturas echas en efectivo
+        this.router.get('/pfindiv/:id', controllerConsultas_1.default.onGetPagoFactIndiv); // muestra los datos por el numero de factura
+        this.router.get('/pagopaypal/:id', controllerConsultas_1.default.onGetPagoPaypal); // muestra el pago final de paypal
+        this.router.get('/pagotransbanc/:id', controllerConsultas_1.default.onGetPagoTransBanc); // muestra el pago final de Transfer bancaria
+        this.router.get('/pagoefectivo/:id', controllerConsultas_1.default.onGetPagoEfectivo); // muestra el pago final de efectivo
     }
 }
 const routerConsultas = new RouterConsultas();

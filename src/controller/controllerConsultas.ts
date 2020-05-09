@@ -116,6 +116,36 @@ class ControllerConsultas {
             res.status(404).send({ message: 'Error' });
         }
     }
+    public async onGetPagoPaypal(req: Request, res: Response): Promise<any> { // ver facturas pagadas echos en paypal
+        const { id } = req.params;
+        const pagoPaypal = await (await pool).query('select * from viewpagopaypal where idpersona = ?', [id]);
+        const result = pagoPaypal.length;
+        if (result > 0) {
+            return res.json(pagoPaypal);
+        } else {
+            res.status(204).send({ message: 'No Datos' });
+        }
+    }
+    public async onGetPagoTransBanc(req: Request, res: Response): Promise<any> { // ver facturas pagadas echos en Transferencia Bancaria
+        const { id } = req.params;
+        const pagoTransBanc = await (await pool).query('select * from viewpagotrasnbanc where idpersona = ?', [id]);
+        const result = pagoTransBanc.length;
+        if (result > 0) {
+            return res.json(pagoTransBanc);
+        } else {
+            res.status(204).send({ message: 'No Datos' });
+        }
+    }
+    public async onGetPagoEfectivo(req: Request, res: Response): Promise<any> { // ver facturas pagadas echos en Efectivo
+        const { id } = req.params;
+        const pagoEfectivo = await (await pool).query('select * from viewpagoefectivo where idpersona = ?', [id]);
+        const result = pagoEfectivo.length;
+        if (result > 0) {
+            return res.json(pagoEfectivo);
+        } else {
+            res.status(204).send({ message: 'No Datos' });
+        }
+    }
 }
 const controllerConsultas = new ControllerConsultas();
 export default controllerConsultas;
