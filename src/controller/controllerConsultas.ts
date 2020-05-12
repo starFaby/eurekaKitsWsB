@@ -146,6 +146,26 @@ class ControllerConsultas {
             res.status(204).send({ message: 'No Datos' });
         }
     }
+    public async onGetFacturadv(req: Request, res: Response): Promise<any> { // ver facturas pagadas echos en Efectivo
+        const { id } = req.params;
+        const facturaDv = await (await pool).query('select * from viewFacturadv where numfactura =  ?', [id]);
+        const result = facturaDv.length;
+        if (result > 0) {
+            return res.json(facturaDv);
+        } else {
+            res.status(204).send({ message: 'No Datos' });
+        }
+    }
+    public async onGetFacturaTotal(req: Request, res: Response): Promise<any> { // ver facturas pagadas echos en Efectivo
+        const { id } = req.params;
+        const facturaTotal = await (await pool).query('select * from viewFacturaTotal where numfactura = ?', [id]);
+        const result = facturaTotal.length;
+        if (result > 0) {
+            return res.json(facturaTotal);
+        } else {
+            res.status(204).send({ message: 'No Datos' });
+        }
+    }
 }
 const controllerConsultas = new ControllerConsultas();
 export default controllerConsultas;

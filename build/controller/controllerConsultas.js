@@ -202,6 +202,32 @@ class ControllerConsultas {
             }
         });
     }
+    onGetFacturadv(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const facturaDv = yield (yield database_1.default).query('select * from viewFacturadv where numfactura =  ?', [id]);
+            const result = facturaDv.length;
+            if (result > 0) {
+                return res.json(facturaDv);
+            }
+            else {
+                res.status(204).send({ message: 'No Datos' });
+            }
+        });
+    }
+    onGetFacturaTotal(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const facturaTotal = yield (yield database_1.default).query('select * from viewFacturaTotal where numfactura = ?', [id]);
+            const result = facturaTotal.length;
+            if (result > 0) {
+                return res.json(facturaTotal);
+            }
+            else {
+                res.status(204).send({ message: 'No Datos' });
+            }
+        });
+    }
 }
 const controllerConsultas = new ControllerConsultas();
 exports.default = controllerConsultas;

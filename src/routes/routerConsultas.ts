@@ -23,6 +23,8 @@ class RouterConsultas {
         this.router.get('/pagopaypal/:id', controllerConsultas.onGetPagoPaypal); // muestra el pago final de paypal
         this.router.get('/pagotransbanc/:id', controllerConsultas.onGetPagoTransBanc); // muestra el pago final de Transfer bancaria
         this.router.get('/pagoefectivo/:id', controllerConsultas.onGetPagoEfectivo); // muestra el pago final de efectivo
+        this.router.get('/facturadv/:id', controllerConsultas.onGetFacturadv); // muestra los detalles final en el pdf
+        this.router.get('/facturatotal/:id', controllerConsultas.onGetFacturaTotal); // muestra el pago total final en el pdf
     }
 }
 const routerConsultas =  new RouterConsultas();
