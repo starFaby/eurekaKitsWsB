@@ -14,6 +14,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
 class ControllerConsultas {
+    onGetCategoria(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const personall = yield (yield database_1.default).query('select * from viewcategoria where estado = 1'); // lista a la persona para la cabecera de la factura
+            if (personall.length > 0) {
+                return res.json(personall);
+            }
+            else {
+                res.status(204).json({ message: 'No Datos' });
+            }
+        });
+    }
+    onGetPersona(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const personall = yield (yield database_1.default).query('select * from viewpersona where estado = 1'); // lista a la persona para la cabecera de la factura
+            if (personall.length > 0) {
+                return res.json(personall);
+            }
+            else {
+                res.status(204).json({ message: 'No Datos' });
+            }
+        });
+    }
     listOnePDT(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;

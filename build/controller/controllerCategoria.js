@@ -38,7 +38,8 @@ class ControllerCategoria {
             const newCategoria = {
                 nombre: nombre,
                 image: '/uploads/' + filename,
-                estado: estado
+                estado: estado,
+                created_at: new Date
             };
             console.log(newCategoria);
             yield (yield database_1.default).query('INSERT INTO categoria SET ?', [newCategoria]);
@@ -50,13 +51,11 @@ class ControllerCategoria {
             const { id } = req.params;
             const { nombre, estado } = req.body;
             const { filename } = req.file;
-            console.log('======> ', filename);
             let newCategoria = {
                 nombre: nombre,
                 image: '/uploads/' + filename,
                 estado: estado
             };
-            console.log('======> ', newCategoria);
             yield (yield database_1.default).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
             res.json({ message: 'update Categoria' });
         });
@@ -64,8 +63,18 @@ class ControllerCategoria {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM categoria WHERE idcategoria=?', [id]);
-            res.json({ message: 'delete Categoria' });
+            const { estado } = req.body;
+            let newCategoria = {
+                estado: estado
+            };
+            const categoriaPut = yield (yield database_1.default).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
+            const result = categoriaPut.affectedRows;
+            if (result > 0) {
+                res.status(200).send({ message: 'Categoria Delete' });
+            }
+            else {
+                res.status(204).send({ message: 'Error al Delete' });
+            }
         });
     }
 }

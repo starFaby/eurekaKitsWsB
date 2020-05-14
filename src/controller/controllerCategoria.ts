@@ -21,7 +21,8 @@ class ControllerCategoria {
         const newCategoria: Categoria = {
             nombre: nombre,
             image: '/uploads/'+filename,
-            estado: estado
+            estado: estado,
+            created_at: new Date
         };
         console.log(newCategoria);
         await (await pool).query('INSERT INTO categoria SET ?', [newCategoria]);
@@ -31,20 +32,27 @@ class ControllerCategoria {
         const { id } = req.params;
         const { nombre, estado } = req.body;
         const { filename } = req.file;
-        console.log('======> ', filename);
         let newCategoria: Categoria = {
             nombre: nombre,
             image: '/uploads/' + filename,
             estado: estado
         };
-        console.log('======> ', newCategoria);
         await (await pool).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
         res.json({ message: 'update Categoria' })
     }
     public async delete(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        await (await pool).query('DELETE FROM categoria WHERE idcategoria=?', [id]);
-        res.json({ message: 'delete Categoria' })
+        const { estado } = req.body;
+        let newCategoria: Categoria = {
+            estado: estado
+        }
+        const categoriaPut = await (await pool).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
+        const result = categoriaPut.affectedRows;
+        if(result > 0){
+            res.status(200).send({message: 'Categoria Delete'});
+        } else {
+            res.status(204).send({message: 'Error al Delete'});
+        }
     }
 }
 const controllerCategoria = new ControllerCategoria();

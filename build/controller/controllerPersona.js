@@ -13,13 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
+const helpers_1 = __importDefault(require("../libs/helpers"));
 class ControllerPersona {
-    listAll(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const persona = yield (yield database_1.default).query('SELECT * FROM persona');
-            res.json(persona);
-        });
-    }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
@@ -27,7 +22,9 @@ class ControllerPersona {
             if (personaOne.length > 0) {
                 return res.json(personaOne[0]);
             }
-            res.status(404).json({ text: 'the Persona not exist' });
+            else {
+                return res.status(204).send({ message: 'No Datos' });
+            }
         });
     }
     create(req, res) {
@@ -48,8 +45,15 @@ class ControllerPersona {
                 created_at: new Date
             };
             console.log(newPersona);
-            yield (yield database_1.default).query('INSERT INTO persona SET ?', [newPersona]);
-            res.json({ message: 'Persona saved' });
+            newPersona.password = yield helpers_1.default.encriptPassword(password);
+            const persona = yield (yield database_1.default).query('INSERT INTO persona SET ?', [newPersona]);
+            const result = persona.insertId;
+            if (result > 0) {
+                res.status(200).send({ message: 'Persona Guardada' });
+            }
+            else {
+                res.status(204).send({ message: 'Error al Guardar' });
+            }
         });
     }
     update(req, res) {
@@ -69,15 +73,32 @@ class ControllerPersona {
                 estado: estado,
                 created_at: new Date
             };
-            yield (yield database_1.default).query('UPDATE  persona SET ? WHERE idpersona=?', [newPersona, id]);
-            res.json({ message: 'Update Persona' });
+            const personaPut = yield (yield database_1.default).query('UPDATE  persona SET ? WHERE idpersona=?', [newPersona, id]);
+            console.log(personaPut);
+            const result = personaPut.affectedRows;
+            if (result > 0) {
+                res.status(200).send({ message: 'Persona Actualizada' });
+            }
+            else {
+                res.status(204).send({ message: 'Error al Actualizada' });
+            }
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM persona WHERE idpersona=?', [id]);
-            res.json({ message: ' Person delete' });
+            const { estado } = req.body;
+            let newPersona = {
+                estado: estado
+            };
+            const personDel = yield (yield database_1.default).query('UPDATE  persona SET ? WHERE idpersona=?', [newPersona, id]);
+            const result = personDel.affectedRows;
+            if (result > 0) {
+                res.status(200).send({ message: 'Persona Delete' });
+            }
+            else {
+                res.status(204).send({ message: 'Error al Delete' });
+            }
         });
     }
 }

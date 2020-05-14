@@ -15,7 +15,7 @@ class RouterCategoria {
         this.router.get('/:id', controllerCategoria_1.default.listOne);
         this.router.post('/', controllerCategoria_1.default.create);
         this.router.put('/:id', controllerCategoria_1.default.update);
-        this.router.delete('/:id', controllerCategoria_1.default.delete);
+        this.router.put('/put/:id', controllerCategoria_1.default.delete);
     }
 }
 const routerCategoria = new RouterCategoria();

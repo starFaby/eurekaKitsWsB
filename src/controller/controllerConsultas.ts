@@ -1,6 +1,22 @@
 import { Request, Response } from 'express';
 import pool from '../database';
 class ControllerConsultas {
+    public async onGetCategoria(req: Request, res: Response): Promise<any> {
+        const personall = await (await pool).query('select * from viewcategoria where estado = 1'); // lista a la persona para la cabecera de la factura
+        if (personall.length > 0) {
+            return res.json(personall);
+        }else {
+            res.status(204).json({ message: 'No Datos'});
+        }
+    }
+    public async onGetPersona(req: Request, res: Response): Promise<any> {
+        const personall = await (await pool).query('select * from viewpersona where estado = 1'); // lista a la persona para la cabecera de la factura
+        if (personall.length > 0) {
+            return res.json(personall);
+        }else {
+            res.status(204).json({ message: 'No Datos'});
+        }
+    }
     public async listOnePDT(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         const pdtOne = await (await pool).query('select * from personapdt where idpersona = ?', [id]); // lista a la persona para la cabecera de la factura

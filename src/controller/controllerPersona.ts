@@ -1,18 +1,16 @@
 import { Request, Response } from 'express';
 import  { Persona }  from '../models/Persona';
 import pool from '../database';
+import helpers from '../libs/helpers'
 class ControllerPersona {
-    public async listAll(req: Request, res: Response) {
-        const persona = await (await pool).query('SELECT * FROM persona');
-        res.json(persona);
-    }
     public async listOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         const personaOne = await (await pool).query('SELECT * FROM persona WHERE idpersona=?', [id]);
         if (personaOne.length > 0) {
             return res.json(personaOne[0]);
+        }else{
+            return res.status(204).send({message: 'No Datos'});
         }
-        res.status(404).json({text: 'the Persona not exist'})
     }
     public async create(req: Request, res: Response): Promise<void> {
         const { idtelefono,iddireccion,cedula,nombres,apellidos,fechanacimiento,email,password,requerimiento,estado} = req.body;
@@ -31,8 +29,14 @@ class ControllerPersona {
             created_at: new Date
         };
         console.log(newPersona);
-        await (await pool).query('INSERT INTO persona SET ?', [newPersona]);
-        res.json({ message: 'Persona saved' });
+        newPersona.password = await helpers.encriptPassword(password);
+        const persona = await (await pool).query('INSERT INTO persona SET ?', [newPersona]);
+        const result = persona.insertId;
+        if(result > 0){
+            res.status(200).send({message: 'Persona Guardada'})
+        } else {
+            res.status(204).send({message: 'Error al Guardar'})
+        }
     }
     public async update(req: Request, res: Response) {
         const { id } = req.params;
@@ -50,13 +54,28 @@ class ControllerPersona {
             estado: estado,
             created_at: new Date
         }
-        await (await pool).query('UPDATE  persona SET ? WHERE idpersona=?', [newPersona, id]);
-        res.json({ message: 'Update Persona'})
+        const personaPut = await (await pool).query('UPDATE  persona SET ? WHERE idpersona=?', [newPersona, id]);
+        console.log(personaPut);
+        const result = personaPut.affectedRows;
+        if(result > 0){
+            res.status(200).send({message: 'Persona Actualizada'});
+        } else {
+            res.status(204).send({message: 'Error al Actualizada'});
+        }
     }
     public async delete(req: Request, res: Response) {
         const { id } = req.params;
-        await (await pool).query('DELETE FROM persona WHERE idpersona=?', [id]);
-        res.json({message: ' Person delete'})
+        const { estado } = req.body;
+        let newPersona: Persona = {
+            estado: estado
+        }
+        const personDel = await (await pool).query('UPDATE  persona SET ? WHERE idpersona=?', [newPersona, id]);
+        const result = personDel.affectedRows;
+        if(result > 0){
+            res.status(200).send({message: 'Persona Delete'});
+        } else {
+            res.status(204).send({message: 'Error al Delete'});
+        }
     }
 }
 const controllerPersona = new ControllerPersona();

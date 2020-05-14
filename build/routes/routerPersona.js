@@ -11,11 +11,10 @@ class RouterPersona {
         this.config();
     }
     config() {
-        this.router.get('/', controllerPersona_1.default.listAll);
         this.router.get('/:id', controllerPersona_1.default.listOne);
         this.router.post('/', controllerPersona_1.default.create);
         this.router.put('/:id', controllerPersona_1.default.update);
-        this.router.delete('/:id', controllerPersona_1.default.delete);
+        this.router.put('/put/:id', controllerPersona_1.default.delete);
     }
 }
 const routerPersona = new RouterPersona();

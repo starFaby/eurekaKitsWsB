@@ -11,6 +11,8 @@ class RouterConsultas {
         this.config();
     }
     config() {
+        this.router.get('/categoria', controllerConsultas_1.default.onGetCategoria);
+        this.router.get('/pers', controllerConsultas_1.default.onGetPersona);
         this.router.get('/pdt/:id', controllerConsultas_1.default.listOnePDT);
         this.router.get('/promopp', controllerConsultas_1.default.promocionPP);
         this.router.get('/promoppi', controllerConsultas_1.default.promocionPPI);
