@@ -27,6 +27,10 @@ class RouterConsultas {
         this.router.get('/pagoefectivo/:id', controllerConsultas.onGetPagoEfectivo); // muestra el pago final de efectivo
         this.router.get('/facturadv/:id', controllerConsultas.onGetFacturadv); // muestra los detalles final en el pdf
         this.router.get('/facturatotal/:id', controllerConsultas.onGetFacturaTotal); // muestra el pago total final en el pdf
+        this.router.get('/reportpers', controllerConsultas.onGetReportPersona); // muestra el reporte persona en pdf
+        this.router.get('/reportcateg', controllerConsultas.onGetReportCategoria); // muestra el reporte categoria en pdf
+        this.router.get('/reportprod', controllerConsultas.onGetReportProducto); // muestra el reporte producto en pdf
+        this.router.get('/reportpromo', controllerConsultas.onGetReportPromociones); // muestra el reporte promocion en pdf
     }
 }
 const routerConsultas =  new RouterConsultas();

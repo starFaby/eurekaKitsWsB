@@ -182,6 +182,42 @@ class ControllerConsultas {
             res.status(204).send({ message: 'No Datos' });
         }
     }
+    public async onGetReportPersona(req: Request, res: Response): Promise<any> { // ver reporte de personas
+        const reportPersona = await (await pool).query('select * from viewreportpersona');
+        const result = reportPersona.length;
+        if (result > 0) {
+            return res.json(reportPersona);
+        } else {
+            res.status(204).send({ message: 'No Datos' });
+        }
+    }
+    public async onGetReportCategoria(req: Request, res: Response): Promise<any> { // ver reporte de Categorias
+        const reportCategoria = await (await pool).query('select * from viewreportcategoria');
+        const result = reportCategoria.length;
+        if (result > 0) {
+            return res.json(reportCategoria);
+        } else {
+            res.status(204).send({ message: 'No Datos' });
+        }
+    }
+    public async onGetReportProducto(req: Request, res: Response): Promise<any> { // ver reporte de producto
+        const reportProducto = await (await pool).query('select * from viewreportproducto');
+        const result = reportProducto.length;
+        if (result > 0) {
+            return res.json(reportProducto);
+        } else {
+            res.status(204).send({ message: 'No Datos' });
+        }
+    }
+    public async onGetReportPromociones(req: Request, res: Response): Promise<any> { // ver reporte de promociones
+        const reportPromo = await (await pool).query('select * from viewreportpromociones');
+        const result = reportPromo.length;
+        if (result > 0) {
+            return res.json(reportPromo);
+        } else {
+            res.status(204).send({ message: 'No Datos' });
+        }
+    }
 }
 const controllerConsultas = new ControllerConsultas();
 export default controllerConsultas;

@@ -250,6 +250,54 @@ class ControllerConsultas {
             }
         });
     }
+    onGetReportPersona(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const reportPersona = yield (yield database_1.default).query('select * from viewreportpersona');
+            const result = reportPersona.length;
+            if (result > 0) {
+                return res.json(reportPersona);
+            }
+            else {
+                res.status(204).send({ message: 'No Datos' });
+            }
+        });
+    }
+    onGetReportCategoria(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const reportCategoria = yield (yield database_1.default).query('select * from viewreportcategoria');
+            const result = reportCategoria.length;
+            if (result > 0) {
+                return res.json(reportCategoria);
+            }
+            else {
+                res.status(204).send({ message: 'No Datos' });
+            }
+        });
+    }
+    onGetReportProducto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const reportProducto = yield (yield database_1.default).query('select * from viewreportproducto');
+            const result = reportProducto.length;
+            if (result > 0) {
+                return res.json(reportProducto);
+            }
+            else {
+                res.status(204).send({ message: 'No Datos' });
+            }
+        });
+    }
+    onGetReportPromociones(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const reportPromo = yield (yield database_1.default).query('select * from viewreportpromociones');
+            const result = reportPromo.length;
+            if (result > 0) {
+                return res.json(reportPromo);
+            }
+            else {
+                res.status(204).send({ message: 'No Datos' });
+            }
+        });
+    }
 }
 const controllerConsultas = new ControllerConsultas();
 exports.default = controllerConsultas;
