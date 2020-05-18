@@ -4,15 +4,22 @@ import { Promocion } from '../models/Promocion';
 class ControllerPromo {
     public async listAll(req: Request, res: Response) {
         const promo = await (await pool).query('SELECT * FROM promociones');
-        res.json(promo);
+        const result = promo.length;
+        if (result.length > 0) {
+            return res.json(promo);
+        }else{
+            return res.status(204).send({ message: 'No Encontrado' })
+        }
     }
     public async listOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         const promoOne = await (await pool).query('SELECT * FROM promociones WHERE idpromociones=?', [id]);
-        if (promoOne.length > 0) {
-            return res.json(promoOne[0]);
+        const result = promoOne.length;
+        if (result.length > 0) {
+            return res.json(promoOne);
+        }else{
+            return res.status(204).send({ message: 'No Encontrado' })
         }
-        res.status(404).json({ text: 'the promise not exist' })
     }
     public async create(req: Request, res: Response): Promise<any> {
         const { idproducto, dto, fechainicio, fechafin, descripcion, estado,} = req.body;
@@ -25,9 +32,13 @@ class ControllerPromo {
             estado: estado,
             created_at: new Date            
         };
-        await (await pool).query('INSERT INTO promociones SET ?', [newPromo]);
-        ;
-        res.json({ message: 'Promociones saved ' });
+        const promo = await (await pool).query('INSERT INTO promociones SET ?', [newPromo]);
+        const result = promo.insertId;
+        if(result > 0){
+            return res.status(200).send({ message: 'Registrado' })
+        }else{
+            return res.status(204).send({ message: 'No Registrado' })
+        }
     }
     public async update(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
@@ -41,8 +52,13 @@ class ControllerPromo {
             estado: estado,
             created_at: new Date            
         };
-        await (await pool).query('UPDATE  promociones SET ? WHERE idpromociones=?', [newPromo, id]);
-        res.json({ message: 'update Producto' })
+        const promo = await (await pool).query('UPDATE  promociones SET ? WHERE idpromociones=?', [newPromo, id]);
+        const result = promo.affectedRows;
+        if(result > 0){
+            return res.status(200).send({message: 'Actualizado'});
+        } else {
+            return res.status(204).send({message: 'No Actualizado'});
+        }
     }
     public async delete(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
@@ -50,8 +66,13 @@ class ControllerPromo {
         let newPromo: Promocion = {
             estado: estado,
         };
-        await (await pool).query('UPDATE  promociones SET ? WHERE idpromociones=?', [newPromo, id]);
-        res.json({ message: 'delete Promociones' })
+        const promo = await (await pool).query('UPDATE  promociones SET ? WHERE idpromociones=?', [newPromo, id]);
+        const result = promo.affectedRows;
+        if (result > 0) {
+            return res.status(200).send({ message: 'Eliminado' });
+        } else {
+            return res.status(204).send({ message: 'No Eliminado' });
+        }
     }
 }
 const controllerPromo = new ControllerPromo();

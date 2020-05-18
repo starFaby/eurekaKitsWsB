@@ -40,19 +40,18 @@ class ControllerPaypalBuy {
                 const newPayment = payment.links;
                 newPayment?.map((t) => {
                     if (t.rel === 'approval_url') {
-                        console.log(t.href);
                         const newLInk = t.href
-                        res.status(200).send({ newLInk })
+                        return res.status(200).send({ newLInk })
                     }
                 });
             }
         });
     }
 
-    public success(req: Request, res: Response){
+    public success(req: Request, res: Response) {
         res.send('Exito al comprar')
     }
-    public cancel(req: Request, res: Response){
+    public cancel(req: Request, res: Response) {
         res.send('Error al comprar')
     }
 }

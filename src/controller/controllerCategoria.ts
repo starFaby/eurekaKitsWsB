@@ -4,29 +4,40 @@ import { Categoria } from '../models/Categoria';
 class ControllerCategoria {
     public async listAll(req: Request, res: Response) {
         const cliente = await (await pool).query('SELECT * FROM categoria');
-        res.json(cliente);
+        const result = cliente.length;
+        if (result.length > 0) {
+            return res.json(cliente);
+        } else {
+            return res.status(204).send({ message: 'No Encontrado' })
+        }
     }
     public async listOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         const clienteOne = await (await pool).query('SELECT * FROM categoria WHERE idcategoria=?', [id]);
-        if (clienteOne.length > 0) {
-            return res.json(clienteOne[0]);
+        const result = clienteOne.length;
+        if (result.length > 0) {
+            return res.json(clienteOne);
+        } else {
+            return res.status(204).send({ message: 'No Encontrado' })
         }
-        res.status(404).json({ text: 'the client not exist' })
     }
     public async create(req: Request, res: Response): Promise<any> {
         const { nombre, estado } = req.body;
-         const { filename } = req.file;
+        const { filename } = req.file;
         console.log(filename);
         const newCategoria: Categoria = {
             nombre: nombre,
-            image: '/uploads/'+filename,
+            image: '/uploads/' + filename,
             estado: estado,
             created_at: new Date
         };
-        console.log(newCategoria);
-        await (await pool).query('INSERT INTO categoria SET ?', [newCategoria]);
-        res.json({ message: 'Categoria saved v' });
+        const newCate = await (await pool).query('INSERT INTO categoria SET ?', [newCategoria]);
+        const result = newCate.insertId;
+        if (result > 0) {
+            return res.status(200).send({ message: 'Registrado' })
+        } else {
+            return res.status(204).send({ message: 'No Registrado' })
+        }
     }
     public async update(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
@@ -37,8 +48,13 @@ class ControllerCategoria {
             image: '/uploads/' + filename,
             estado: estado
         };
-        await (await pool).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
-        res.json({ message: 'update Categoria' })
+        const categoriaPut = await (await pool).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
+        const result = categoriaPut.affectedRows;
+        if (result > 0) {
+            return res.status(200).send({ message: 'Actualizado' });
+        } else {
+            return res.status(204).send({ message: 'No Actualizado' });
+        }
     }
     public async delete(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
@@ -48,10 +64,10 @@ class ControllerCategoria {
         }
         const categoriaPut = await (await pool).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
         const result = categoriaPut.affectedRows;
-        if(result > 0){
-            res.status(200).send({message: 'Categoria Delete'});
+        if (result > 0) {
+            return res.status(200).send({ message: 'Eliminado' });
         } else {
-            res.status(204).send({message: 'Error al Delete'});
+            return res.status(204).send({ message: 'No Eliminado' });
         }
     }
 }

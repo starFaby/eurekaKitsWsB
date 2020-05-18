@@ -8,18 +8,18 @@ class ControllerTrasnferenciaBancaria {
         const { filename } = req.file;
         let newTrasnferenciaBancaria: TrasnferenciaBancaria = {
             idformapago: idformapago,
-            numfactura: numfactura, 
+            numfactura: numfactura,
             preciofactura: preciofactura,
-            image: '/uploads/'+filename,
+            image: '/uploads/' + filename,
             estado: estado,
             created_at: new Date
         };
         const transferenciabancaria = await (await pool).query('INSERT INTO transferenciabancaria SET ?', [newTrasnferenciaBancaria]);
         const result = transferenciabancaria.insertId;
-        if(result > 0){
-            res.status(200).send({message: 'Registro exitoso'});
-        }else {
-            res.status(404).send({message: 'Error exitoso'});
+        if (result > 0) {
+            return res.status(200).send({ message: 'Registrado' })
+        } else {
+            return res.status(204).send({ message: 'No Registrado' })
         }
     }
 }

@@ -3,142 +3,165 @@ import pool from '../database';
 class ControllerConsultas {
     public async onGetCategoria(req: Request, res: Response): Promise<any> {
         const categoriall = await (await pool).query('select * from viewcategoria where estado = 1'); // lista a la persona para la cabecera de la factura
-        if (categoriall.length > 0) {
+        const result = categoriall.length;
+        if (result > 0) {
             return res.json(categoriall);
         }else {
-            res.status(204).json({ message: 'No Datos'});
+            return res.status(204).json({ message: 'No Encontrado'});
         }
     }
     public async onGetProducto(req: Request, res: Response): Promise<any> {
         const productoall = await (await pool).query('select * from viewproducto where estado = 1'); // lista a la persona para la cabecera de la factura
-        if (productoall.length > 0) {
+        const result = productoall.length;
+        if (result > 0) {
             return res.json(productoall);
         }else {
-            res.status(204).json({ message: 'No Datos'});
+            return res.status(204).json({ message: 'No Encontrado'});
         }
     }
     public async onGetPersona(req: Request, res: Response): Promise<any> {
         const personall = await (await pool).query('select * from viewpersona where estado = 1'); // lista a la persona para la cabecera de la factura
-        if (personall.length > 0) {
+        const result = personall.length;
+        if (result > 0) {
             return res.json(personall);
         }else {
-            res.status(204).json({ message: 'No Datos'});
+            return res.status(204).json({ message: 'No Encontrado'});
         }
     }
     public async listOnePDT(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         const pdtOne = await (await pool).query('select * from personapdt where idpersona = ?', [id]); // lista a la persona para la cabecera de la factura
-        if (pdtOne.length > 0) {
-            console.log(pdtOne)
+        const result = pdtOne.length;
+        if (result > 0) {
             return res.json(pdtOne);
+        }else {
+            return res.status(204).json({ message: 'No Encontrado'});
         }
-        res.status(404).json({ text: 'the consutl pers_Direcc_Tele not exist' })
     }
     public async productouni(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const pdtOne = await (await pool).query('select * from viewproductouni where idproducto = ?', [id]);// para visualizar las promociones administrador
-        if (pdtOne.length > 0) {
-            return res.json(pdtOne);
+        const prodOne = await (await pool).query('select * from viewproductouni where idproducto = ?', [id]);// para visualizar las promociones administrador
+        const result = prodOne.length;
+        if (result > 0) {
+            return res.json(prodOne);
+        }else {
+            return res.status(204).json({ message: 'No Encontrado'});
         }
-        res.status(404).json({ text: 'the consutl promocion_producto not exist' })
     }
     public async promocionPP(req: Request, res: Response): Promise<any> {
-        const pdtOne = await (await pool).query('select * from viewpromocionespp where estado = 1');// para visualizar las promociones administrador
-        if (pdtOne.length > 0) {
-            return res.json(pdtOne);
-        }else{
-            res.status(204).send({ message: 'No Promociones' })
+        const promopp = await (await pool).query('select * from viewpromocionespp where estado = 1');// para visualizar las promociones administrador
+        const result = promopp.length;
+        if (result > 0) {
+            return res.json(promopp);
+        }else {
+            return res.status(204).json({ message: 'No Encontrado'});
         }
     }
     public async promocionPPI(req: Request, res: Response): Promise<any> {
-        const pdtOne = await (await pool).query('select * from viewpromocionesppi');// para visualizar las promociones administrador
-        if (pdtOne.length > 0) {
-            return res.json(pdtOne);
-        } else {
-            res.status(204).send({ message: 'No Promociones' })
+        const promoppi = await (await pool).query('select * from viewpromocionesppi');// para visualizar las promociones administrador
+        const result = promoppi.length;
+        if (result > 0) {
+            return res.json(promoppi);
+        }else {
+            return res.status(204).json({ message: 'No Encontrado'});
         }
     }
     public async promocionUni(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const pUniOne = await (await pool).query('select * from viewpromocionesppuni where idpromociones = ?', [id]);// para visualizar las promociones administrador
-        if (pUniOne.length > 0) {
-            return res.json(pUniOne);
+        const promouni = await (await pool).query('select * from viewpromocionesppuni where idpromociones = ?', [id]);// para visualizar las promociones administrador
+        const result = promouni.length;
+        if (result > 0) {
+            return res.json(promouni);
+        }else {
+            return res.status(204).json({ message: 'No Encontrado'});
         }
-        res.status(404).json({ text: 'the consutl promocion_producto not exist' });
     }
     public async detalleVentadvp(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const pdtOne = await (await pool).query('select * from viewdetalleventadvp where  idfactura = ? ', [id]);// para visualizar detalle ventas con id de producto con su nombre
-        if (pdtOne.length > 0) {
-            return res.json(pdtOne);
-        } else {
-            return res.status(204).send({message: 'NO Datos'});
+        const detalledvp = await (await pool).query('select * from viewdetalleventadvp where  idfactura = ? ', [id]);// para visualizar detalle ventas con id de producto con su nombre
+        const result = detalledvp.length;
+        if (result > 0) {
+            return res.json(detalledvp);
+        }else {
+            return res.status(204).json({ message: 'No Encontrado'});
         }
     }
     public async onGetNumFactura(req: Request, res: Response): Promise<any> {
         const numFact = await (await pool).query('SELECT MAX(factura.numfactura)+1 AS numfactura FROM factura');// para visualizar detalle ventas con id de producto con su nombre
-        return res.json(numFact);
-        // res.status(404).json({text: 'the consutl promocion_producto not exist'})
+        const result = numFact.length;
+        if (result > 0) {
+            return res.json(numFact);
+        }else {
+            return res.status(204).json({ message: 'No Encontrado'});
+        }
     }
     public async onGetIdFactura(req: Request, res: Response): Promise<any> {
         const idFact = await (await pool).query('SELECT MAX(factura.idfactura)+1 AS idfactura  FROM factura');// para visualizar detalle ventas con id de producto con su nombre
-        return res.json(idFact);
-        // res.status(404).json({text: 'the consutl promocion_producto not exist'})
+        const result = idFact.length;
+        if (result > 0) {
+            return res.json(idFact);
+        }else {
+            return res.status(204).json({ message: 'No Encontrado'});
+        }
     }
 
     public async onGetPersonaFactura(req: Request, res: Response): Promise<any> { // visualizar que cada persona tiene sus propias facturas
         const { id } = req.params;
         const personaFactura = await (await pool).query('select * from viewpersonafactura where estado = 1 AND idpersona = ? ', [id]);// para visualizar detalle ventas con id de producto con su nombre
-        if (personaFactura.length > 0) {
+        const result = personaFactura.length;
+        if (result > 0) {
             return res.json(personaFactura);
-        } else {
-            return res.status(204).send({ message: 'No Datos' });
+        }else {
+            return res.status(204).json({ message: 'No Encontrado'});
         }
     }
     public async onGetTipoPago(req: Request, res: Response): Promise<any> { // ver transferencia paypal efectivo
         const tipopago = await (await pool).query('SELECT * FROM viewtipopago');// para visualizar detalle ventas con id de producto con su nombre
-        console.log(tipopago);
-        return res.json(tipopago);
-        // res.status(404).json({text: 'the consutl promocion_producto not exist'})
+        const result = tipopago.length;
+        if (result > 0) {
+            return res.json(tipopago);
+        }else {
+            return res.status(204).json({ message: 'No Encontrado'});
+        }
     }
     public async onGetPagoFactPaypal(req: Request, res: Response): Promise<any> { // ver facturas de tipo paypal
         const { id } = req.params;
-        const pfpaypal = await (await pool).query('select * from viewpagofactptbe where idtipopago = 1 AND estado = 1 AND idpersona = ?', [id]);// para visualizar solo las facturas de tipo paypal
+        const pfpaypal = await (await pool).query('select * from viewpagofactptbe where idtipopago = 1 AND estado = 1 AND idpersona = ?', [id]);
         const result = pfpaypal.length;
         if (result > 0) {
             return res.json(pfpaypal);
         } else {
-            return res.status(204).send({ message: 'No Datos' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
     public async onGetPagoFactTransBanc(req: Request, res: Response): Promise<any> { // ver facturas de tipo transferencia bancaria
         const { id } = req.params;
-        const pftransbanc = await (await pool).query('select * from viewpagofactptbe where idtipopago = 2 AND estado = 1 AND idpersona = ?', [id]);// para visualizar solo las facturas de tipo paypal
+        const pftransbanc = await (await pool).query('select * from viewpagofactptbe where idtipopago = 2 AND estado = 1 AND idpersona = ?', [id]);
         const result = pftransbanc.length;
         if (result > 0) {
             return res.json(pftransbanc);
         } else {
-            return res.status(204).send({ message: 'No Datos' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
     public async onGetPagoFactEfectivo(req: Request, res: Response): Promise<any> { // ver facturas de tipo efectivo
         const { id } = req.params;
-        const pfefectivo = await (await pool).query('select * from viewpagofactptbe where idtipopago = 3 AND estado = 1 AND idpersona = ?', [id]);// para visualizar solo las facturas de tipo paypal
+        const pfefectivo = await (await pool).query('select * from viewpagofactptbe where idtipopago = 3 AND estado = 1 AND idpersona = ?', [id]);
         const result = pfefectivo.length;
         if (result > 0) {
             return res.json(pfefectivo);
         } else {
-            return res.status(204).send({ message: 'No Datos' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
-    public async onGetPagoFactIndiv(req: Request, res: Response): Promise<any> { // ver por el numero de factura para guardar en paypal tranferencia bancaria y efectivo
+    public async onGetPagoFactIndiv(req: Request, res: Response): Promise<any> { // ver por el numero de factura en la forma de pago para guardar en paypal tranferencia bancaria y efectivo
         const { id } = req.params;
-        const pfefectivoindiv = await (await pool).query('select * from viewformapagopy where numfactura = ?', [id]);// para visualizar solo las facturas de tipo paypal
+        const pfefectivoindiv = await (await pool).query('select * from viewformapagopy where numfactura = ?', [id]);
         const result = pfefectivoindiv.length;
         if (result > 0) {
             return res.json(pfefectivoindiv);
         } else {
-            res.status(404).send({ message: 'Error' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
     public async onGetPagoPaypal(req: Request, res: Response): Promise<any> { // ver facturas pagadas echos en paypal
@@ -148,7 +171,7 @@ class ControllerConsultas {
         if (result > 0) {
             return res.json(pagoPaypal);
         } else {
-            res.status(204).send({ message: 'No Datos' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
     public async onGetPagoTransBanc(req: Request, res: Response): Promise<any> { // ver facturas pagadas echos en Transferencia Bancaria
@@ -158,7 +181,7 @@ class ControllerConsultas {
         if (result > 0) {
             return res.json(pagoTransBanc);
         } else {
-            res.status(204).send({ message: 'No Datos' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
     public async onGetPagoEfectivo(req: Request, res: Response): Promise<any> { // ver facturas pagadas echos en Efectivo
@@ -168,7 +191,7 @@ class ControllerConsultas {
         if (result > 0) {
             return res.json(pagoEfectivo);
         } else {
-            res.status(204).send({ message: 'No Datos' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
     public async onGetFacturadv(req: Request, res: Response): Promise<any> { // ver facturas pagadas echos en Efectivo
@@ -178,7 +201,7 @@ class ControllerConsultas {
         if (result > 0) {
             return res.json(facturaDv);
         } else {
-            res.status(204).send({ message: 'No Datos' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
     public async onGetFacturaTotal(req: Request, res: Response): Promise<any> { // ver facturas pagadas echos en Efectivo
@@ -188,7 +211,7 @@ class ControllerConsultas {
         if (result > 0) {
             return res.json(facturaTotal);
         } else {
-            res.status(204).send({ message: 'No Datos' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
     public async onGetReportPersona(req: Request, res: Response): Promise<any> { // ver reporte de personas
@@ -197,7 +220,7 @@ class ControllerConsultas {
         if (result > 0) {
             return res.json(reportPersona);
         } else {
-            res.status(204).send({ message: 'No Datos' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
     public async onGetReportCategoria(req: Request, res: Response): Promise<any> { // ver reporte de Categorias
@@ -206,7 +229,7 @@ class ControllerConsultas {
         if (result > 0) {
             return res.json(reportCategoria);
         } else {
-            res.status(204).send({ message: 'No Datos' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
     public async onGetReportProducto(req: Request, res: Response): Promise<any> { // ver reporte de producto
@@ -215,7 +238,7 @@ class ControllerConsultas {
         if (result > 0) {
             return res.json(reportProducto);
         } else {
-            res.status(204).send({ message: 'No Datos' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
     public async onGetReportPromociones(req: Request, res: Response): Promise<any> { // ver reporte de promociones
@@ -224,7 +247,7 @@ class ControllerConsultas {
         if (result > 0) {
             return res.json(reportPromo);
         } else {
-            res.status(204).send({ message: 'No Datos' });
+            return res.status(204).send({ message: 'No Encontrado' });
         }
     }
 }

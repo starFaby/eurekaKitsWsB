@@ -15,9 +15,9 @@ class ControllerPaypal {
         const paypal = await (await pool).query('INSERT INTO paypal SET ?', [newPaypal]);
         const result = paypal.insertId;
         if(result > 0){
-            res.status(200).send({message: 'Registro exitoso'});
-        }else {
-            res.status(404).send({message: 'Error exitoso'});
+            return res.status(200).send({ message: 'Registrado' })
+        }else{
+            return res.status(204).send({ message: 'No Registrado' })
         }
     }
 }

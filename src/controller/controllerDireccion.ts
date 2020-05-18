@@ -1,21 +1,28 @@
 import { Request, Response } from 'express';
-import  { Direccion }  from '../models/Direccion';
+import { Direccion } from '../models/Direccion';
 import pool from '../database';
 class ControllerDireccion {
     public async listAll(req: Request, res: Response) {
         const direccion = await (await pool).query('SELECT * FROM direccion');
-        res.json(direccion);
+        const result = direccion.length;
+        if (result.length > 0) {
+            return res.json(direccion);
+        } else {
+            return res.status(204).send({ message: 'No Encontrado' })
+        }
     }
     public async listOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         const direccionOne = await (await pool).query('SELECT * FROM direccion WHERE iddireccion=?', [id]);
-        if (direccionOne.length > 0) {
-            return res.json(direccionOne[0]); 
+        const result = direccionOne.length;
+        if (result.length > 0) {
+            return res.json(direccionOne);
+        } else {
+            return res.status(204).send({ message: 'No Encontrado' })
         }
-        res.status(404).json({text: 'the Persona not exist'})
     }
-    public async create(req: Request, res: Response): Promise<void> {
-        const { domisoci, provincia,canton,parroquia,sector,calleprincipal,numeracion,callesecundaria,descripcion,estado} = req.body;
+    public async create(req: Request, res: Response): Promise<any> {
+        const { domisoci, provincia, canton, parroquia, sector, calleprincipal, numeracion, callesecundaria, descripcion, estado } = req.body;
         let newDireccion: Direccion = {
             domisoci: domisoci,
             provincia: provincia,
@@ -29,14 +36,17 @@ class ControllerDireccion {
             estado: estado,
             created_at: new Date
         }
-        await (await pool).query('INSERT INTO direccion SET ?', [newDireccion]);
-        res.json({ message: 'Direccion saved' });
+        const direccion = await (await pool).query('INSERT INTO direccion SET ?', [newDireccion]);
+        const result = direccion.insertId;
+        if (result > 0) {
+            return res.status(200).send({ message: 'Registrado' })
+        } else {
+            return res.status(204).send({ message: 'No Registrado' })
+        }
     }
     public async update(req: Request, res: Response) {
         const { id } = req.params;
-        const {domisoci, provincia,canton,parroquia,sector,calleprincipal,numeracion,callesecundaria,descripcion,estado} = req.body;
-        console.log(req.body);
-        
+        const { domisoci, provincia, canton, parroquia, sector, calleprincipal, numeracion, callesecundaria, descripcion, estado } = req.body;
         let newDireccion: Direccion = {
             domisoci: domisoci,
             provincia: provincia,
@@ -50,13 +60,23 @@ class ControllerDireccion {
             estado: estado,
             created_at: new Date
         }
-        await (await pool).query('UPDATE  direccion SET ? WHERE iddireccion=?', [newDireccion, id]);
-        res.json({ message: 'Update Direccion'})
+        const direccion = await (await pool).query('UPDATE  direccion SET ? WHERE iddireccion=?', [newDireccion, id]);
+        const result = direccion.affectedRows;
+        if (result > 0) {
+            return res.status(200).send({ message: 'Actualizado' });
+        } else {
+            return res.status(204).send({ message: 'No Actualizado' });
+        }
     }
     public async delete(req: Request, res: Response) {
         const { id } = req.params;
-        await (await pool).query('DELETE FROM direccion WHERE iddireccion=?', [id]);
-        res.json({message: ' Direccion delete'})
+        const direccion = await (await pool).query('DELETE FROM direccion WHERE iddireccion=?', [id]);
+        const result = direccion.affectedRows;
+        if (result > 0) {
+            return res.status(200).send({ message: 'Eliminado' });
+        } else {
+            return res.status(204).send({ message: 'No Eliminado' });
+        }
     }
 }
 const controllerDireccion = new ControllerDireccion();

@@ -4,17 +4,24 @@ import pool from '../database';
 class ControllerTelefono {
     public async listAll(req: Request, res: Response) {
         const telefono = await (await pool).query('SELECT * FROM telefono');
-        res.json(telefono);
+        const result = telefono.length;
+        if (result.length > 0) {
+            return res.json(telefono);
+        }else{
+            return res.status(204).send({ message: 'No Encontrado' })
+        }
     }
     public async listOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         const telefonoOne = await (await pool).query('SELECT * FROM telefono WHERE idtelefono=?', [id]);
-        if (telefonoOne.length > 0) {
-            return res.json(telefonoOne[0]);
+        const result = telefonoOne.length;
+        if (result.length > 0) {
+            return res.json(telefonoOne);
+        }else{
+            return res.status(204).send({ message: 'No Encontrado' })
         }
-        res.status(404).json({text: 'the Telefono not exist'})
     }
-    public async create(req: Request, res: Response): Promise<void> {
+    public async create(req: Request, res: Response): Promise<any> {
         const { domisoci,convencional,celular1,celular2,estado} = req.body;
         let newTelefono: Telefono = {
             domisoci: domisoci,
@@ -24,8 +31,13 @@ class ControllerTelefono {
             estado: estado,
             created_at: new Date
         }
-        await (await pool).query('INSERT INTO telefono SET ?', [newTelefono]);
-        res.json({ message: 'Telefono saved' });
+        const telefono = await (await pool).query('INSERT INTO telefono SET ?', [newTelefono]);
+        const result = telefono.insertId;
+        if(result > 0){
+            return res.status(200).send({ message: 'Registrado' })
+        }else{
+            return res.status(204).send({ message: 'No Registrado' })
+        }
     }
     public async update(req: Request, res: Response) {
         const { id } = req.params;
@@ -38,13 +50,23 @@ class ControllerTelefono {
             estado: estado,
             created_at: new Date
         }
-        await (await pool).query('UPDATE  telefono SET ? WHERE idtelefono=?', [newTelefono, id]);
-        res.json({ message: 'Update Telefono'})
+        const telef =  await (await pool).query('UPDATE  telefono SET ? WHERE idtelefono=?', [newTelefono, id]);
+        const result = telef.affectedRows;
+        if(result > 0){
+            return res.status(200).send({message: 'Actualizado'});
+        } else {
+            return res.status(204).send({message: 'No Actualizado'});
+        }
     }
     public async delete(req: Request, res: Response) {
         const { id } = req.params;
-        await (await pool).query('DELETE FROM telefono WHERE idtelefono=?', [id]);
-        res.json({message: ' Telefono delete'})
+        const telef = await (await pool).query('DELETE FROM telefono WHERE idtelefono=?', [id]);
+        const result = telef.affectedRows;
+        if (result > 0) {
+            return res.status(200).send({ message: 'Eliminado' });
+        } else {
+            return res.status(204).send({ message: 'No Eliminado' });
+        }
     }
 }
 const controllerTelefono = new ControllerTelefono();

@@ -4,10 +4,12 @@ import { DetalleVenta } from '../models/DetalleVenta';
 class ControllerDetalleVenta {
     public async listAll(req: Request, res: Response) {
         const detalleVenta = await (await pool).query('SELECT * FROM detalleventas');
-        if (detalleVenta > 0) {
+        const result = detalleVenta.length;
+        if (result.length > 0) {
             return res.json(detalleVenta);
+        }else{
+            return res.status(204).send({ message: 'No Encontrado' })
         }
-        res.status(404).send('the consutl detalleventa not exist');
     }
     public async create(req: Request, res: Response): Promise<any> {
         const { idfactura, idproducto, cantidad, precio, total, estado } = req.body;
@@ -22,13 +24,23 @@ class ControllerDetalleVenta {
             created_at: new Date
         };
         console.log(newDetalleVenta);
-        await (await pool).query('INSERT INTO detalleventas SET ?', [newDetalleVenta]);
-        res.json({ message: 'Venta Saved' });
+        const detaventa = await (await pool).query('INSERT INTO detalleventas SET ?', [newDetalleVenta]);
+        const result = detaventa.insertId;
+        if(result > 0){
+            return res.status(200).send({ message: 'Registrado' })
+        }else{
+            return res.status(204).send({ message: 'No Registrado' })
+        }
     }
     public async delete(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        await (await pool).query('DELETE FROM detalleventas WHERE iddetalleventa=?', [id]);
-        res.json({ message: 'Venta Delete' })
+        const deletedt = await (await pool).query('DELETE FROM detalleventas WHERE iddetalleventa=?', [id]);
+        const result = deletedt.affectedRows;
+        if (result > 0) {
+            return res.status(200).send({ message: 'Eliminado' });
+        } else {
+            return res.status(204).send({ message: 'No Eliminado' });
+        }
     }
 }
 const controllerDetalleVenta = new ControllerDetalleVenta();
