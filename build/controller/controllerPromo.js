@@ -67,7 +67,11 @@ class ControllerPromo {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM promociones WHERE idpromociones=?', [id]);
+            const { estado } = req.body;
+            let newPromo = {
+                estado: estado,
+            };
+            yield (yield database_1.default).query('UPDATE  promociones SET ? WHERE idpromociones=?', [newPromo, id]);
             res.json({ message: 'delete Promociones' });
         });
     }

@@ -12,6 +12,7 @@ class RouterConsultas {
     }
     config() {
         this.router.get('/categoria', controllerConsultas_1.default.onGetCategoria);
+        this.router.get('/producto', controllerConsultas_1.default.onGetProducto);
         this.router.get('/pers', controllerConsultas_1.default.onGetPersona);
         this.router.get('/pdt/:id', controllerConsultas_1.default.listOnePDT);
         this.router.get('/promopp', controllerConsultas_1.default.promocionPP);

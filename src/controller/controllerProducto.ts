@@ -49,7 +49,11 @@ class ControllerProducto {
     }
     public async delete(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        await (await pool).query('DELETE FROM producto WHERE idproducto=?', [id]);
+        const { estado } = req.body;
+        const newProducto: Producto = {
+            estado: estado
+        };
+        await (await pool).query('UPDATE  producto SET ? WHERE idproducto=?', [newProducto,id]);
         res.json({ message: 'delete Producto' })
     }
 }

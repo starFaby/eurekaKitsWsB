@@ -69,7 +69,11 @@ class ControllerProducto {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM producto WHERE idproducto=?', [id]);
+            const { estado } = req.body;
+            const newProducto = {
+                estado: estado
+            };
+            yield (yield database_1.default).query('UPDATE  producto SET ? WHERE idproducto=?', [newProducto, id]);
             res.json({ message: 'delete Producto' });
         });
     }

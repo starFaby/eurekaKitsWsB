@@ -1,10 +1,10 @@
 export interface Producto {
-    idproducto?: number,
-    idcategoria: string,
-    nombre: string,
-    image: File | any,
-    precio: number,
-    stock: number,
-    estado: number,
+    idproducto?: any,
+    idcategoria?: any,
+    nombre?: any,
+    image?: File | any,
+    precio?: any,
+    stock?: any,
+    estado?: any,
     created_at?: Date,
 }

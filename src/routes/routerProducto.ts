@@ -10,7 +10,7 @@ class RouterProducto {
         this.router.get('/:id', controllerProducto.listOne);
         this.router.post('/', controllerProducto.create);
         this.router.put('/:id', controllerProducto.update);
-        this.router.delete('/:id', controllerProducto.delete);
+        this.router.put('/put/:id', controllerProducto.delete);
     }
 }
 const routerProducto =  new RouterProducto();

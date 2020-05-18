@@ -2,9 +2,17 @@ import { Request, Response } from 'express';
 import pool from '../database';
 class ControllerConsultas {
     public async onGetCategoria(req: Request, res: Response): Promise<any> {
-        const personall = await (await pool).query('select * from viewcategoria where estado = 1'); // lista a la persona para la cabecera de la factura
-        if (personall.length > 0) {
-            return res.json(personall);
+        const categoriall = await (await pool).query('select * from viewcategoria where estado = 1'); // lista a la persona para la cabecera de la factura
+        if (categoriall.length > 0) {
+            return res.json(categoriall);
+        }else {
+            res.status(204).json({ message: 'No Datos'});
+        }
+    }
+    public async onGetProducto(req: Request, res: Response): Promise<any> {
+        const productoall = await (await pool).query('select * from viewproducto where estado = 1'); // lista a la persona para la cabecera de la factura
+        if (productoall.length > 0) {
+            return res.json(productoall);
         }else {
             res.status(204).json({ message: 'No Datos'});
         }
@@ -35,11 +43,12 @@ class ControllerConsultas {
         res.status(404).json({ text: 'the consutl promocion_producto not exist' })
     }
     public async promocionPP(req: Request, res: Response): Promise<any> {
-        const pdtOne = await (await pool).query('select * from viewpromocionespp');// para visualizar las promociones administrador
+        const pdtOne = await (await pool).query('select * from viewpromocionespp where estado = 1');// para visualizar las promociones administrador
         if (pdtOne.length > 0) {
             return res.json(pdtOne);
+        }else{
+            res.status(204).send({ message: 'No Promociones' })
         }
-        res.status(404).json({ text: 'the consutl promocion_producto not exist' })
     }
     public async promocionPPI(req: Request, res: Response): Promise<any> {
         const pdtOne = await (await pool).query('select * from viewpromocionesppi');// para visualizar las promociones administrador

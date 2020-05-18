@@ -10,7 +10,7 @@ class RouterPromo {
         this.router.get('/:id', controllerPromo.listOne);
         this.router.post('/', controllerPromo.create);
         this.router.put('/:id', controllerPromo.update);
-        this.router.delete('/:id', controllerPromo.delete);
+        this.router.put('/put/:id', controllerPromo.delete);
     }
 }
 const routerPromo =  new RouterPromo();

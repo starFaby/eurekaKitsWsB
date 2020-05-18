@@ -7,6 +7,7 @@ class RouterConsultas {
     }
     config(): void{
         this.router.get('/categoria', controllerConsultas.onGetCategoria);
+        this.router.get('/producto', controllerConsultas.onGetProducto);
         this.router.get('/pers', controllerConsultas.onGetPersona);
         this.router.get('/pdt/:id', controllerConsultas.listOnePDT);
         this.router.get('/promopp', controllerConsultas.promocionPP);

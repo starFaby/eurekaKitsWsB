@@ -15,7 +15,7 @@ class RouterPromo {
         this.router.get('/:id', controllerPromo_1.default.listOne);
         this.router.post('/', controllerPromo_1.default.create);
         this.router.put('/:id', controllerPromo_1.default.update);
-        this.router.delete('/:id', controllerPromo_1.default.delete);
+        this.router.put('/put/:id', controllerPromo_1.default.delete);
     }
 }
 const routerPromo = new RouterPromo();

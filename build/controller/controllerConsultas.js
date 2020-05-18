@@ -16,9 +16,20 @@ const database_1 = __importDefault(require("../database"));
 class ControllerConsultas {
     onGetCategoria(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const personall = yield (yield database_1.default).query('select * from viewcategoria where estado = 1'); // lista a la persona para la cabecera de la factura
-            if (personall.length > 0) {
-                return res.json(personall);
+            const categoriall = yield (yield database_1.default).query('select * from viewcategoria where estado = 1'); // lista a la persona para la cabecera de la factura
+            if (categoriall.length > 0) {
+                return res.json(categoriall);
+            }
+            else {
+                res.status(204).json({ message: 'No Datos' });
+            }
+        });
+    }
+    onGetProducto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const productoall = yield (yield database_1.default).query('select * from viewproducto where estado = 1'); // lista a la persona para la cabecera de la factura
+            if (productoall.length > 0) {
+                return res.json(productoall);
             }
             else {
                 res.status(204).json({ message: 'No Datos' });
@@ -59,11 +70,13 @@ class ControllerConsultas {
     }
     promocionPP(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const pdtOne = yield (yield database_1.default).query('select * from viewpromocionespp'); // para visualizar las promociones administrador
+            const pdtOne = yield (yield database_1.default).query('select * from viewpromocionespp where estado = 1'); // para visualizar las promociones administrador
             if (pdtOne.length > 0) {
                 return res.json(pdtOne);
             }
-            res.status(404).json({ text: 'the consutl promocion_producto not exist' });
+            else {
+                res.status(204).send({ message: 'No Promociones' });
+            }
         });
     }
     promocionPPI(req, res) {
