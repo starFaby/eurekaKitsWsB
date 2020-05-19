@@ -5,7 +5,7 @@ class ControllerCateProdu {
         const { id } = req.params;
         const clienteOne = await (await pool).query('SELECT * FROM producto WHERE idcategoria=?', [id]);
         const result = clienteOne.length;
-        if (result.length > 0) {
+        if (result > 0) {
             return res.json(clienteOne);
         }else{
             return res.status(204).send({ message: 'No Encontrado' })

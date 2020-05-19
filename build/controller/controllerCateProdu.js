@@ -18,12 +18,12 @@ class ControllerCateProdu {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const clienteOne = yield (yield database_1.default).query('SELECT * FROM producto WHERE idcategoria=?', [id]);
-            console.log(clienteOne.length);
-            if (clienteOne.length > 0) {
+            const result = clienteOne.length;
+            if (result > 0) {
                 return res.json(clienteOne);
             }
             else {
-                return res.status(204).send({ message: 'No Productos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }

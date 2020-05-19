@@ -7,7 +7,7 @@ class ControllerPersona {
         const { id } = req.params;
         const personaOne = await (await pool).query('SELECT * FROM persona WHERE idpersona=?', [id]);
         const result = personaOne.length;
-        if (result.length > 0) {
+        if (result > 0) {
             return res.json(personaOne);
         }else{
             return res.status(204).send({ message: 'No Encontrado' })

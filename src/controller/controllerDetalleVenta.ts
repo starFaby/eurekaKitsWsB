@@ -5,7 +5,7 @@ class ControllerDetalleVenta {
     public async listAll(req: Request, res: Response) {
         const detalleVenta = await (await pool).query('SELECT * FROM detalleventas');
         const result = detalleVenta.length;
-        if (result.length > 0) {
+        if (result > 0) {
             return res.json(detalleVenta);
         }else{
             return res.status(204).send({ message: 'No Encontrado' })

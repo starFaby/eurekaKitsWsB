@@ -5,7 +5,7 @@ class ControllerDireccion {
     public async listAll(req: Request, res: Response) {
         const direccion = await (await pool).query('SELECT * FROM direccion');
         const result = direccion.length;
-        if (result.length > 0) {
+        if (result > 0) {
             return res.json(direccion);
         } else {
             return res.status(204).send({ message: 'No Encontrado' })
@@ -15,7 +15,7 @@ class ControllerDireccion {
         const { id } = req.params;
         const direccionOne = await (await pool).query('SELECT * FROM direccion WHERE iddireccion=?', [id]);
         const result = direccionOne.length;
-        if (result.length > 0) {
+        if (result > 0) {
             return res.json(direccionOne);
         } else {
             return res.status(204).send({ message: 'No Encontrado' })

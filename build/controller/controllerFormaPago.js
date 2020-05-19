@@ -23,14 +23,13 @@ class ControllerFormaPago {
                 estado: estado,
                 created_at: new Date
             };
-            console.log(newFormaPago);
             const fp = yield (yield database_1.default).query('INSERT INTO formapago SET ?', [newFormaPago]);
-            const result = fp.affectedRows;
+            const result = fp.insertId;
             if (result > 0) {
-                res.status(200).send({ message: 'Exito Guarado' });
+                return res.status(200).send({ message: 'Registrado' });
             }
             else {
-                res.status(404).send({ message: 'Error al registrar' });
+                return res.status(204).send({ message: 'No Registrado' });
             }
         });
     }
@@ -45,11 +44,10 @@ class ControllerFormaPago {
             const formaPagoEstado = yield (yield database_1.default).query('UPDATE  formapago SET ? WHERE idformapago=?', [newFormaPago, id]);
             const result = formaPagoEstado.affectedRows;
             if (result > 0) {
-                res.status(200).send({ message: 'Exito al actualizar' });
+                return res.status(200).send({ message: 'Actualizado' });
             }
             else {
-                res.status(404).send({ message: 'Error al actualizar' });
-                ;
+                return res.status(204).send({ message: 'No Actualizado' });
             }
         });
     }

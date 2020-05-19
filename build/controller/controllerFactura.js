@@ -17,7 +17,13 @@ class ControllerFactura {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const factura = yield (yield database_1.default).query('SELECT * FROM factura');
-            res.json(factura);
+            const result = factura.length;
+            if (result > 0) {
+                return res.json(factura);
+            }
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
         });
     }
     create(req, res) {
@@ -29,16 +35,13 @@ class ControllerFactura {
                 estado: estado,
                 created_at: new Date,
             };
-            console.log(newFactura);
             const newFactG = yield (yield database_1.default).query('INSERT INTO factura SET ?', [newFactura]);
-            const fact = (yield newFactG);
-            console.log(fact.insertId);
-            if (fact.insertId > 0) {
-                const idfactura = fact.insertId;
-                res.status(200).send({ idfactura });
+            const result = newFactG.insertId;
+            if (result > 0) {
+                return res.status(200).send({ result });
             }
             else {
-                res.status(404).send('ERROR AL REGISTRAR');
+                return res.status(204).send({ message: 'No Registrado' });
             }
         });
     }
@@ -56,11 +59,10 @@ class ControllerFactura {
             const fact = yield (yield database_1.default).query('UPDATE  factura SET ? WHERE idfactura=?', [newFactura, id]);
             const result = fact.affectedRows;
             if (result > 0) {
-                res.status(200).send({ message: 'Exito al actualizar' });
+                return res.status(200).send({ message: 'Actualizado' });
             }
             else {
-                res.status(404).send({ message: 'Error al actualizar' });
-                ;
+                return res.status(204).send({ message: 'No Actualizado' });
             }
         });
     }
@@ -71,15 +73,13 @@ class ControllerFactura {
             const newFactura = {
                 estado: estado,
             };
-            console.log(newFactura);
             const factEstado = yield (yield database_1.default).query('UPDATE  factura SET ? WHERE idfactura=?', [newFactura, id]);
             const result = factEstado.affectedRows;
             if (result > 0) {
-                res.status(200).send({ message: 'Exito al actualizar' });
+                return res.status(200).send({ message: 'Actualizado' });
             }
             else {
-                res.status(404).send({ message: 'Error al actualizar' });
-                ;
+                return res.status(204).send({ message: 'No Actualizado' });
             }
         });
     }

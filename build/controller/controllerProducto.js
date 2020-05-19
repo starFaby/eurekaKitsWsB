@@ -17,17 +17,26 @@ class ControllerProducto {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const producto = yield (yield database_1.default).query('SELECT * FROM producto');
-            res.json(producto);
+            const result = producto.length;
+            if (result > 0) {
+                return res.json(producto);
+            }
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const productoOne = yield (yield database_1.default).query('SELECT * FROM producto WHERE idproducto=?', [id]);
-            if (productoOne.length > 0) {
-                return res.json(productoOne[0]);
+            const result = productoOne.length;
+            if (result > 0) {
+                return res.json(productoOne);
             }
-            res.status(404).json({ text: 'the producto not exist' });
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
         });
     }
     create(req, res) {
@@ -43,9 +52,14 @@ class ControllerProducto {
                 estado: estado,
                 created_at: new Date
             };
-            yield (yield database_1.default).query('INSERT INTO producto SET ?', [newProducto]);
-            ;
-            res.json({ message: 'Producto saved v' });
+            const producto = yield (yield database_1.default).query('INSERT INTO producto SET ?', [newProducto]);
+            const result = producto.insertId;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Registrado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Registrado' });
+            }
         });
     }
     update(req, res) {
@@ -62,8 +76,14 @@ class ControllerProducto {
                 estado: estado,
                 created_at: new Date
             };
-            yield (yield database_1.default).query('UPDATE  producto SET ? WHERE idproducto=?', [newProducto, id]);
-            res.json({ message: 'update Producto' });
+            const producto = yield (yield database_1.default).query('UPDATE  producto SET ? WHERE idproducto=?', [newProducto, id]);
+            const result = producto.affectedRows;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Actualizado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Actualizado' });
+            }
         });
     }
     delete(req, res) {
@@ -73,8 +93,14 @@ class ControllerProducto {
             const newProducto = {
                 estado: estado
             };
-            yield (yield database_1.default).query('UPDATE  producto SET ? WHERE idproducto=?', [newProducto, id]);
-            res.json({ message: 'delete Producto' });
+            const producto = yield (yield database_1.default).query('UPDATE  producto SET ? WHERE idproducto=?', [newProducto, id]);
+            const result = producto.affectedRows;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Eliminado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Eliminado' });
+            }
         });
     }
 }

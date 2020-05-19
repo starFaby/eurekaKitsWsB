@@ -53,9 +53,8 @@ class ControllerPaypalBuy {
                     const newPayment = payment.links;
                     newPayment === null || newPayment === void 0 ? void 0 : newPayment.map((t) => {
                         if (t.rel === 'approval_url') {
-                            console.log(t.href);
                             const newLInk = t.href;
-                            res.status(200).send({ newLInk });
+                            return res.status(200).send({ newLInk });
                         }
                     });
                 }

@@ -16,18 +16,27 @@ const database_1 = __importDefault(require("../database"));
 class ControllerCategoria {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const cliente = yield (yield database_1.default).query('SELECT * FROM categoria');
-            res.json(cliente);
+            const categoria = yield (yield database_1.default).query('SELECT * FROM categoria');
+            const result = categoria.length;
+            if (result > 0) {
+                return res.json(categoria);
+            }
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const clienteOne = yield (yield database_1.default).query('SELECT * FROM categoria WHERE idcategoria=?', [id]);
-            if (clienteOne.length > 0) {
-                return res.json(clienteOne[0]);
+            const result = clienteOne.length;
+            if (result > 0) {
+                return res.json(clienteOne);
             }
-            res.status(404).json({ text: 'the client not exist' });
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
         });
     }
     create(req, res) {
@@ -41,9 +50,14 @@ class ControllerCategoria {
                 estado: estado,
                 created_at: new Date
             };
-            console.log(newCategoria);
-            yield (yield database_1.default).query('INSERT INTO categoria SET ?', [newCategoria]);
-            res.json({ message: 'Categoria saved v' });
+            const newCate = yield (yield database_1.default).query('INSERT INTO categoria SET ?', [newCategoria]);
+            const result = newCate.insertId;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Registrado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Registrado' });
+            }
         });
     }
     update(req, res) {
@@ -56,8 +70,14 @@ class ControllerCategoria {
                 image: '/uploads/' + filename,
                 estado: estado
             };
-            yield (yield database_1.default).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
-            res.json({ message: 'update Categoria' });
+            const categoriaPut = yield (yield database_1.default).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
+            const result = categoriaPut.affectedRows;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Actualizado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Actualizado' });
+            }
         });
     }
     delete(req, res) {
@@ -70,10 +90,10 @@ class ControllerCategoria {
             const categoriaPut = yield (yield database_1.default).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
             const result = categoriaPut.affectedRows;
             if (result > 0) {
-                res.status(200).send({ message: 'Categoria Delete' });
+                return res.status(200).send({ message: 'Eliminado' });
             }
             else {
-                res.status(204).send({ message: 'Error al Delete' });
+                return res.status(204).send({ message: 'No Eliminado' });
             }
         });
     }

@@ -17,17 +17,26 @@ class ControllerDireccion {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const direccion = yield (yield database_1.default).query('SELECT * FROM direccion');
-            res.json(direccion);
+            const result = direccion.length;
+            if (result > 0) {
+                return res.json(direccion);
+            }
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const direccionOne = yield (yield database_1.default).query('SELECT * FROM direccion WHERE iddireccion=?', [id]);
-            if (direccionOne.length > 0) {
-                return res.json(direccionOne[0]);
+            const result = direccionOne.length;
+            if (result > 0) {
+                return res.json(direccionOne);
             }
-            res.status(404).json({ text: 'the Persona not exist' });
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
         });
     }
     create(req, res) {
@@ -46,15 +55,20 @@ class ControllerDireccion {
                 estado: estado,
                 created_at: new Date
             };
-            yield (yield database_1.default).query('INSERT INTO direccion SET ?', [newDireccion]);
-            res.json({ message: 'Direccion saved' });
+            const direccion = yield (yield database_1.default).query('INSERT INTO direccion SET ?', [newDireccion]);
+            const result = direccion.insertId;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Registrado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Registrado' });
+            }
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const { domisoci, provincia, canton, parroquia, sector, calleprincipal, numeracion, callesecundaria, descripcion, estado } = req.body;
-            console.log(req.body);
             let newDireccion = {
                 domisoci: domisoci,
                 provincia: provincia,
@@ -68,15 +82,27 @@ class ControllerDireccion {
                 estado: estado,
                 created_at: new Date
             };
-            yield (yield database_1.default).query('UPDATE  direccion SET ? WHERE iddireccion=?', [newDireccion, id]);
-            res.json({ message: 'Update Direccion' });
+            const direccion = yield (yield database_1.default).query('UPDATE  direccion SET ? WHERE iddireccion=?', [newDireccion, id]);
+            const result = direccion.affectedRows;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Actualizado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Actualizado' });
+            }
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM direccion WHERE iddireccion=?', [id]);
-            res.json({ message: ' Direccion delete' });
+            const direccion = yield (yield database_1.default).query('DELETE FROM direccion WHERE iddireccion=?', [id]);
+            const result = direccion.affectedRows;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Eliminado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Eliminado' });
+            }
         });
     }
 }

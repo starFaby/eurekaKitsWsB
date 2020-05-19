@@ -22,6 +22,7 @@ const routerTelefono_1 = __importDefault(require("./routes/routerTelefono"));
 const routerDireccion_1 = __importDefault(require("./routes/routerDireccion"));
 const routerCateProdu_1 = __importDefault(require("./routes/routerCateProdu"));
 const routerDetalleVenta_1 = __importDefault(require("./routes/routerDetalleVenta"));
+const routerDto_1 = __importDefault(require("./routes/routerDto"));
 const routerConsultas_1 = __importDefault(require("./routes/routerConsultas"));
 const routerPromocion_1 = __importDefault(require("./routes/routerPromocion"));
 const routerFactura_1 = __importDefault(require("./routes/routerFactura"));
@@ -55,6 +56,7 @@ class Server {
         this.app.use('/api/producto', routerProducto_1.default);
         this.app.use('/api/cateProdu', routerCateProdu_1.default);
         this.app.use('/api/detaVenta', routerDetalleVenta_1.default);
+        this.app.use('/api/dto', routerDto_1.default); ///
         this.app.use('/api/persona', routerPersona_1.default);
         this.app.use('/api/telefono', routerTelefono_1.default);
         this.app.use('/api/direccion', routerDireccion_1.default);

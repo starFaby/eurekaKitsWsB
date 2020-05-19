@@ -3,10 +3,10 @@ import pool from '../database';
 import { Categoria } from '../models/Categoria';
 class ControllerCategoria {
     public async listAll(req: Request, res: Response) {
-        const cliente = await (await pool).query('SELECT * FROM categoria');
-        const result = cliente.length;
-        if (result.length > 0) {
-            return res.json(cliente);
+        const categoria = await (await pool).query('SELECT * FROM categoria');
+        const result = categoria.length;
+        if (result > 0) {
+            return res.json(categoria);
         } else {
             return res.status(204).send({ message: 'No Encontrado' })
         }
@@ -15,7 +15,7 @@ class ControllerCategoria {
         const { id } = req.params;
         const clienteOne = await (await pool).query('SELECT * FROM categoria WHERE idcategoria=?', [id]);
         const result = clienteOne.length;
-        if (result.length > 0) {
+        if (result > 0) {
             return res.json(clienteOne);
         } else {
             return res.status(204).send({ message: 'No Encontrado' })

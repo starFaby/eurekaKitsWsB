@@ -86,6 +86,17 @@ class ControllerConsultas {
             return res.status(204).json({ message: 'No Encontrado'});
         }
     }
+
+    public async onGetDto(req: Request, res: Response): Promise<any> {
+        const dto = await (await pool).query('SELECT * FROM viewdto');// para visualizar detalle ventas con id de producto con su nombre
+        const result = dto.length;
+        if (result > 0) {
+            return res.json(dto);
+        }else {
+            return res.status(204).json({ message: 'No Encontrado'});
+        }
+    }
+
     public async onGetNumFactura(req: Request, res: Response): Promise<any> {
         const numFact = await (await pool).query('SELECT MAX(factura.numfactura)+1 AS numfactura FROM factura');// para visualizar detalle ventas con id de producto con su nombre
         const result = numFact.length;

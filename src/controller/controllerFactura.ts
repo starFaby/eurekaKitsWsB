@@ -5,7 +5,7 @@ class ControllerFactura {
     public async listAll(req: Request, res: Response) {
         const factura = await (await pool).query('SELECT * FROM factura');
         const result = factura.length;
-        if (result.length > 0) {
+        if (result > 0) {
             return res.json(factura);
         } else {
             return res.status(204).send({ message: 'No Encontrado' })
@@ -22,7 +22,7 @@ class ControllerFactura {
         const newFactG = await (await pool).query('INSERT INTO factura SET ?', [newFactura]);
         const result = newFactG.insertId;
         if (result > 0) {
-            return res.status(200).send({ message: 'Registrado' })
+            return res.status(200).send({ result })
         } else {
             return res.status(204).send({ message: 'No Registrado' })
         }

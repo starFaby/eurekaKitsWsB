@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class ControllerIndex {
     index(req, res) {
-        res.json({ faby: 'eres un descgraciado' });
+        res.json({ faby: 'joder' });
     }
 }
 const controllerIndex = new ControllerIndex();

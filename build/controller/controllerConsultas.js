@@ -17,33 +17,36 @@ class ControllerConsultas {
     onGetCategoria(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const categoriall = yield (yield database_1.default).query('select * from viewcategoria where estado = 1'); // lista a la persona para la cabecera de la factura
-            if (categoriall.length > 0) {
+            const result = categoriall.length;
+            if (result > 0) {
                 return res.json(categoriall);
             }
             else {
-                res.status(204).json({ message: 'No Datos' });
+                return res.status(204).json({ message: 'No Encontrado' });
             }
         });
     }
     onGetProducto(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const productoall = yield (yield database_1.default).query('select * from viewproducto where estado = 1'); // lista a la persona para la cabecera de la factura
-            if (productoall.length > 0) {
+            const result = productoall.length;
+            if (result > 0) {
                 return res.json(productoall);
             }
             else {
-                res.status(204).json({ message: 'No Datos' });
+                return res.status(204).json({ message: 'No Encontrado' });
             }
         });
     }
     onGetPersona(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const personall = yield (yield database_1.default).query('select * from viewpersona where estado = 1'); // lista a la persona para la cabecera de la factura
-            if (personall.length > 0) {
+            const result = personall.length;
+            if (result > 0) {
                 return res.json(personall);
             }
             else {
-                res.status(204).json({ message: 'No Datos' });
+                return res.status(204).json({ message: 'No Encontrado' });
             }
         });
     }
@@ -51,150 +54,188 @@ class ControllerConsultas {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const pdtOne = yield (yield database_1.default).query('select * from personapdt where idpersona = ?', [id]); // lista a la persona para la cabecera de la factura
-            if (pdtOne.length > 0) {
-                console.log(pdtOne);
+            const result = pdtOne.length;
+            if (result > 0) {
                 return res.json(pdtOne);
             }
-            res.status(404).json({ text: 'the consutl pers_Direcc_Tele not exist' });
+            else {
+                return res.status(204).json({ message: 'No Encontrado' });
+            }
         });
     }
     productouni(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pdtOne = yield (yield database_1.default).query('select * from viewproductouni where idproducto = ?', [id]); // para visualizar las promociones administrador
-            if (pdtOne.length > 0) {
-                return res.json(pdtOne);
+            const prodOne = yield (yield database_1.default).query('select * from viewproductouni where idproducto = ?', [id]); // para visualizar las promociones administrador
+            const result = prodOne.length;
+            if (result > 0) {
+                return res.json(prodOne);
             }
-            res.status(404).json({ text: 'the consutl promocion_producto not exist' });
+            else {
+                return res.status(204).json({ message: 'No Encontrado' });
+            }
         });
     }
     promocionPP(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const pdtOne = yield (yield database_1.default).query('select * from viewpromocionespp where estado = 1'); // para visualizar las promociones administrador
-            if (pdtOne.length > 0) {
-                return res.json(pdtOne);
+            const promopp = yield (yield database_1.default).query('select * from viewpromocionespp where estado = 1'); // para visualizar las promociones administrador
+            const result = promopp.length;
+            if (result > 0) {
+                return res.json(promopp);
             }
             else {
-                res.status(204).send({ message: 'No Promociones' });
+                return res.status(204).json({ message: 'No Encontrado' });
             }
         });
     }
     promocionPPI(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const pdtOne = yield (yield database_1.default).query('select * from viewpromocionesppi'); // para visualizar las promociones administrador
-            if (pdtOne.length > 0) {
-                return res.json(pdtOne);
+            const promoppi = yield (yield database_1.default).query('select * from viewpromocionesppi'); // para visualizar las promociones administrador
+            const result = promoppi.length;
+            if (result > 0) {
+                return res.json(promoppi);
             }
             else {
-                res.status(204).send({ message: 'No Promociones' });
+                return res.status(204).json({ message: 'No Encontrado' });
             }
         });
     }
     promocionUni(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pUniOne = yield (yield database_1.default).query('select * from viewpromocionesppuni where idpromociones = ?', [id]); // para visualizar las promociones administrador
-            if (pUniOne.length > 0) {
-                return res.json(pUniOne);
+            const promouni = yield (yield database_1.default).query('select * from viewpromocionesppuni where idpromociones = ?', [id]); // para visualizar las promociones administrador
+            const result = promouni.length;
+            if (result > 0) {
+                return res.json(promouni);
             }
-            res.status(404).json({ text: 'the consutl promocion_producto not exist' });
+            else {
+                return res.status(204).json({ message: 'No Encontrado' });
+            }
         });
     }
     detalleVentadvp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pdtOne = yield (yield database_1.default).query('select * from viewdetalleventadvp where  idfactura = ? ', [id]); // para visualizar detalle ventas con id de producto con su nombre
-            if (pdtOne.length > 0) {
-                return res.json(pdtOne);
+            const detalledvp = yield (yield database_1.default).query('select * from viewdetalleventadvp where  idfactura = ? ', [id]); // para visualizar detalle ventas con id de producto con su nombre
+            const result = detalledvp.length;
+            if (result > 0) {
+                return res.json(detalledvp);
             }
             else {
-                return res.status(204).send({ message: 'NO Datos' });
+                return res.status(204).json({ message: 'No Encontrado' });
+            }
+        });
+    }
+    onGetDto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const dto = yield (yield database_1.default).query('SELECT * FROM viewdto'); // para visualizar detalle ventas con id de producto con su nombre
+            const result = dto.length;
+            if (result > 0) {
+                return res.json(dto);
+            }
+            else {
+                return res.status(204).json({ message: 'No Encontrado' });
             }
         });
     }
     onGetNumFactura(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const numFact = yield (yield database_1.default).query('SELECT MAX(factura.numfactura)+1 AS numfactura FROM factura'); // para visualizar detalle ventas con id de producto con su nombre
-            return res.json(numFact);
-            // res.status(404).json({text: 'the consutl promocion_producto not exist'})
+            const result = numFact.length;
+            if (result > 0) {
+                return res.json(numFact);
+            }
+            else {
+                return res.status(204).json({ message: 'No Encontrado' });
+            }
         });
     }
     onGetIdFactura(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const idFact = yield (yield database_1.default).query('SELECT MAX(factura.idfactura)+1 AS idfactura  FROM factura'); // para visualizar detalle ventas con id de producto con su nombre
-            return res.json(idFact);
-            // res.status(404).json({text: 'the consutl promocion_producto not exist'})
+            const result = idFact.length;
+            if (result > 0) {
+                return res.json(idFact);
+            }
+            else {
+                return res.status(204).json({ message: 'No Encontrado' });
+            }
         });
     }
     onGetPersonaFactura(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const personaFactura = yield (yield database_1.default).query('select * from viewpersonafactura where estado = 1 AND idpersona = ? ', [id]); // para visualizar detalle ventas con id de producto con su nombre
-            if (personaFactura.length > 0) {
+            const result = personaFactura.length;
+            if (result > 0) {
                 return res.json(personaFactura);
             }
             else {
-                return res.status(204).send({ message: 'No Datos' });
+                return res.status(204).json({ message: 'No Encontrado' });
             }
         });
     }
     onGetTipoPago(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const tipopago = yield (yield database_1.default).query('SELECT * FROM viewtipopago'); // para visualizar detalle ventas con id de producto con su nombre
-            console.log(tipopago);
-            return res.json(tipopago);
-            // res.status(404).json({text: 'the consutl promocion_producto not exist'})
+            const result = tipopago.length;
+            if (result > 0) {
+                return res.json(tipopago);
+            }
+            else {
+                return res.status(204).json({ message: 'No Encontrado' });
+            }
         });
     }
     onGetPagoFactPaypal(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pfpaypal = yield (yield database_1.default).query('select * from viewpagofactptbe where idtipopago = 1 AND estado = 1 AND idpersona = ?', [id]); // para visualizar solo las facturas de tipo paypal
+            const pfpaypal = yield (yield database_1.default).query('select * from viewpagofactptbe where idtipopago = 1 AND estado = 1 AND idpersona = ?', [id]);
             const result = pfpaypal.length;
             if (result > 0) {
                 return res.json(pfpaypal);
             }
             else {
-                return res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
     onGetPagoFactTransBanc(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pftransbanc = yield (yield database_1.default).query('select * from viewpagofactptbe where idtipopago = 2 AND estado = 1 AND idpersona = ?', [id]); // para visualizar solo las facturas de tipo paypal
+            const pftransbanc = yield (yield database_1.default).query('select * from viewpagofactptbe where idtipopago = 2 AND estado = 1 AND idpersona = ?', [id]);
             const result = pftransbanc.length;
             if (result > 0) {
                 return res.json(pftransbanc);
             }
             else {
-                return res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
     onGetPagoFactEfectivo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pfefectivo = yield (yield database_1.default).query('select * from viewpagofactptbe where idtipopago = 3 AND estado = 1 AND idpersona = ?', [id]); // para visualizar solo las facturas de tipo paypal
+            const pfefectivo = yield (yield database_1.default).query('select * from viewpagofactptbe where idtipopago = 3 AND estado = 1 AND idpersona = ?', [id]);
             const result = pfefectivo.length;
             if (result > 0) {
                 return res.json(pfefectivo);
             }
             else {
-                return res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
     onGetPagoFactIndiv(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pfefectivoindiv = yield (yield database_1.default).query('select * from viewformapagopy where numfactura = ?', [id]); // para visualizar solo las facturas de tipo paypal
+            const pfefectivoindiv = yield (yield database_1.default).query('select * from viewformapagopy where numfactura = ?', [id]);
             const result = pfefectivoindiv.length;
             if (result > 0) {
                 return res.json(pfefectivoindiv);
             }
             else {
-                res.status(404).send({ message: 'Error' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
@@ -207,7 +248,7 @@ class ControllerConsultas {
                 return res.json(pagoPaypal);
             }
             else {
-                res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
@@ -220,7 +261,7 @@ class ControllerConsultas {
                 return res.json(pagoTransBanc);
             }
             else {
-                res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
@@ -233,7 +274,7 @@ class ControllerConsultas {
                 return res.json(pagoEfectivo);
             }
             else {
-                res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
@@ -246,7 +287,7 @@ class ControllerConsultas {
                 return res.json(facturaDv);
             }
             else {
-                res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
@@ -259,7 +300,7 @@ class ControllerConsultas {
                 return res.json(facturaTotal);
             }
             else {
-                res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
@@ -271,7 +312,7 @@ class ControllerConsultas {
                 return res.json(reportPersona);
             }
             else {
-                res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
@@ -283,7 +324,7 @@ class ControllerConsultas {
                 return res.json(reportCategoria);
             }
             else {
-                res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
@@ -295,7 +336,7 @@ class ControllerConsultas {
                 return res.json(reportProducto);
             }
             else {
-                res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
@@ -307,7 +348,7 @@ class ControllerConsultas {
                 return res.json(reportPromo);
             }
             else {
-                res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }

@@ -29,10 +29,10 @@ class ControllerTrasnferenciaBancaria {
             const transferenciabancaria = yield (yield database_1.default).query('INSERT INTO transferenciabancaria SET ?', [newTrasnferenciaBancaria]);
             const result = transferenciabancaria.insertId;
             if (result > 0) {
-                res.status(200).send({ message: 'Registro exitoso' });
+                return res.status(200).send({ message: 'Registrado' });
             }
             else {
-                res.status(404).send({ message: 'Error exitoso' });
+                return res.status(204).send({ message: 'No Registrado' });
             }
         });
     }

@@ -17,17 +17,26 @@ class ControllerPromo {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const promo = yield (yield database_1.default).query('SELECT * FROM promociones');
-            res.json(promo);
+            const result = promo.length;
+            if (result > 0) {
+                return res.json(promo);
+            }
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const promoOne = yield (yield database_1.default).query('SELECT * FROM promociones WHERE idpromociones=?', [id]);
-            if (promoOne.length > 0) {
-                return res.json(promoOne[0]);
+            const result = promoOne.length;
+            if (result > 0) {
+                return res.json(promoOne);
             }
-            res.status(404).json({ text: 'the promise not exist' });
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
         });
     }
     create(req, res) {
@@ -42,9 +51,14 @@ class ControllerPromo {
                 estado: estado,
                 created_at: new Date
             };
-            yield (yield database_1.default).query('INSERT INTO promociones SET ?', [newPromo]);
-            ;
-            res.json({ message: 'Promociones saved ' });
+            const promo = yield (yield database_1.default).query('INSERT INTO promociones SET ?', [newPromo]);
+            const result = promo.insertId;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Registrado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Registrado' });
+            }
         });
     }
     update(req, res) {
@@ -60,8 +74,14 @@ class ControllerPromo {
                 estado: estado,
                 created_at: new Date
             };
-            yield (yield database_1.default).query('UPDATE  promociones SET ? WHERE idpromociones=?', [newPromo, id]);
-            res.json({ message: 'update Producto' });
+            const promo = yield (yield database_1.default).query('UPDATE  promociones SET ? WHERE idpromociones=?', [newPromo, id]);
+            const result = promo.affectedRows;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Actualizado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Actualizado' });
+            }
         });
     }
     delete(req, res) {
@@ -71,8 +91,14 @@ class ControllerPromo {
             let newPromo = {
                 estado: estado,
             };
-            yield (yield database_1.default).query('UPDATE  promociones SET ? WHERE idpromociones=?', [newPromo, id]);
-            res.json({ message: 'delete Promociones' });
+            const promo = yield (yield database_1.default).query('UPDATE  promociones SET ? WHERE idpromociones=?', [newPromo, id]);
+            const result = promo.affectedRows;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Eliminado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Eliminado' });
+            }
         });
     }
 }

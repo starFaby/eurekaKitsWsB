@@ -17,17 +17,26 @@ class ControllerTelefono {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const telefono = yield (yield database_1.default).query('SELECT * FROM telefono');
-            res.json(telefono);
+            const result = telefono.length;
+            if (result > 0) {
+                return res.json(telefono);
+            }
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const telefonoOne = yield (yield database_1.default).query('SELECT * FROM telefono WHERE idtelefono=?', [id]);
-            if (telefonoOne.length > 0) {
-                return res.json(telefonoOne[0]);
+            const result = telefonoOne.length;
+            if (result > 0) {
+                return res.json(telefonoOne);
             }
-            res.status(404).json({ text: 'the Telefono not exist' });
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
         });
     }
     create(req, res) {
@@ -41,8 +50,14 @@ class ControllerTelefono {
                 estado: estado,
                 created_at: new Date
             };
-            yield (yield database_1.default).query('INSERT INTO telefono SET ?', [newTelefono]);
-            res.json({ message: 'Telefono saved' });
+            const telefono = yield (yield database_1.default).query('INSERT INTO telefono SET ?', [newTelefono]);
+            const result = telefono.insertId;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Registrado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Registrado' });
+            }
         });
     }
     update(req, res) {
@@ -57,15 +72,27 @@ class ControllerTelefono {
                 estado: estado,
                 created_at: new Date
             };
-            yield (yield database_1.default).query('UPDATE  telefono SET ? WHERE idtelefono=?', [newTelefono, id]);
-            res.json({ message: 'Update Telefono' });
+            const telef = yield (yield database_1.default).query('UPDATE  telefono SET ? WHERE idtelefono=?', [newTelefono, id]);
+            const result = telef.affectedRows;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Actualizado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Actualizado' });
+            }
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM telefono WHERE idtelefono=?', [id]);
-            res.json({ message: ' Telefono delete' });
+            const telef = yield (yield database_1.default).query('DELETE FROM telefono WHERE idtelefono=?', [id]);
+            const result = telef.affectedRows;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Eliminado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Eliminado' });
+            }
         });
     }
 }

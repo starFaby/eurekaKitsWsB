@@ -19,11 +19,12 @@ class ControllerPersona {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const personaOne = yield (yield database_1.default).query('SELECT * FROM persona WHERE idpersona=?', [id]);
-            if (personaOne.length > 0) {
-                return res.json(personaOne[0]);
+            const result = personaOne.length;
+            if (result > 0) {
+                return res.json(personaOne);
             }
             else {
-                return res.status(204).send({ message: 'No Datos' });
+                return res.status(204).send({ message: 'No Encontrado' });
             }
         });
     }
@@ -49,10 +50,10 @@ class ControllerPersona {
             const persona = yield (yield database_1.default).query('INSERT INTO persona SET ?', [newPersona]);
             const result = persona.insertId;
             if (result > 0) {
-                res.status(200).send({ message: 'Persona Guardada' });
+                return res.status(200).send({ message: 'Registrado' });
             }
             else {
-                res.status(204).send({ message: 'Error al Guardar' });
+                return res.status(204).send({ message: 'No Registrado' });
             }
         });
     }
@@ -77,10 +78,10 @@ class ControllerPersona {
             console.log(personaPut);
             const result = personaPut.affectedRows;
             if (result > 0) {
-                res.status(200).send({ message: 'Persona Actualizada' });
+                return res.status(200).send({ message: 'Actualizado' });
             }
             else {
-                res.status(204).send({ message: 'Error al Actualizada' });
+                return res.status(204).send({ message: 'No Actualizado' });
             }
         });
     }
@@ -94,10 +95,10 @@ class ControllerPersona {
             const personDel = yield (yield database_1.default).query('UPDATE  persona SET ? WHERE idpersona=?', [newPersona, id]);
             const result = personDel.affectedRows;
             if (result > 0) {
-                res.status(200).send({ message: 'Persona Delete' });
+                return res.status(200).send({ message: 'Eliminado' });
             }
             else {
-                res.status(204).send({ message: 'Error al Delete' });
+                return res.status(204).send({ message: 'No Eliminado' });
             }
         });
     }

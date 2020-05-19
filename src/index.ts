@@ -10,6 +10,7 @@ import routerTelefono from './routes/routerTelefono';
 import routerDireccion from './routes/routerDireccion';
 import routerCateProdu from './routes/routerCateProdu';
 import routerDetalleVenta from './routes/routerDetalleVenta';
+import routerDto from './routes/routerDto';
 import routerConsultas from './routes/routerConsultas';
 import routerPromocion from './routes/routerPromocion';
 import routerFactura from './routes/routerFactura';
@@ -46,6 +47,7 @@ class Server {
         this.app.use('/api/producto',routeProducto);
         this.app.use('/api/cateProdu',routerCateProdu);
         this.app.use('/api/detaVenta',routerDetalleVenta);
+        this.app.use('/api/dto',routerDto);///
         this.app.use('/api/persona',routerPersona);
         this.app.use('/api/telefono',routerTelefono);
         this.app.use('/api/direccion',routerDireccion);

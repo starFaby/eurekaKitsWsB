@@ -17,10 +17,13 @@ class ControllerDetalleVenta {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const detalleVenta = yield (yield database_1.default).query('SELECT * FROM detalleventas');
-            if (detalleVenta > 0) {
+            const result = detalleVenta.length;
+            if (result > 0) {
                 return res.json(detalleVenta);
             }
-            res.status(404).send('the consutl detalleventa not exist');
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
         });
     }
     create(req, res) {
@@ -37,15 +40,27 @@ class ControllerDetalleVenta {
                 created_at: new Date
             };
             console.log(newDetalleVenta);
-            yield (yield database_1.default).query('INSERT INTO detalleventas SET ?', [newDetalleVenta]);
-            res.json({ message: 'Venta Saved' });
+            const detaventa = yield (yield database_1.default).query('INSERT INTO detalleventas SET ?', [newDetalleVenta]);
+            const result = detaventa.insertId;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Registrado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Registrado' });
+            }
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield (yield database_1.default).query('DELETE FROM detalleventas WHERE iddetalleventa=?', [id]);
-            res.json({ message: 'Venta Delete' });
+            const deletedt = yield (yield database_1.default).query('DELETE FROM detalleventas WHERE iddetalleventa=?', [id]);
+            const result = deletedt.affectedRows;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Eliminado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Eliminado' });
+            }
         });
     }
 }

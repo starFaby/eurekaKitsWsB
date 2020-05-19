@@ -5,7 +5,7 @@ class ControllerTelefono {
     public async listAll(req: Request, res: Response) {
         const telefono = await (await pool).query('SELECT * FROM telefono');
         const result = telefono.length;
-        if (result.length > 0) {
+        if (result > 0) {
             return res.json(telefono);
         }else{
             return res.status(204).send({ message: 'No Encontrado' })
@@ -15,7 +15,7 @@ class ControllerTelefono {
         const { id } = req.params;
         const telefonoOne = await (await pool).query('SELECT * FROM telefono WHERE idtelefono=?', [id]);
         const result = telefonoOne.length;
-        if (result.length > 0) {
+        if (result > 0) {
             return res.json(telefonoOne);
         }else{
             return res.status(204).send({ message: 'No Encontrado' })

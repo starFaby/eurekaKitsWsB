@@ -5,7 +5,7 @@ class ControllerProducto {
     public async listAll(req: Request, res: Response) {
         const producto = await (await pool).query('SELECT * FROM producto');
         const result = producto.length;
-        if (result.length > 0) {
+        if (result > 0) {
             return res.json(producto);
         }else{
             return res.status(204).send({ message: 'No Encontrado' })
@@ -15,7 +15,7 @@ class ControllerProducto {
         const { id } = req.params;
         const productoOne = await (await pool).query('SELECT * FROM producto WHERE idproducto=?', [id]);
         const result = productoOne.length;
-        if (result.length > 0) {
+        if (result > 0) {
             return res.json(productoOne);
         }else{
             return res.status(204).send({ message: 'No Encontrado' })

@@ -13,27 +13,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
-class ControllerEfectivo {
-    create(req, res) {
+class ControllerDto {
+    update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idformapago, numfactura, preciofactura, estado } = req.body;
-            let newEfectivo = {
-                idformapago: idformapago,
-                numfactura: numfactura,
-                preciofactura: preciofactura,
-                estado: estado,
-                created_at: new Date
+            const { id } = req.params;
+            const { dto, estado } = req.body;
+            let newDto = {
+                dto: dto,
+                estado: estado
             };
-            const efect = yield (yield database_1.default).query('INSERT INTO efectivo SET ?', [newEfectivo]);
-            const result = efect.insertId;
+            const dtoput = yield (yield database_1.default).query('UPDATE  dto SET ? WHERE iddto=?', [newDto, id]);
+            const result = dtoput.affectedRows;
             if (result > 0) {
-                return res.status(200).send({ message: 'Registrado' });
+                return res.status(200).send({ message: 'Actualizado' });
             }
             else {
-                return res.status(204).send({ message: 'No Registrado' });
+                return res.status(204).send({ message: 'No Actualizado' });
             }
         });
     }
 }
-const controllerEfectivo = new ControllerEfectivo();
-exports.default = controllerEfectivo;
+const controllerDto = new ControllerDto();
+exports.default = controllerDto;

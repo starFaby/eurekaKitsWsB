@@ -32,21 +32,21 @@ class ControllerAuth {
                 estado: estado,
                 created_at: new Date
             };
-            console.log('==> ' + newPersona);
             newPersona.password = yield helpers_1.default.encriptPassword(password);
             const user = (yield database_1.default).query('INSERT INTO persona SET ?', [newPersona]);
             const newUser = (yield user);
-            if (newUser.insertId > 0) {
+            const result = newUser.insertId;
+            if (result > 0) {
                 console.log('despues de guradr', newPersona);
-                // const datesPerson = `${newPersona.nombres}-${newPersona.apellidos}-${newPersona.cedula}-${newPersona.idtelefono}`;
+                // const datesPerson = `${newPersona.nombres}/${newPersona.apellidos}/${newPersona.cedula}/${newPersona.idtelefono}/${newPersona.requerimiento}`;
                 //  whatsapp.whassap(datesPerson);
-                console.log('whassap bloqueado por pruebas jejejejej');
+                console.log('whassap yo lo  bloqueo por pruebas jejejejej');
                 const payload = { subject: newUser.insertId };
                 const token = jsonwebtoken_1.default.sign(payload, 'secret');
-                res.status(200).send({ token });
+                return res.status(200).send({ token });
             }
             else {
-                res.status(404).send('ERROR AL REGISTRAR');
+                return res.status(204).send('ERROR AL REGISTRAR');
             }
         });
     }
@@ -67,14 +67,14 @@ class ControllerAuth {
                     const id = user.idpersona;
                     const payload = { subject: user.idpersona };
                     const token = jsonwebtoken_1.default.sign(payload, 'secret');
-                    res.status(200).send({ token });
+                    return res.status(200).send({ token });
                 }
                 else {
-                    res.status(401).send('PASSWORD INCORRECTO');
+                    return res.status(401).send('PASSWORD INCORRECTO');
                 }
             }
             else {
-                res.status(401).send('USUARIO NO ENCONTRADO');
+                return res.status(401).send('USUARIO NO ENCONTRADO');
             }
         });
     }
