@@ -13,11 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const paypal_rest_sdk_1 = __importDefault(require("paypal-rest-sdk"));
-const key_1 = __importDefault(require("../keys/key"));
-paypal_rest_sdk_1.default.configure(key_1.default.paypal);
+const keys_1 = __importDefault(require("../security/keys"));
+paypal_rest_sdk_1.default.configure(keys_1.default.paypal);
 class ControllerPaypalBuy {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const buy = 'buy';
             const { idformapago, numfactura, preciofactura, estado } = req.body;
             const create_payment_json = {
                 "intent": "sale",
@@ -54,6 +55,7 @@ class ControllerPaypalBuy {
                     newPayment === null || newPayment === void 0 ? void 0 : newPayment.map((t) => {
                         if (t.rel === 'approval_url') {
                             const newLInk = t.href;
+                            console.log(newLInk);
                             return res.status(200).send({ newLInk });
                         }
                     });
@@ -62,10 +64,12 @@ class ControllerPaypalBuy {
         });
     }
     success(req, res) {
-        res.send('Exito al comprar');
+        const result = 'buy';
+        return res.status(200).send({ result });
     }
     cancel(req, res) {
-        res.send('Error al comprar');
+        const result = 'cancel';
+        return res.status(200).send({ result });
     }
 }
 const controllerPaypalBuy = new ControllerPaypalBuy();

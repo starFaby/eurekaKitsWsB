@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
 import pool from '../database';
 import paypal from 'paypal-rest-sdk';
-import key from '../keys/key'
+import key from '../security/keys'
 paypal.configure(key.paypal);
 class ControllerPaypalBuy {
     public async create(req: Request, res: Response): Promise<any> {
+        const buy = 'buy';
         const { idformapago, numfactura, preciofactura, estado } = req.body;
         const create_payment_json = {
             "intent": "sale",
@@ -40,7 +41,8 @@ class ControllerPaypalBuy {
                 const newPayment = payment.links;
                 newPayment?.map((t) => {
                     if (t.rel === 'approval_url') {
-                        const newLInk = t.href
+                        const newLInk = t.href;
+                        console.log(newLInk)
                         return res.status(200).send({ newLInk })
                     }
                 });
@@ -49,10 +51,12 @@ class ControllerPaypalBuy {
     }
 
     public success(req: Request, res: Response) {
-        res.send('Exito al comprar')
+        const result = 'buy';
+        return res.status(200).send({ result })
     }
     public cancel(req: Request, res: Response) {
-        res.send('Error al comprar')
+        const result = 'cancel';
+        return res.status(200).send({ result })
     }
 }
 const controllerPaypalBuy = new ControllerPaypalBuy();
