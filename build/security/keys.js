@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-require("../");
+require("../libs/dotenv");
 exports.default = {
     database: {
         host: process.env.DB_HOST,

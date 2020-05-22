@@ -1,9 +1,6 @@
 import '../libs/dotenv';
 import keys from '../security/keys'
 import twilio from 'twilio';
-console.log('ACOOUNT_SID ==> ', keys.whatsapp.acoount_sid);
-console.log('AUTH_TOKEN ==> ', keys.whatsapp.auth_token);
-console.log('MY_NUMBER_PHONE ==> ', keys.whatsapp.my_number_phone);
 class Whatsapp {
     client = twilio(keys.whatsapp.acoount_sid, keys.whatsapp.auth_token);
     public whassap(dates: any) {

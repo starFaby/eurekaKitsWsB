@@ -1,4 +1,4 @@
-import '../'
+import '../libs/dotenv'
 export default {
   database: {
     host: process.env.DB_HOST,
