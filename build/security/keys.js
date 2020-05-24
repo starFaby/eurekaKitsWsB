@@ -3,10 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("../libs/dotenv");
 exports.default = {
     database: {
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_NAME
+        host: process.env.DB_HOST_D,
+        user: process.env.DB_USER_D,
+        password: process.env.DB_PASS_D,
+        database: process.env.DB_NAME_D
+    },
+    databasep: {
+        host: process.env.DB_HOST_P,
+        user: process.env.DB_USER_P,
+        password: process.env.DB_PASS_P,
+        database: process.env.DB_NAME_P
     },
     whatsapp: {
         acoount_sid: process.env.ACOOUNT_SID,

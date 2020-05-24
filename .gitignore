@@ -1,2 +1,4 @@
 # datos personales
 .env
+./.env
+./security/keys.ts
