@@ -70,11 +70,11 @@ class ControllerAuth {
                     return res.status(200).send({ token });
                 }
                 else {
-                    return res.status(401).send('PASSWORD INCORRECTO');
+                    return res.status(409).send({ message: 'password invalido' });
                 }
             }
             else {
-                return res.status(401).send('USUARIO NO ENCONTRADO');
+                return res.status(404).send({ message: 'No existe el usuario' });
             }
         });
     }
