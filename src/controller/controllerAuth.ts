@@ -26,10 +26,8 @@ class ControllerAuth {
         const newUser = (await user);
         const result = newUser.insertId;
         if(result > 0){
-            console.log('despues de guradr',newPersona);
             const datesPerson = `${newPersona.nombres}/${newPersona.apellidos}/${newPersona.cedula}/${newPersona.idtelefono}/${newPersona.requerimiento}`;
             whatsapp.whassap(datesPerson);
-          console.log('whassap yo lo  bloqueo por pruebas jejejejej')
             const payload = { subject: newUser.insertId }
             const token = jwt.sign(payload, 'secret');
             return res.status(200).send({ token });

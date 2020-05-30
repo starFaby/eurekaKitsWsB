@@ -51,7 +51,7 @@ class ControllerCategoria {
         const categoriaPut = await (await pool).query('UPDATE  categoria SET ? WHERE idcategoria=?', [newCategoria, id]);
         const result = categoriaPut.affectedRows;
         if (result > 0) {
-            return res.status(200).send({ message: 'Actualizado' });
+            return res.status(200).send(true);
         } else {
             return res.status(204).send({ message: 'No Actualizado' });
         }
