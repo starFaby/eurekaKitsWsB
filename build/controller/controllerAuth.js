@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const database_1 = __importDefault(require("../database"));
 const helpers_1 = __importDefault(require("../libs/helpers"));
+const whatsapp_1 = __importDefault(require("../middlewares/whatsapp"));
 class ControllerAuth {
     loginUp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -38,8 +39,8 @@ class ControllerAuth {
             const result = newUser.insertId;
             if (result > 0) {
                 console.log('despues de guradr', newPersona);
-                // const datesPerson = `${newPersona.nombres}/${newPersona.apellidos}/${newPersona.cedula}/${newPersona.idtelefono}/${newPersona.requerimiento}`;
-                //  whatsapp.whassap(datesPerson);
+                const datesPerson = `${newPersona.nombres}/${newPersona.apellidos}/${newPersona.cedula}/${newPersona.idtelefono}/${newPersona.requerimiento}`;
+                whatsapp_1.default.whassap(datesPerson);
                 console.log('whassap yo lo  bloqueo por pruebas jejejejej');
                 const payload = { subject: newUser.insertId };
                 const token = jsonwebtoken_1.default.sign(payload, 'secret');
