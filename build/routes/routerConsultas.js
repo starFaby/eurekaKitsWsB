@@ -14,6 +14,7 @@ class RouterConsultas {
         this.router.get('/categoria', controllerConsultas_1.default.onGetCategoria);
         this.router.get('/producto', controllerConsultas_1.default.onGetProducto);
         this.router.get('/pers', controllerConsultas_1.default.onGetPersona);
+        this.router.post('/email', controllerConsultas_1.default.onGetEmail);
         this.router.get('/pdt/:id', controllerConsultas_1.default.listOnePDT);
         this.router.get('/promopp', controllerConsultas_1.default.promocionPP);
         this.router.get('/promoppi', controllerConsultas_1.default.promocionPPI);

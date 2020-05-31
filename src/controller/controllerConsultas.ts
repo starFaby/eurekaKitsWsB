@@ -6,8 +6,8 @@ class ControllerConsultas {
         const result = categoriall.length;
         if (result > 0) {
             return res.json(categoriall);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
     public async onGetProducto(req: Request, res: Response): Promise<any> {
@@ -15,8 +15,8 @@ class ControllerConsultas {
         const result = productoall.length;
         if (result > 0) {
             return res.json(productoall);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
     public async onGetPersona(req: Request, res: Response): Promise<any> {
@@ -24,8 +24,20 @@ class ControllerConsultas {
         const result = personall.length;
         if (result > 0) {
             return res.json(personall);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
+        }
+    }
+    public async onGetEmail(req: Request, res: Response): Promise<any> {
+        const { email } = req.body;
+        console.log(req.body);
+        console.log(email);
+        const emailall = await (await pool).query('select email from persona where email = ?', [email]); // lista a la persona para la cabecera de la factura
+        const result = emailall.length;
+        if (result > 0) {
+            return res.status(200).send(true);
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
     public async listOnePDT(req: Request, res: Response): Promise<any> {
@@ -34,8 +46,8 @@ class ControllerConsultas {
         const result = pdtOne.length;
         if (result > 0) {
             return res.json(pdtOne);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
     public async productouni(req: Request, res: Response): Promise<any> {
@@ -44,8 +56,8 @@ class ControllerConsultas {
         const result = prodOne.length;
         if (result > 0) {
             return res.json(prodOne);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
     public async promocionPP(req: Request, res: Response): Promise<any> {
@@ -53,8 +65,8 @@ class ControllerConsultas {
         const result = promopp.length;
         if (result > 0) {
             return res.json(promopp);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
     public async promocionPPI(req: Request, res: Response): Promise<any> {
@@ -62,8 +74,8 @@ class ControllerConsultas {
         const result = promoppi.length;
         if (result > 0) {
             return res.json(promoppi);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
     public async promocionUni(req: Request, res: Response): Promise<any> {
@@ -72,8 +84,8 @@ class ControllerConsultas {
         const result = promouni.length;
         if (result > 0) {
             return res.json(promouni);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
     public async detalleVentadvp(req: Request, res: Response): Promise<any> {
@@ -82,8 +94,8 @@ class ControllerConsultas {
         const result = detalledvp.length;
         if (result > 0) {
             return res.json(detalledvp);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
 
@@ -92,8 +104,8 @@ class ControllerConsultas {
         const result = dto.length;
         if (result > 0) {
             return res.json(dto);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
 
@@ -102,8 +114,8 @@ class ControllerConsultas {
         const result = numFact.length;
         if (result > 0) {
             return res.json(numFact);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
     public async onGetIdFactura(req: Request, res: Response): Promise<any> {
@@ -111,8 +123,8 @@ class ControllerConsultas {
         const result = idFact.length;
         if (result > 0) {
             return res.json(idFact);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
 
@@ -122,8 +134,8 @@ class ControllerConsultas {
         const result = personaFactura.length;
         if (result > 0) {
             return res.json(personaFactura);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
     public async onGetTipoPago(req: Request, res: Response): Promise<any> { // ver transferencia paypal efectivo
@@ -131,8 +143,8 @@ class ControllerConsultas {
         const result = tipopago.length;
         if (result > 0) {
             return res.json(tipopago);
-        }else {
-            return res.status(204).json({ message: 'No Encontrado'});
+        } else {
+            return res.status(204).json({ message: 'No Encontrado' });
         }
     }
     public async onGetPagoFactPaypal(req: Request, res: Response): Promise<any> { // ver facturas de tipo paypal

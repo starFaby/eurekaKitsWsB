@@ -31,7 +31,6 @@ class ControllerPersona {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { idtelefono, iddireccion, cedula, nombres, apellidos, fechanacimiento, email, password, requerimiento, estado } = req.body;
-            console.log(req.body);
             let newPersona = {
                 idtelefono: idtelefono,
                 iddireccion: iddireccion,
@@ -45,7 +44,6 @@ class ControllerPersona {
                 estado: estado,
                 created_at: new Date
             };
-            console.log(newPersona);
             newPersona.password = yield helpers_1.default.encriptPassword(password);
             const persona = yield (yield database_1.default).query('INSERT INTO persona SET ?', [newPersona]);
             const result = persona.insertId;
@@ -75,7 +73,6 @@ class ControllerPersona {
                 created_at: new Date
             };
             const personaPut = yield (yield database_1.default).query('UPDATE  persona SET ? WHERE idpersona=?', [newPersona, id]);
-            console.log(personaPut);
             const result = personaPut.affectedRows;
             if (result > 0) {
                 return res.status(200).send({ message: 'Actualizado' });

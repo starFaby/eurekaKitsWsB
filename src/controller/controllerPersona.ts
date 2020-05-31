@@ -15,7 +15,6 @@ class ControllerPersona {
     }
     public async create(req: Request, res: Response): Promise<any> {
         const { idtelefono,iddireccion,cedula,nombres,apellidos,fechanacimiento,email,password,requerimiento,estado} = req.body;
-        console.log(req.body);        
         let newPersona: Persona = {
             idtelefono: idtelefono,
             iddireccion: iddireccion,
@@ -29,7 +28,6 @@ class ControllerPersona {
             estado: estado,
             created_at: new Date
         };
-        console.log(newPersona);
         newPersona.password = await helpers.encriptPassword(password);
         const persona = await (await pool).query('INSERT INTO persona SET ?', [newPersona]);
         const result = persona.insertId;
@@ -56,7 +54,6 @@ class ControllerPersona {
             created_at: new Date
         }
         const personaPut = await (await pool).query('UPDATE  persona SET ? WHERE idpersona=?', [newPersona, id]);
-        console.log(personaPut);
         const result = personaPut.affectedRows;
         if(result > 0){
             return res.status(200).send({message: 'Actualizado'});

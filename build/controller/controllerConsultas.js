@@ -50,6 +50,21 @@ class ControllerConsultas {
             }
         });
     }
+    onGetEmail(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { email } = req.body;
+            console.log(req.body);
+            console.log(email);
+            const emailall = yield (yield database_1.default).query('select email from persona where email = ?', [email]); // lista a la persona para la cabecera de la factura
+            const result = emailall.length;
+            if (result > 0) {
+                return res.status(200).send(true);
+            }
+            else {
+                return res.status(204).json({ message: 'No Encontrado' });
+            }
+        });
+    }
     listOnePDT(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
