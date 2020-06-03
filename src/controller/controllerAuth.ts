@@ -49,7 +49,7 @@ class ControllerAuth {
             if (validPassword) {
                 console.log('PRUEBA ', user.idpersona);
                 const id = user.idpersona;
-                const payload = { subject: user.idpersona }
+                const payload = { subject: id }
                 const token = jwt.sign(payload, 'secret');
                 return res.status(200).send({ token });
             } else {

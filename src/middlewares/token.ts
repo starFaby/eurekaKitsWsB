@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction} from 'express';
 import jwt from 'jsonwebtoken';
+console.log('Entras primero a verifcacion');
 const token = {
     verifyToken: (req: Request, res:Response, next: NextFunction)=>{
         if(!req.headers.authorization){
@@ -13,7 +14,8 @@ const token = {
         if(!payload){
             return res.status(401).send('Unauthorized request');
         }
-        req.idpersona = payload.subject;
+
+       // req.idpersona = payload.subject;
         next();
     }
 }

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import  controllerCategoria from '../controller/controllerCategoria';
+import jwt from '../middlewares/token';
 class RouterCategoria {
     router: Router = Router();
     constructor(){
