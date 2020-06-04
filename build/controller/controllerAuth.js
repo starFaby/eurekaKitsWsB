@@ -62,7 +62,6 @@ class ControllerAuth {
                 const user = newrow[0];
                 const validPassword = yield helpers_1.default.matchPassword(newUser.password, user.password);
                 if (validPassword) {
-                    console.log('PRUEBA ', user.idpersona);
                     const id = user.idpersona;
                     const payload = { subject: id };
                     const token = jsonwebtoken_1.default.sign(payload, 'secret');

@@ -21,7 +21,7 @@ import routerEfectivo from './routes/routerEfectivo';
 import routerPaypalBuy from './routes/routerPaypalBuy';
 import multer from './libs/multer';
 import path from 'path';
-import './middlewares/token'
+import './middlewares/token';
 
 
 class Server {
@@ -38,7 +38,7 @@ class Server {
         this.app.use(express.json());
         this.app.use(urlencoded({extended: false}));
         this.app.use(multer.single('image'));
-        this.app.use(express.static(path.join(__dirname,'public')))
+        this.app.use(express.static(path.join(__dirname,'public')));
     }
     routes(): void {
         this.app.use('/',indexRoutes);

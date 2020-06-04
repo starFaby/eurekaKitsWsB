@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction} from 'express';
 import jwt from 'jsonwebtoken';
-console.log('Entras primero a verifcacion');
 const token = {
     verifyToken: (req: Request, res:Response, next: NextFunction)=>{
         if(!req.headers.authorization){

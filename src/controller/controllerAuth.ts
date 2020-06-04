@@ -47,7 +47,6 @@ class ControllerAuth {
             const user = newrow[0];
             const validPassword = await helpers.matchPassword(newUser.password, user.password);
             if (validPassword) {
-                console.log('PRUEBA ', user.idpersona);
                 const id = user.idpersona;
                 const payload = { subject: id }
                 const token = jwt.sign(payload, 'secret');
