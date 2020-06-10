@@ -86,6 +86,23 @@ class ControllerProducto {
             }
         });
     }
+    updateStock(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const { stock } = req.body;
+            let newStock = {
+                stock: stock
+            };
+            const stockNew = yield (yield database_1.default).query('UPDATE  producto SET ? WHERE idproducto=?', [newStock, id]);
+            const result = stockNew.affectedRows;
+            if (result > 0) {
+                return res.status(200).send({ message: 'Actualizado' });
+            }
+            else {
+                return res.status(204).send({ message: 'No Actualizado' });
+            }
+        });
+    }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;

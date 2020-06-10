@@ -15,6 +15,7 @@ class RouterProducto {
         this.router.get('/:id', controllerProducto_1.default.listOne);
         this.router.post('/', controllerProducto_1.default.create);
         this.router.put('/:id', controllerProducto_1.default.update);
+        this.router.put('/stock/:id', controllerProducto_1.default.updateStock);
         this.router.put('/put/:id', controllerProducto_1.default.delete);
     }
 }

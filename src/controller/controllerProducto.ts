@@ -63,6 +63,21 @@ class ControllerProducto {
             return res.status(204).send({message: 'No Actualizado'});
         }
     }
+    public async updateStock(req: Request, res: Response): Promise<any> {
+        const { id } = req.params;
+        const {  stock } = req.body;
+        
+        let newStock: Producto = {
+            stock: stock
+        };
+        const stockNew = await (await pool).query('UPDATE  producto SET ? WHERE idproducto=?', [newStock, id]);
+        const result = stockNew.affectedRows;
+        if(result > 0){
+            return res.status(200).send({message: 'Actualizado'});
+        } else {
+            return res.status(204).send({message: 'No Actualizado'});
+        }
+    }
     public async delete(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         const { estado } = req.body;
