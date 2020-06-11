@@ -51,11 +51,11 @@ class ControllerPaypalBuy {
     }
 
     public success(req: Request, res: Response) {
-        const result = 'buy';
+        const result = 'Compardo exitosamente';
         return res.status(200).send({ result })
     }
     public cancel(req: Request, res: Response) {
-        const result = 'cancel';
+        const result = 'Cancelado Exitosamente';
         return res.status(200).send({ result })
     }
 }
