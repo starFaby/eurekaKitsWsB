@@ -22,11 +22,12 @@ class ControllerProducto {
         }
     }
     public async create(req: Request, res: Response): Promise<any> {
-        const { idcategoria, nombre, precio, stock, estado } = req.body;
+        const { idcategoria, nombre, describir, precio, stock, estado } = req.body;
         const { filename } = req.file;
         let newProducto: Producto = {
             idcategoria: idcategoria,
             nombre: nombre,
+            describir:describir,
             image: '/uploads/' + filename,
             precio: precio,
             stock: stock,
@@ -43,12 +44,13 @@ class ControllerProducto {
     }
     public async update(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const { idcategoria, nombre, precio, stock, estado } = req.body;
+        const { idcategoria, nombre, describir, precio, stock, estado } = req.body;
         const { filename } = req.file;
         
         let newProducto: Producto = {
             idcategoria: idcategoria,
             nombre: nombre,
+            describir:describir,
             image: '/uploads/' + filename, // 
             precio: precio,
             stock: stock,

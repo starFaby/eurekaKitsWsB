@@ -34,7 +34,7 @@ class ControllerDetalleVenta {
     }
     public async delete(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const deletedt = await (await pool).query('DELETE FROM detalleventas WHERE iddetalleventa=?', [id]);
+        const deletedt = await (await pool).query('DELETE FROM detalleventas WHERE iddetalleventas=?', [id]);
         const result = deletedt.affectedRows;
         if (result > 0) {
             return res.status(200).send({ message: 'Eliminado' });

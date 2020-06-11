@@ -53,7 +53,7 @@ class ControllerDetalleVenta {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const deletedt = yield (yield database_1.default).query('DELETE FROM detalleventas WHERE iddetalleventa=?', [id]);
+            const deletedt = yield (yield database_1.default).query('DELETE FROM detalleventas WHERE iddetalleventas=?', [id]);
             const result = deletedt.affectedRows;
             if (result > 0) {
                 return res.status(200).send({ message: 'Eliminado' });
