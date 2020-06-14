@@ -70,7 +70,7 @@ class ControllerConsultas {
         }
     }
     public async promocionPPI(req: Request, res: Response): Promise<any> {
-        const promoppi = await (await pool).query('select * from viewpromocionesppi');// para visualizar las promociones administrador
+        const promoppi = await (await pool).query('select * from viewpromocionesppi where estado = 1');// para visualizar las promociones administrador
         const result = promoppi.length;
         if (result > 0) {
             return res.json(promoppi);

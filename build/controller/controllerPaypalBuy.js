@@ -64,11 +64,11 @@ class ControllerPaypalBuy {
         });
     }
     success(req, res) {
-        const result = 'buy';
+        const result = 'Compardo exitosamente';
         return res.status(200).send({ result });
     }
     cancel(req, res) {
-        const result = 'cancel';
+        const result = 'Cancelado Exitosamente';
         return res.status(200).send({ result });
     }
 }

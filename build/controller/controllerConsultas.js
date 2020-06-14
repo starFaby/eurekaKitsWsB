@@ -105,7 +105,7 @@ class ControllerConsultas {
     }
     promocionPPI(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const promoppi = yield (yield database_1.default).query('select * from viewpromocionesppi'); // para visualizar las promociones administrador
+            const promoppi = yield (yield database_1.default).query('select * from viewpromocionesppi where estado = 1'); // para visualizar las promociones administrador
             const result = promoppi.length;
             if (result > 0) {
                 return res.json(promoppi);
