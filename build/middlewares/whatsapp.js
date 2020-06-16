@@ -13,7 +13,7 @@ class Whatsapp {
     whassap(dates) {
         console.log(dates);
         this.client.messages.create({
-            to: 'whatsapp:+593995078151',
+            to: 'whatsapp:+593995054605',
             from: 'whatsapp:+14155238886',
             body: dates
         }).then(res => {

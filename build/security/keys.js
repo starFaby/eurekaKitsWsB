@@ -20,9 +20,9 @@ exports.default = {
         my_number_phone: process.env.MY_NUMBER_PHONE
     },
     paypal: {
-        mode: 'sandbox',
-        client_id: 'Ab_-PsmU8Vh47XoyaAsgezkWiOZbj-2GksXP1KaHH6XFzwHNyml2cvZtbU77rkzUNWX5i6ONdKOG7fpi',
-        client_secret: 'EIOYegiuWqv1WAiiyhAgNWRHhVBKO0FllXXaRCEpTsGFnK_58ZJyqejPULKpdJ_bV3kQVSQhSVUiEEq-',
+        mode: 'live',
+        client_id: 'AfQ6pWCmGar2KVA5Fx9Xh0p3WPy5K1_PzOT6-ZH9tukwnlCeIQYHqIdn32gRLNG0rcis_mOi-lKElYdp',
+        client_secret: 'EGXz6E5IgZB2B6YKyIHrLQUCiq8EOT46WLFdzCK2SmrGFBDCcj3ODjtjDiCjgNKznQbMxbxgiPLQIBMO',
     },
     apirest: {
         environment: process.env.ENVIROMENT_DEV
