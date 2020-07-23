@@ -3,7 +3,7 @@ import pool from '../database';
 import { Categoria } from '../models/Categoria';
 class ControllerCategoria {
     public async listAll(req: Request, res: Response) {
-        const categoria = await (await pool).query('SELECT * FROM categoria');
+        const categoria = await (await pool).query('SELECT * FROM categoria where estado = 1');
         const result = categoria.length;
         if (result > 0) {
             return res.json(categoria);

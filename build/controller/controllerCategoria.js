@@ -16,7 +16,7 @@ const database_1 = __importDefault(require("../database"));
 class ControllerCategoria {
     listAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const categoria = yield (yield database_1.default).query('SELECT * FROM categoria');
+            const categoria = yield (yield database_1.default).query('SELECT * FROM categoria where estado = 1');
             const result = categoria.length;
             if (result > 0) {
                 return res.json(categoria);
