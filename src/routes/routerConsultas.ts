@@ -34,6 +34,7 @@ class RouterConsultas {
         this.router.get('/reportcateg', controllerConsultas.onGetReportCategoria); // muestra el reporte categoria en pdf
         this.router.get('/reportprod', controllerConsultas.onGetReportProducto); // muestra el reporte producto en pdf
         this.router.get('/reportpromo', controllerConsultas.onGetReportPromociones); // muestra el reporte promocion en pdf
+        this.router.get('/factAdmin', controllerConsultas.onGetFactAdmin); // obtener todas las facturas de los clientes por el administrador
     }
 }
 const routerConsultas =  new RouterConsultas();

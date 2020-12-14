@@ -48,6 +48,15 @@ class Server {
         this.app.use(express_1.urlencoded({ extended: false }));
         this.app.use(multer_1.default.single('image'));
         this.app.use(express_1.default.static(path_1.default.join(__dirname, 'public')));
+        this.app.use((req, res, next) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Origin, X-Requested-With, Content-Type, Accept, Authorization');
+            if (req.method == 'OPTIONS') {
+                res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+                return res.status(200).json({});
+            }
+            next();
+        });
     }
     routes() {
         this.app.use('/', routerIndex_1.default);

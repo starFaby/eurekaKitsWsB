@@ -39,6 +39,7 @@ class RouterConsultas {
         this.router.get('/reportcateg', controllerConsultas_1.default.onGetReportCategoria); // muestra el reporte categoria en pdf
         this.router.get('/reportprod', controllerConsultas_1.default.onGetReportProducto); // muestra el reporte producto en pdf
         this.router.get('/reportpromo', controllerConsultas_1.default.onGetReportPromociones); // muestra el reporte promocion en pdf
+        this.router.get('/factAdmin', controllerConsultas_1.default.onGetFactAdmin); // obtener todas las facturas de los clientes por el administrador
     }
 }
 const routerConsultas = new RouterConsultas();

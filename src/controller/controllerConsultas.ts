@@ -273,6 +273,15 @@ class ControllerConsultas {
             return res.status(204).send({ message: 'No Encontrado' });
         }
     }
+    public async onGetFactAdmin(req: Request, res: Response): Promise<any> { // ver todas las facturas de los clientes por el administrador
+        const onGetFactAd = await (await pool).query('select * from viewfacturasadmin');
+        const result = onGetFactAd.length;
+        if (result > 0) {
+            return res.json(onGetFactAd);
+        } else {
+            return res.status(204).send({ message: 'No Encontrado' });
+        }
+    }
 }
 const controllerConsultas = new ControllerConsultas();
 export default controllerConsultas;

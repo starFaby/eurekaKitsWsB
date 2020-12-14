@@ -367,6 +367,18 @@ class ControllerConsultas {
             }
         });
     }
+    onGetFactAdmin(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const onGetFactAd = yield (yield database_1.default).query('select * from viewfacturasadmin');
+            const result = onGetFactAd.length;
+            if (result > 0) {
+                return res.json(onGetFactAd);
+            }
+            else {
+                return res.status(204).send({ message: 'No Encontrado' });
+            }
+        });
+    }
 }
 const controllerConsultas = new ControllerConsultas();
 exports.default = controllerConsultas;

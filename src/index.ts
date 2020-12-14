@@ -22,6 +22,7 @@ import routerPaypalBuy from './routes/routerPaypalBuy';
 import multer from './libs/multer';
 import path from 'path';
 import './middlewares/token';
+import { ReservationContext } from 'twilio/lib/rest/taskrouter/v1/workspace/task/reservation';
 
 
 class Server {
@@ -39,6 +40,15 @@ class Server {
         this.app.use(urlencoded({extended: false}));
         this.app.use(multer.single('image'));
         this.app.use(express.static(path.join(__dirname,'public')));
+        this.app.use((req, res, next) => {
+            res.header('Access-Control-Allow-Origin','*');
+            res.header('Origin, X-Requested-With, Content-Type, Accept, Authorization');
+            if(req.method == 'OPTIONS'){
+                res.header('Access-Control-Allow-Methods','PUT, POST, PATCH, DELETE, GET');
+                return res.status(200).json({}) 
+            }
+            next();
+        })
     }
     routes(): void {
         this.app.use('/',indexRoutes);
