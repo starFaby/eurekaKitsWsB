@@ -11,8 +11,10 @@ class Whatsapp {
         this.client = twilio_1.default(keys_1.default.whatsapp.acoount_sid, keys_1.default.whatsapp.auth_token);
     }
     whassap(dates) {
+        console.log(keys_1.default.whatsapp.acoount_sid);
+        console.log(keys_1.default.whatsapp.auth_token);
         this.client.messages.create({
-            to: 'whatsapp:+593987900503',
+            to: 'whatsapp:+593983856136',
             from: 'whatsapp:+14155238886',
             body: dates
         }).then(res => {

@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const paypal_rest_sdk_1 = __importDefault(require("paypal-rest-sdk"));
 const keys_1 = __importDefault(require("../security/keys"));
 paypal_rest_sdk_1.default.configure(keys_1.default.paypal);
+let precioFacturaPaypal = "";
 class ControllerPaypalBuy {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -46,6 +47,7 @@ class ControllerPaypalBuy {
                         "description": "This is the payment description."
                     }]
             };
+            precioFacturaPaypal = preciofactura;
             paypal_rest_sdk_1.default.payment.create(create_payment_json, (error, payment) => {
                 if (error) {
                     throw error;
@@ -64,8 +66,29 @@ class ControllerPaypalBuy {
         });
     }
     success(req, res) {
-        const result = 'Compardo exitosamente';
-        return res.status(200).send({ result });
+        const payerId = req.query.PayerID;
+        const paymentId = req.query.paymentId;
+        const execute_payment_json = {
+            "payer_id": payerId,
+            "transactions": [{
+                    "amount": {
+                        "currency": "USD",
+                        "total": precioFacturaPaypal
+                    }
+                }]
+        };
+        console.log(precioFacturaPaypal);
+        paypal_rest_sdk_1.default.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+            if (error) {
+                console.log(error.response);
+                throw error;
+            }
+            else {
+                console.log(JSON.stringify(payment));
+                const result = 'Comprado exitosamente';
+                return res.status(200).send({ result });
+            }
+        });
     }
     cancel(req, res) {
         const result = 'Cancelado Exitosamente';
